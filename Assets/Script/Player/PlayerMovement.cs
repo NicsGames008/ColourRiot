@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         grounded = Physics.Raycast(transform.position, -Vector3.down, playerHeight * 0.30f + 0.2f, Ground);
         
         Debug.DrawRay(transform.position, Vector3.down * (playerHeight * 0.5f + 0.2f), Color.red);
-        Debug.Log("Grounded? " + grounded);
+        //Debug.Log("Grounded? " + grounded);
 
         
         MyInput();
