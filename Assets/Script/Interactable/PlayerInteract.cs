@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -24,38 +21,35 @@ public class PlayerInteract : MonoBehaviour
 
         float distance = 2f;
         Vector3 RayOrigin = player.transform.position;
-        Ray ray  = MainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Input.GetKeyDown(KeyCode.E))
+        int interactableLayerMask = 1 << LayerMask.NameToLayer("Interactable");
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, distance, interactableLayerMask))
         {
-            int interactableLayerMask = 1 << LayerMask.NameToLayer("Interactable");
+            IInteractable interactableObject = hitInfo.collider.GetComponent<IInteractable>();
 
-
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, distance, interactableLayerMask))
+            if (!TagInteraction.Instance.isInRange)
             {
+                TagInteraction.Instance.isInRange = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {   
                 Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 1.0f);
 
-                IInteractable interactableObject = hitInfo.collider.GetComponent<IInteractable>();
-                Debug.Log("a");
-
-                if (interactableObject != null)
+                if (interactableObject != null) 
                 {
-                Debug.Log("b");
                     interactableObject.Interact(gameObject);
                 }
             }
-
-            //bool HitInformation = Physics.Raycast(RayOrigin, Direction, Distance, interactableLayerMask);
-            //Debug.DrawRay(RayOrigin, Direction, Color.green, 1.0f);
-
-            //if (HitInformation)
-            //{
-            //    IInteractable interactableObject = HitInformation.GetComponent<IInteractable>();
-            //    if (interactableObject != null)
-            //    {
-            //        interactableObject.Interact(gameObject);
-            //    }
-            //}
+        }
+        else
+        {
+            if (TagInteraction.Instance.isInRange) // Only update if the state changes
+            {
+                TagInteraction.Instance.isInRange = false;
+            }
         }
     }
 }
