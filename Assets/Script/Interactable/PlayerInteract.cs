@@ -19,7 +19,7 @@ public class PlayerInteract : MonoBehaviour
         if (player == null)
             return;
 
-        float distance = 2f;
+        float distance = 1.5f;
         Vector3 RayOrigin = player.transform.position;
         Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -29,9 +29,9 @@ public class PlayerInteract : MonoBehaviour
         {
             IInteractable interactableObject = hitInfo.collider.GetComponent<IInteractable>();
 
-            if (!TagInteraction.Instance.isInRange)
+            if (TagInteraction.Instance != null)
             {
-                TagInteraction.Instance.isInRange = true;
+                TagInteraction.Instance.SetInRange(true);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
@@ -46,9 +46,9 @@ public class PlayerInteract : MonoBehaviour
         }
         else
         {
-            if (TagInteraction.Instance.isInRange) // Only update if the state changes
+            if (TagInteraction.Instance != null)
             {
-                TagInteraction.Instance.isInRange = false;
+                TagInteraction.Instance.SetInRange(false);
             }
         }
     }

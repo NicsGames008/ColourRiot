@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +7,15 @@ public class TagInteraction : MonoBehaviour, IInteractable
 {
 
     public static TagInteraction Instance;
-    [HideInInspector] public bool isInRange = false;
+    public static event Action<bool> OnRangeChanged;
+
     [SerializeField] private GameObject visualFeedBackInteraction;
 
     private GameObject lockedPlayerPosistion;   //Is it better for this to be like this, on the awake it give the vhild, or a SerializeField and putted on the editor?
     private GameObject currentUI;
     private GameObject player;
+    private bool isInRange = false;
+    private bool isAtWall = false;
 
 
     private void Awake()
@@ -21,6 +25,23 @@ public class TagInteraction : MonoBehaviour, IInteractable
         lockedPlayerPosistion = this.transform.GetChild(0).gameObject;
     }
 
+    public void SetInRange(bool inRange)
+    {
+        if (isInRange != inRange)
+        {
+            isInRange = inRange;
+            OnRangeChanged?.Invoke(isInRange);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && isAtWall)
+        {
+            StopInteracting();
+            isAtWall = false;
+        }
+    }
 
     public void Interact(GameObject Instigator)
     {
@@ -29,9 +50,8 @@ public class TagInteraction : MonoBehaviour, IInteractable
         //Locks player position
         player.transform.position = lockedPlayerPosistion.transform.position;
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Should this be and event instead of making the Component desabled?
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        isAtWall = true;
+
         //Makes the player enable to move
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();      
         PlayerCam playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PlayerCam>();
@@ -39,15 +59,35 @@ public class TagInteraction : MonoBehaviour, IInteractable
         playerCam.enabled = !playerCam.enabled;
     }
 
-
-    private void Update()
+    private void StopInteracting()
     {
-        //Shows a image in case the player in in range of a Intaractable wall
-        if (isInRange && currentUI == null) 
+        Debug.Log("Stoped Interacting with a wall");
+
+
+        //Makes the player enable to move
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        PlayerCam playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PlayerCam>();
+        playerMovement.enabled = true;
+        playerCam.enabled = true;
+    }
+
+    private void OnEnable()
+    {
+        OnRangeChanged += HandleRangeChange;
+    }
+
+    private void OnDisable()
+    {
+        OnRangeChanged -= HandleRangeChange;
+    }
+
+    private void HandleRangeChange(bool inRange)
+    {
+        if (inRange && currentUI == null)
         {
             currentUI = Instantiate(visualFeedBackInteraction);
         }
-        else if (!isInRange && currentUI != null) 
+        else if (!inRange && currentUI != null)
         {
             Destroy(currentUI);
             currentUI = null;
