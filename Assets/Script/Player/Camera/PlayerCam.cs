@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class PlayerCam : MonoBehaviour
 {
-    public float sensX;
-    public float sensY;
-    
-    public Transform orientation;
+    [SerializeField] private float sensX;
+    [SerializeField] private float sensY;
 
-    float xRotation;
-    float yRotation;
-    
-    
-    
+    [SerializeField] private Transform orientation;
+
+    private float xRotation;
+    private float yRotation;
+        
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
