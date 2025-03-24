@@ -242,9 +242,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualFeedBackInteraction: {fileID: 5201787366106122843, guid: e0137790f74271247aa494cceef9a07d, type: 3}
-  yOffSetLookAtWall: -10
   sliderUI: {fileID: 690793146}
   slider: {fileID: 690793148}
+  xOffset: 15
 --- !u!4 &371872031 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1221336273928779128, guid: a964d186b2173414995eabd2a49f326c, type: 3}

@@ -12,9 +12,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
     public static event Action<bool> OnRangeChanged;
 
     [SerializeField] private GameObject visualFeedBackInteraction; // UI feedback object for interaction
-    [SerializeField] private float yOffSetLookAtWall = -10f; // Offset for camera rotation when looking at a wall
     [SerializeField] private GameObject sliderUI; // UI element that represents progress during interaction
     [SerializeField] private Slider slider; // Reference to the slider component
+    [SerializeField] private int xOffset = 15; // X Offset for the camera when its locked on the wall 
 
     private GameObject lockedPlayerPosistion; // Position where player gets locked during interaction
     private GameObject currentUI; // Holds the current UI feedback instance
@@ -88,6 +88,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
         // Lock player position to the predefined locked position
         player.transform.position = lockedPlayerPosistion.transform.position;
+        StartCoroutine(SmoothLookAtMe());
         isAtWall = true;
 
         // Disable player movement and camera controls
@@ -150,26 +151,29 @@ public class TagInteraction : MonoBehaviour, IInteractable
         }
     }
 
-    //public IEnumerator SmoothLookAtMe(Transform objectToRotate, float duration, float yOffset = 0f)
-    //{
-    //    Vector3 direction = transform.position - lockedPlayerPosistion.transform.position;
+    public IEnumerator SmoothLookAtMe()
+    {
+        if (cam.transform.rotation != lockedPlayerPosistion.transform.rotation) 
+        {
+            float time = 0f;
 
-    //    if (direction != Vector3.zero)
-    //    {
-    //        Quaternion startRotation = objectToRotate.rotation;
-    //        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-    //        targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y + yOffset, targetRotation.eulerAngles.z);
+            Quaternion startRotation = cam.transform.rotation;
 
-    //        float time = 0f;
+            Quaternion endRotation = lockedPlayerPosistion.transform.rotation;
+            endRotation.x += xOffset;
 
-    //        while (time < duration)
-    //        {
-    //            objectToRotate.rotation = Quaternion.Slerp(startRotation, targetRotation, time / duration);
-    //            time += Time.deltaTime;
-    //            yield return null;
-    //        }
+            Debug.Log(endRotation);
 
-    //        objectToRotate.rotation = targetRotation;
-    //    }
-    //}
+            while (time < 3)
+            {
+                cam.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time / 3);
+                time += Time.deltaTime;
+                yield return null;
+            }
+
+            cam.transform.rotation = endRotation;
+
+
+        }
+    }
 }
