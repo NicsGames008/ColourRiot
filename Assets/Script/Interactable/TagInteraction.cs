@@ -1,38 +1,49 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TagInteraction : MonoBehaviour, IInteractable
 {
-
+    // Singleton instance of the TagInteraction class
     public static TagInteraction Instance;
+
+    // Event triggered when interaction range changes
     public static event Action<bool> OnRangeChanged;
 
-    [SerializeField] private GameObject visualFeedBackInteraction;
-    [SerializeField] private float yOffSetLookAtWall = -10f;
+    [SerializeField] private GameObject visualFeedBackInteraction; // UI feedback object for interaction
+    [SerializeField] private float yOffSetLookAtWall = -10f; // Offset for camera rotation when looking at a wall
+    [SerializeField] private GameObject sliderUI; // UI element that represents progress during interaction
+    [SerializeField] private Slider slider; // Reference to the slider component
 
-    private GameObject lockedPlayerPosistion;   //Is it better for this to be like this, on the awake it give the vhild, or a SerializeField and putted on the editor?
-    private GameObject currentUI;
-    private GameObject player;
-    private GameObject cam;
-    private bool isInRange = false;
-    private bool isAtWall = false;
-    private PlayerMovement playerMovement;
-    private PlayerCam playerCam;
-
+    private GameObject lockedPlayerPosistion; // Position where player gets locked during interaction
+    private GameObject currentUI; // Holds the current UI feedback instance
+    private GameObject player; // Reference to the player
+    private GameObject cam; // Reference to the main camera
+    private bool isInRange = false; // Whether the player is in interaction range
+    private bool isAtWall = false; // Whether the player is interacting with a wall
+    private PlayerMovement playerMovement; // Reference to player's movement script
+    private PlayerCam playerCam; // Reference to player's camera script
+    private float elapsedTime; // Timer for interaction duration
 
     private void Awake()
     {
+        // Set the singleton instance
         Instance = this;
+
+        // Find player and camera by tag
         player = GameObject.FindWithTag("Player");
         cam = GameObject.FindWithTag("MainCamera");
+
+        // Get player movement and camera components
         playerMovement = player.GetComponent<PlayerMovement>();
         playerCam = cam.GetComponent<PlayerCam>();
+
+        // Get the first child of this object as the locked position for the player
         lockedPlayerPosistion = this.transform.GetChild(0).gameObject;
     }
 
+    // Updates the player's interaction range status
     public void SetInRange(bool inRange)
     {
         if (isInRange != inRange)
@@ -44,92 +55,121 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        // If the player presses 'E' while interacting with a wall, stop interacting
         if (Input.GetKeyDown(KeyCode.E) && isAtWall)
         {
             StopInteracting();
-            isAtWall = false;
+        }
+
+        // If left mouse button is held down while interacting, start countdown
+        if (Input.GetMouseButton(0) && isAtWall)
+        {
+            Countdown();
+        }
+
+        // Show slider UI when left mouse button is first pressed
+        if (Input.GetMouseButtonDown(0) && isAtWall)
+        {
+            sliderUI.SetActive(true);
+        }
+
+        // Hide slider UI and reset timer when mouse button is released
+        if (Input.GetMouseButtonUp(0) && isAtWall)
+        {
+            elapsedTime = 0;
+            sliderUI.SetActive(false);
         }
     }
 
+    // Handles player interaction with an object
     public void Interact(GameObject Instigator)
     {
-        Debug.Log("Interacated with a wall");
+        Debug.Log("Interacted with a wall");
 
-        //Locks player position
+        // Lock player position to the predefined locked position
         player.transform.position = lockedPlayerPosistion.transform.position;
-
         isAtWall = true;
 
-        //Makes the player enable to move
-        playerMovement.enabled = !playerMovement.enabled;
-
-        //StartCoroutine(SmoothLookAtMe(cam.transform, 1f, yOffSetLookAtWall));
-        playerCam.enabled = !playerCam.enabled;
+        // Disable player movement and camera controls
+        playerMovement.enabled = false;
+        playerCam.enabled = false;
     }
 
+    // Stops the interaction and restores player movement
     private void StopInteracting()
     {
-        Debug.Log("Stoped Interacting with a wall");
+        Debug.Log("Stopped Interacting with a wall");
 
-        //Makes the player enable to move
+        // Re-enable player movement and camera controls
         playerMovement.enabled = true;
         playerCam.enabled = true;
+        isAtWall = false;
     }
 
-    public IEnumerator SmoothLookAtMe(Transform objectToRotate, float duration, float yOffset = 0f)
+    // Counts down interaction time, stopping interaction after 2 seconds
+    private void Countdown()
     {
-        // Calculate the direction from the locked position to the wall
-        Vector3 direction = transform.position - lockedPlayerPosistion.transform.position;
+        elapsedTime += Time.deltaTime;
+        int seconds = Mathf.FloorToInt(elapsedTime % 60);
 
-        if (direction != Vector3.zero) // Avoid division errors
+        // Update the slider value to reflect the elapsed time
+        slider.value = elapsedTime;
+
+        if (seconds == 2)
         {
-            Quaternion startRotation = objectToRotate.rotation;
-
-            // Target rotation will look towards the direction calculated from the locked position
-            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-
-            // Modify the Y rotation (add the offset)
-            targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y + yOffset, targetRotation.eulerAngles.z);
-
-            float time = 0f;
-
-            // Smoothly rotate towards the target rotation
-            while (time < duration)
-            {
-                objectToRotate.rotation = Quaternion.Slerp(startRotation, targetRotation, time / duration);
-                time += Time.deltaTime;
-                yield return null;
-            }
-
-            // Ensure final rotation is applied
-            objectToRotate.rotation = targetRotation;
+            sliderUI.SetActive(false);
+            StopInteracting();
         }
     }
-
-
-
-
 
     private void OnEnable()
     {
+        // Subscribe to the range change event
         OnRangeChanged += HandleRangeChange;
     }
 
     private void OnDisable()
     {
+        // Unsubscribe from the range change event
         OnRangeChanged -= HandleRangeChange;
     }
 
+    // Handles UI feedback when player enters or exits interaction range
     private void HandleRangeChange(bool inRange)
     {
         if (inRange && currentUI == null)
         {
+            // Instantiate visual feedback UI if in range
             currentUI = Instantiate(visualFeedBackInteraction);
         }
         else if (!inRange && currentUI != null)
         {
+            // Destroy UI feedback when out of range
             Destroy(currentUI);
             currentUI = null;
         }
     }
+
+    //public IEnumerator SmoothLookAtMe(Transform objectToRotate, float duration, float yOffset = 0f)
+    //{
+    //    Vector3 direction = transform.position - lockedPlayerPosistion.transform.position;
+
+    //    if (direction != Vector3.zero)
+    //    {
+    //        Quaternion startRotation = objectToRotate.rotation;
+    //        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+    //        targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y + yOffset, targetRotation.eulerAngles.z);
+
+    //        float time = 0f;
+
+    //        while (time < duration)
+    //        {
+    //            objectToRotate.rotation = Quaternion.Slerp(startRotation, targetRotation, time / duration);
+    //            time += Time.deltaTime;
+    //            yield return null;
+    //        }
+
+    //        objectToRotate.rotation = targetRotation;
+    //    }
+    //}
 }
