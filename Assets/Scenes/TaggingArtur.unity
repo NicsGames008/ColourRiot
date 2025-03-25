@@ -244,7 +244,6 @@ MonoBehaviour:
   visualFeedBackInteraction: {fileID: 5201787366106122843, guid: e0137790f74271247aa494cceef9a07d, type: 3}
   sliderUI: {fileID: 690793146}
   slider: {fileID: 690793148}
-  xOffset: 15
 --- !u!4 &371872031 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1221336273928779128, guid: a964d186b2173414995eabd2a49f326c, type: 3}
@@ -995,13 +994,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125728477}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: 0, y: 0, z: -1.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 75159795}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!1001 &1549434025675875089
 PrefabInstance:
   m_ObjectHideFlags: 0

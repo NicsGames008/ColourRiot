@@ -14,7 +14,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
     [SerializeField] private GameObject visualFeedBackInteraction; // UI feedback object for interaction
     [SerializeField] private GameObject sliderUI; // UI element that represents progress during interaction
     [SerializeField] private Slider slider; // Reference to the slider component
-    [SerializeField] private int xOffset = 15; // X Offset for the camera when its locked on the wall 
 
     private GameObject lockedPlayerPosistion; // Position where player gets locked during interaction
     private GameObject currentUI; // Holds the current UI feedback instance
@@ -87,8 +86,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
         Debug.Log("Interacted with a wall");
 
         // Lock player position to the predefined locked position
-        player.transform.position = lockedPlayerPosistion.transform.position;
-        StartCoroutine(SmoothLookAtMe());
+        //player.transform.position = lockedPlayerPosistion.transform.position;
+        StartCoroutine(SmoothMovePlayer());
+        StartCoroutine(SmoothRotatePlayer());
         isAtWall = true;
 
         // Disable player movement and camera controls
@@ -151,29 +151,47 @@ public class TagInteraction : MonoBehaviour, IInteractable
         }
     }
 
-    public IEnumerator SmoothLookAtMe()
+    public IEnumerator SmoothRotatePlayer()
     {
-        if (cam.transform.rotation != lockedPlayerPosistion.transform.rotation) 
+        // Check if the camera's current rotation is different from the target locked position rotation
+        if (cam.transform.rotation != lockedPlayerPosistion.transform.rotation)
         {
-            float time = 0f;
+            float time = 0f; // Timer to track the interpolation progress
 
-            Quaternion startRotation = cam.transform.rotation;
+            Quaternion startRotation = cam.transform.rotation; // Store the camera's initial rotation
+            Quaternion endRotation = lockedPlayerPosistion.transform.rotation; // Store the target rotation
 
-            Quaternion endRotation = lockedPlayerPosistion.transform.rotation;
-            endRotation.x += xOffset;
-
-            Debug.Log(endRotation);
-
+            // Gradually rotate the camera towards the target over 3 seconds
             while (time < 3)
             {
                 cam.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time / 3);
-                time += Time.deltaTime;
-                yield return null;
+                time += Time.deltaTime; // Increment the timer with delta time
+                yield return null; // Wait for the next frame before continuing
             }
 
-            cam.transform.rotation = endRotation;
+            cam.transform.rotation = endRotation; // Ensure the final rotation is exactly the target rotation
+        }
+    }
+    
+    public IEnumerator SmoothMovePlayer()
+    {
+        // Check if the players's current position is different from the target locked position position
+        if (player.transform.position != lockedPlayerPosistion.transform.position)
+        {
+            float time = 0f; // Timer to track the interpolation progress
 
+            Vector3 startPosition = player.transform.position; // Store the players's initial position
+            Vector3 endPosition = lockedPlayerPosistion.transform.position; // Store the target position
 
+            // Gradually rotate the camera towards the target over 3 seconds
+            while (time < 3)
+            {
+                player.transform.position = Vector3.Lerp(startPosition, endPosition, time / 3);
+                time += Time.deltaTime; // Increment the timer with delta time
+                yield return null; // Wait for the next frame before continuing
+            }
+
+            player.transform.position = endPosition; // Ensure the final position is exactly the target position
         }
     }
 }
