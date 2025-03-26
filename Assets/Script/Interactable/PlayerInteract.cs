@@ -22,7 +22,7 @@ public class PlayerInteract : MonoBehaviour
 
         float distance = 1.5f; // Maximum interaction distance
         Vector3 RayOrigin = player.transform.position; // Set ray origin to the player's position
-        Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition); // Create a ray from the mouse position
+        Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition); // Create a ray from the mouse positione
 
         int interactableLayerMask = 1 << LayerMask.NameToLayer("Interactable"); // Define the interactable layer mask
 

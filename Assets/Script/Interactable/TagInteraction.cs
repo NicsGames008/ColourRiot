@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TagInteraction : MonoBehaviour, IInteractable
 {
+    #region Vars
     // Singleton instance of the TagInteraction class
     public static TagInteraction Instance;
 
@@ -15,6 +17,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
     [SerializeField] private GameObject sliderUI; // UI element that represents progress during interaction
     [SerializeField] private Slider slider; // Reference to the slider component
     [SerializeField] private int tagTime = 2; // Reference time that it take to make the Tag
+    [SerializeField] private Tag tag; // Reference time that it take to make the Tag
 
     private GameObject lockedPlayerPosistion; // Position where player gets locked during interaction
     private GameObject currentUI; // Holds the current UI feedback instance
@@ -25,7 +28,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
     private PlayerMovement playerMovement; // Reference to player's movement script
     private PlayerCam playerCam; // Reference to player's camera script
     private float elapsedTime; // Timer for interaction duration
-    private Image tagImage; //Referece for the image
+    private Image tagImage; //Referece for the image 
+    private bool hasDoneThisTag = false; //Wether the player has done this tag
+    #endregion
 
     private void Awake()
     {
@@ -50,15 +55,14 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
         // The slider to show the time set to the max time of the tag
         slider.maxValue = tagTime;
-    }
 
-    // Updates the player's interaction range status
-    public void SetInRange(bool inRange)
-    {
-        if (isInRange != inRange)
+        List<Tag> albumTags = Album.Instance.tags;
+        foreach (Tag albumTag in albumTags)
         {
-            isInRange = inRange;
-            OnRangeChanged?.Invoke(isInRange);
+            if (albumTag.id != tag.id)
+            {
+                hasDoneThisTag = true;
+            }
         }
     }
 
@@ -71,19 +75,19 @@ public class TagInteraction : MonoBehaviour, IInteractable
         }
 
         // If left mouse button is held down while interacting, start countdown
-        if (Input.GetMouseButton(0) && isAtWall)
+        if (Input.GetMouseButton(0) && isAtWall && !hasDoneThisTag)
         {
             Countdown();
         }
 
         // Show slider UI when left mouse button is first pressed
-        if (Input.GetMouseButtonDown(0) && isAtWall)
+        if (Input.GetMouseButtonDown(0) && isAtWall && !hasDoneThisTag)
         {
             sliderUI.SetActive(true);
         }
 
         // Hide slider UI and reset timer when mouse button is released
-        if (Input.GetMouseButtonUp(0) && isAtWall)
+        if (Input.GetMouseButtonUp(0) && isAtWall && !hasDoneThisTag)
         {
             elapsedTime = 0;
             tagImage.fillAmount = 0;
@@ -91,9 +95,25 @@ public class TagInteraction : MonoBehaviour, IInteractable
         }
     }
 
+    // Updates the player's interaction range status
+    public void SetInRange(bool inRange)
+    {
+        if (isInRange != inRange && !hasDoneThisTag)
+        {
+            isInRange = inRange;
+            OnRangeChanged?.Invoke(isInRange);
+        }
+    }
+
     // Handles player interaction with an object
     public void Interact(GameObject Instigator)
     {
+        //if payer has done this tag it skips
+        if (hasDoneThisTag)
+        {
+            return;
+        }
+
         Debug.Log("Interacted with a wall");
 
         // Lock player position to the predefined locked position
@@ -132,10 +152,13 @@ public class TagInteraction : MonoBehaviour, IInteractable
         if (seconds == tagTime)
         {
             sliderUI.SetActive(false);
+            Album.Instance.Add(tag);
+            hasDoneThisTag = true;
             StopInteracting();
         }
     }
 
+    #region Event Systems 
     private void OnEnable()
     {
         // Subscribe to the range change event
@@ -146,7 +169,8 @@ public class TagInteraction : MonoBehaviour, IInteractable
     {
         // Unsubscribe from the range change event
         OnRangeChanged -= HandleRangeChange;
-    }
+    } 
+    #endregion
 
     // Handles UI feedback when player enters or exits interaction range
     private void HandleRangeChange(bool inRange)
@@ -164,6 +188,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         }
     }
 
+    #region Smooth Transitions
     public IEnumerator SmoothRotatePlayer()
     {
         // Check if the camera's current rotation is different from the target locked position rotation
@@ -186,7 +211,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
             isAtWall = true; // After the player end the animation of going to the place is able to make the tag
         }
     }
-    
+
     public IEnumerator SmoothMovePlayer()
     {
         // Check if the players's current position is different from the target locked position position
@@ -207,5 +232,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
             player.transform.position = endPosition; // Ensure the final position is exactly the target position
         }
-    }
+    } 
+    #endregion
 }
