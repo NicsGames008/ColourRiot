@@ -14,6 +14,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
     [SerializeField] private GameObject visualFeedBackInteraction; // UI feedback object for interaction
     [SerializeField] private GameObject sliderUI; // UI element that represents progress during interaction
     [SerializeField] private Slider slider; // Reference to the slider component
+    [SerializeField] private int tagTime = 2; // Reference time that it take to make the Tag
 
     private GameObject lockedPlayerPosistion; // Position where player gets locked during interaction
     private GameObject currentUI; // Holds the current UI feedback instance
@@ -24,6 +25,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
     private PlayerMovement playerMovement; // Reference to player's movement script
     private PlayerCam playerCam; // Reference to player's camera script
     private float elapsedTime; // Timer for interaction duration
+    private Image tagImage; //Referece for the image
 
     private void Awake()
     {
@@ -40,6 +42,14 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
         // Get the first child of this object as the locked position for the player
         lockedPlayerPosistion = this.transform.GetChild(0).gameObject;
+        
+        // Get the child of the second child and saves it on the tagImage
+        GameObject secondChild = this.transform.GetChild(1).gameObject;
+        GameObject childOfSecondChild = secondChild.transform.GetChild(0).gameObject;
+        tagImage = childOfSecondChild.GetComponent<Image>();
+
+        // The slider to show the time set to the max time of the tag
+        slider.maxValue = tagTime;
     }
 
     // Updates the player's interaction range status
@@ -76,6 +86,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         if (Input.GetMouseButtonUp(0) && isAtWall)
         {
             elapsedTime = 0;
+            tagImage.fillAmount = 0;
             sliderUI.SetActive(false);
         }
     }
@@ -89,7 +100,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
         //player.transform.position = lockedPlayerPosistion.transform.position;
         StartCoroutine(SmoothMovePlayer());
         StartCoroutine(SmoothRotatePlayer());
-        isAtWall = true;
 
         // Disable player movement and camera controls
         playerMovement.enabled = false;
@@ -116,7 +126,10 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // Update the slider value to reflect the elapsed time
         slider.value = elapsedTime;
 
-        if (seconds == 2)
+        // Make the tag appear
+        tagImage.fillAmount = elapsedTime / tagTime;
+
+        if (seconds == tagTime)
         {
             sliderUI.SetActive(false);
             StopInteracting();
@@ -170,6 +183,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
             }
 
             cam.transform.rotation = endRotation; // Ensure the final rotation is exactly the target rotation
+            isAtWall = true; // After the player end the animation of going to the place is able to make the tag
         }
     }
     
