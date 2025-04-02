@@ -263,6 +263,10 @@ PrefabInstance:
       propertyPath: cameraPosition
       value: 
       objectReference: {fileID: 1635390128}
+    - target: {fileID: 4507299972933632339, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
+      propertyPath: orientation
+      value: 
+      objectReference: {fileID: 1517463756}
     - target: {fileID: 6304076142236784692, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.7951336
@@ -1089,6 +1093,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489710188}
   m_CullTransparentMesh: 1
+--- !u!4 &1517463756 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9144515615938231990, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+  m_PrefabInstance: {fileID: 1411095144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1635390128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1221336273928779128, guid: a964d186b2173414995eabd2a49f326c, type: 3}
