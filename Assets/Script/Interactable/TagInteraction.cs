@@ -56,14 +56,14 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // The slider to show the time set to the max time of the tag
         slider.maxValue = tagTime;
 
-        List<Tag> albumTags = Album.Instance.tags;
-        foreach (Tag albumTag in albumTags)
-        {
-            if (albumTag.id != tag.id)
-            {
-                hasDoneThisTag = true;
-            }
-        }
+        //List<Tag> albumTags = Album.Instance.tags;
+        //foreach (Tag albumTag in albumTags)
+        //{
+        //    if (albumTag.id != tag.id)
+        //    {
+        //        hasDoneThisTag = true;
+        //    }
+        //}
     }
 
     private void Update()

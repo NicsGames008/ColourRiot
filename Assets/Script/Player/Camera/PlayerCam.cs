@@ -10,8 +10,6 @@ public class PlayerCam : MonoBehaviour
     
     public Transform orientation;
 
-    [SerializeField] private Transform orientation;
-
     private float xRotation;
     private float yRotation;
         
