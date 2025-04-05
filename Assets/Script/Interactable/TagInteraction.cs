@@ -15,9 +15,11 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
     [SerializeField] private GameObject visualFeedBackInteraction; // UI feedback object for interaction
     [SerializeField] private GameObject sliderUI; // UI element that represents progress during interaction
+    [SerializeField] private GameObject sprayCan; // Reference to the Visual Spray Can
     [SerializeField] private Slider slider; // Reference to the slider component
     [SerializeField] private int tagTime = 2; // Reference time that it take to make the Tag
-    [SerializeField] private Tag tag; // Reference time that it take to make the Tag
+    [SerializeField] private float movingToWalTime = 1.5f; // Reference time that it take to move to the wall
+    [SerializeField] private Tag tag; 
 
     private GameObject lockedPlayerPosistion; // Position where player gets locked during interaction
     private GameObject currentUI; // Holds the current UI feedback instance
@@ -30,6 +32,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
     private float elapsedTime; // Timer for interaction duration
     private Image tagImage; //Referece for the image 
     private bool hasDoneThisTag = false; //Wether the player has done this tag
+    private Animator spraycanAnimator;
     #endregion
 
     private void Awake()
@@ -44,6 +47,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // Get player movement and camera components
         playerMovement = player.GetComponent<PlayerMovement>();
         playerCam = cam.GetComponent<PlayerCam>();
+        spraycanAnimator = sprayCan.GetComponent<Animator>();
 
         // Get the first child of this object as the locked position for the player
         lockedPlayerPosistion = this.transform.GetChild(0).gameObject;
@@ -56,14 +60,14 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // The slider to show the time set to the max time of the tag
         slider.maxValue = tagTime;
 
-        //List<Tag> albumTags = Album.Instance.tags;
-        //foreach (Tag albumTag in albumTags)
-        //{
-        //    if (albumTag.id != tag.id)
-        //    {
-        //        hasDoneThisTag = true;
-        //    }
-        //}
+        List<Tag> albumTags = Album.Instance.tags;
+        foreach (Tag albumTag in albumTags)
+        {
+            if (albumTag.id != tag.id)
+            {
+                hasDoneThisTag = true;
+            }
+        }
     }
 
     private void Update()
@@ -84,6 +88,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         if (Input.GetMouseButtonDown(0) && isAtWall && !hasDoneThisTag)
         {
             sliderUI.SetActive(true);
+            spraycanAnimator.SetBool("isSpraying", true);
         }
 
         // Hide slider UI and reset timer when mouse button is released
@@ -92,6 +97,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
             elapsedTime = 0;
             tagImage.fillAmount = 0;
             sliderUI.SetActive(false);
+            spraycanAnimator.SetBool("isSpraying", false);
         }
     }
 
@@ -117,9 +123,11 @@ public class TagInteraction : MonoBehaviour, IInteractable
         Debug.Log("Interacted with a wall");
 
         // Lock player position to the predefined locked position
-        //player.transform.position = lockedPlayerPosistion.transform.position;
         StartCoroutine(SmoothMovePlayer());
         StartCoroutine(SmoothRotatePlayer());
+
+        // Show the spray can
+        sprayCan.SetActive(true);
 
         // Disable player movement and camera controls
         playerMovement.enabled = false;
@@ -135,6 +143,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
         playerMovement.enabled = true;
         playerCam.enabled = true;
         isAtWall = false;
+
+        // Takes away the sparay can
+        sprayCan.SetActive(false);
     }
 
     // Counts down interaction time, stopping interaction after 2 seconds
@@ -200,9 +211,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
             Quaternion endRotation = lockedPlayerPosistion.transform.rotation; // Store the target rotation
 
             // Gradually rotate the camera towards the target over 3 seconds
-            while (time < 3)
+            while (time < movingToWalTime)
             {
-                cam.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time / 3);
+                cam.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time / movingToWalTime);
                 time += Time.deltaTime; // Increment the timer with delta time
                 yield return null; // Wait for the next frame before continuing
             }
@@ -223,9 +234,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
             Vector3 endPosition = lockedPlayerPosistion.transform.position; // Store the target position
 
             // Gradually rotate the camera towards the target over 3 seconds
-            while (time < 3)
+            while (time < movingToWalTime)
             {
-                player.transform.position = Vector3.Lerp(startPosition, endPosition, time / 3);
+                player.transform.position = Vector3.Lerp(startPosition, endPosition, time / movingToWalTime);
                 time += Time.deltaTime; // Increment the timer with delta time
                 yield return null; // Wait for the next frame before continuing
             }
