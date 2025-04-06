@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +18,8 @@ public class TagInteraction : MonoBehaviour, IInteractable
     [SerializeField] private Slider slider; // Reference to the slider component
     [SerializeField] private int tagTime = 2; // Reference time that it take to make the Tag
     [SerializeField] private float movingToWalTime = 1.5f; // Reference time that it take to move to the wall
-    [SerializeField] private Tag tag; 
+    [SerializeField] private Tag tag;
+    [SerializeField] private ParticleSystem particleSystem;
 
     private GameObject lockedPlayerPosistion; // Position where player gets locked during interaction
     private GameObject currentUI; // Holds the current UI feedback instance
@@ -51,7 +51,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
         // Get the first child of this object as the locked position for the player
         lockedPlayerPosistion = this.transform.GetChild(0).gameObject;
-        
+
         // Get the child of the second child and saves it on the tagImage
         GameObject secondChild = this.transform.GetChild(1).gameObject;
         GameObject childOfSecondChild = secondChild.transform.GetChild(0).gameObject;
@@ -60,14 +60,17 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // The slider to show the time set to the max time of the tag
         slider.maxValue = tagTime;
 
-        List<Tag> albumTags = Album.Instance.tags;
-        foreach (Tag albumTag in albumTags)
-        {
-            if (albumTag.id != tag.id)
-            {
-                hasDoneThisTag = true;
-            }
-        }
+        particleSystem.enableEmission = false;
+
+
+        //List<Tag> albumTags = Album.Instance.tags;
+        //foreach (Tag albumTag in albumTags)
+        //{
+        //    if (albumTag.id != tag.id)
+        //    {
+        //        hasDoneThisTag = true;
+        //    }
+        //}
     }
 
     private void Update()
@@ -89,6 +92,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         {
             sliderUI.SetActive(true);
             spraycanAnimator.SetBool("isSpraying", true);
+            particleSystem.enableEmission = true;
         }
 
         // Hide slider UI and reset timer when mouse button is released
@@ -98,6 +102,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
             tagImage.fillAmount = 0;
             sliderUI.SetActive(false);
             spraycanAnimator.SetBool("isSpraying", false);
+            particleSystem.enableEmission = false;
+
+
         }
     }
 
@@ -180,7 +187,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
     {
         // Unsubscribe from the range change event
         OnRangeChanged -= HandleRangeChange;
-    } 
+    }
     #endregion
 
     // Handles UI feedback when player enters or exits interaction range
@@ -243,6 +250,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
             player.transform.position = endPosition; // Ensure the final position is exactly the target position
         }
-    } 
+    }
     #endregion
 }
