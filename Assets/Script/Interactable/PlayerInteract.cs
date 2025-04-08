@@ -5,6 +5,7 @@ public class PlayerInteract : MonoBehaviour
 {
     private Camera MainCamera; // Reference to the main camera
     private GameObject player; // Reference to the player object
+    private IInteractable lastInteractable = null;
 
     // Start is called before the first frame update
     void Start()
@@ -31,19 +32,15 @@ public class PlayerInteract : MonoBehaviour
         {
             IInteractable interactableObject = hitInfo.collider.GetComponent<IInteractable>(); // Get the interactable component
 
-            // Notify the TagInteraction system that the player is in range
-            if (TagInteraction.Instance != null)
+            if (interactableObject != null && interactableObject is TagInteraction currentWall)
             {
-                TagInteraction.Instance.SetInRange(true);
-            }
+                if (!currentWall.HasDoneThisTag)
+                {
+                    currentWall.ShowUI(true);
+                    lastInteractable = interactableObject;
+                }
 
-            // Check if the player presses the interaction key (E)
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 1.0f); // Draw debug ray in the scene
-
-                // If an interactable object was hit, call its Interact function
-                if (interactableObject != null)
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     interactableObject.Interact(gameObject);
                 }
@@ -51,10 +48,11 @@ public class PlayerInteract : MonoBehaviour
         }
         else
         {
-            // If no interactable object is detected, notify the TagInteraction system
-            if (TagInteraction.Instance != null)
+            // Hide UI from the last wall we looked at
+            if (lastInteractable != null && lastInteractable is TagInteraction previousWall)
             {
-                TagInteraction.Instance.SetInRange(false);
+                previousWall.ShowUI(false);
+                lastInteractable = null;
             }
         }
     }

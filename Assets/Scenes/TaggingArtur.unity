@@ -143,6 +143,10 @@ PrefabInstance:
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3272339175722568962, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3272339175722568962, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 50
       objectReference: {fileID: 0}
@@ -478,6 +482,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827132600}
   m_CullTransparentMesh: 1
+--- !u!1001 &928206811
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4196702213359675587, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: slider
+      value: 
+      objectReference: {fileID: 690793148}
+    - target: {fileID: 4196702213359675587, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: sliderUI
+      value: 
+      objectReference: {fileID: 690793146}
+    - target: {fileID: 4196702213359675587, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: sprayCan
+      value: 
+      objectReference: {fileID: 399922434}
+    - target: {fileID: 4196702213359675587, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gratffitiTag
+      value: 
+      objectReference: {fileID: 11400000, guid: b85b2776d4422a84487fb94aeb86ca8b, type: 2}
+    - target: {fileID: 4196702213359675587, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: sprayParticle
+      value: 
+      objectReference: {fileID: 1924623980}
+    - target: {fileID: 4196702213359675587, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: particleSystem
+      value: 
+      objectReference: {fileID: 1924623980}
+    - target: {fileID: 7439639579508432138, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439639579508432138, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8764
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439639579508432138, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439639579508432138, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439639579508432138, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439639579508432138, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439639579508432138, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439639579508432138, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439639579508432138, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439639579508432138, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8695399026642551811, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_Name
+      value: Interactable Wall (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
 --- !u!1 &960404543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,6 +1106,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 399922434}
     - target: {fileID: 4196702213359675587, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gratffitiTag
+      value: 
+      objectReference: {fileID: 11400000, guid: a1a2f76136c548b45adb1fcede44725b, type: 2}
+    - target: {fileID: 4196702213359675587, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: sprayParticle
+      value: 
+      objectReference: {fileID: 1924623980}
+    - target: {fileID: 4196702213359675587, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: particleSystem
       value: 
       objectReference: {fileID: 1924623980}
@@ -1138,6 +1231,7 @@ SceneRoots:
   - {fileID: 7774168793289855039}
   - {fileID: 993517433}
   - {fileID: 7644814615138365450}
+  - {fileID: 928206811}
   - {fileID: 1001267565}
   - {fileID: 1133447220}
   - {fileID: 788983784}

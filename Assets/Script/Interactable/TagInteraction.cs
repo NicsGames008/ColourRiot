@@ -1,127 +1,132 @@
 using System;
 using System.Collections;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TagInteraction : MonoBehaviour, IInteractable
 {
-    #region Vars
-    // Singleton instance of the TagInteraction class
-    public static TagInteraction Instance;
+    #region Variables
 
-    // Event triggered when interaction range changes
-    public static event Action<bool> OnRangeChanged;
+    // Public property to check if tag interaction has been completed
+    public bool HasDoneThisTag => hasDoneThisTag;
 
+    [Header("UI & Visual Feedback")]
     [SerializeField] private GameObject visualFeedBackInteraction; // UI feedback object for interaction
     [SerializeField] private GameObject sliderUI; // UI element that represents progress during interaction
-    [SerializeField] private GameObject sprayCan; // Reference to the Visual Spray Can
-    [SerializeField] private Slider slider; // Reference to the slider component
-    [SerializeField] private int tagTime = 2; // Reference time that it take to make the Tag
-    [SerializeField] private float movingToWalTime = 1.5f; // Reference time that it take to move to the wall
-    [SerializeField] private Tag tag;
-    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private GameObject sprayCan; // Reference to the visual spray can
+    [SerializeField] private Slider slider; // Slider to show tagging progress
 
-    private GameObject lockedPlayerPosistion; // Position where player gets locked during interaction
-    private GameObject currentUI; // Holds the current UI feedback instance
-    private GameObject player; // Reference to the player
+    [Header("Tag Data")]
+    [SerializeField] private int tagTime = 2; // Time required to finish tagging
+    [SerializeField] private float movingToWalTime = 1.5f; // Time it takes to move player to wall
+    [SerializeField] private Tag gratffitiTag; // Reference to the tag (art/identifier)
+
+    [Header("FX")]
+    [SerializeField] private ParticleSystem sprayParticle; // Particle effect for spray can
+
+    // Private references and state variables
+    private GameObject lockedPlayerPosistion; // Target position to lock player during tag
+    private GameObject currentUI; // Instance of the feedback UI
+    private GameObject player; // Reference to the player object
     private GameObject cam; // Reference to the main camera
-    private bool isInRange = false; // Whether the player is in interaction range
-    private bool isAtWall = false; // Whether the player is interacting with a wall
-    private PlayerMovement playerMovement; // Reference to player's movement script
-    private PlayerCam playerCam; // Reference to player's camera script
-    private float elapsedTime; // Timer for interaction duration
-    private Image tagImage; //Referece for the image 
-    private bool hasDoneThisTag = false; //Wether the player has done this tag
-    private Animator spraycanAnimator;
+
+    private bool isAtWall = false; // Is the player near the wall and ready to tag
+    private bool hasDoneThisTag = false; // Has the tag already been completed
+
+    private PlayerMovement playerMovement; // Player movement script
+    private PlayerCam playerCam; // Player camera controller
+
+    private float elapsedTime; // Internal timer during interaction
+    private Image tagImage; // Image component that visually fills as tagging progresses
+    private Animator spraycanAnimator; // Animator for the spray can
+
     #endregion
+
+    #region Unity Methods
 
     private void Awake()
     {
-        // Set the singleton instance
-        Instance = this;
-
-        // Find player and camera by tag
+        // Locate player and camera in the scene
         player = GameObject.FindWithTag("Player");
         cam = GameObject.FindWithTag("MainCamera");
 
-        // Get player movement and camera components
+        // Get references to necessary components
         playerMovement = player.GetComponent<PlayerMovement>();
         playerCam = cam.GetComponent<PlayerCam>();
         spraycanAnimator = sprayCan.GetComponent<Animator>();
 
-        // Get the first child of this object as the locked position for the player
+        // Get the lock-in position (first child of this object)
         lockedPlayerPosistion = this.transform.GetChild(0).gameObject;
 
-        // Get the child of the second child and saves it on the tagImage
+        // Get image component (child of the second child)
         GameObject secondChild = this.transform.GetChild(1).gameObject;
         GameObject childOfSecondChild = secondChild.transform.GetChild(0).gameObject;
         tagImage = childOfSecondChild.GetComponent<Image>();
 
-        // The slider to show the time set to the max time of the tag
+        // Set slider max value to required tag time
         slider.maxValue = tagTime;
-
-        particleSystem.enableEmission = false;
-
-
-        //List<Tag> albumTags = Album.Instance.tags;
-        //foreach (Tag albumTag in albumTags)
-        //{
-        //    if (albumTag.id != tag.id)
-        //    {
-        //        hasDoneThisTag = true;
-        //    }
-        //}
+        tagImage.overrideSprite = gratffitiTag.image;
     }
 
     private void Update()
     {
-        // If the player presses 'E' while interacting with a wall, stop interacting
+        // Stop tagging if player presses 'E'
         if (Input.GetKeyDown(KeyCode.E) && isAtWall)
         {
             StopInteracting();
         }
 
-        // If left mouse button is held down while interacting, start countdown
+        // Continue tagging if left mouse button is held
         if (Input.GetMouseButton(0) && isAtWall && !hasDoneThisTag)
         {
             Countdown();
         }
 
-        // Show slider UI when left mouse button is first pressed
+        // Start tagging when mouse is pressed
         if (Input.GetMouseButtonDown(0) && isAtWall && !hasDoneThisTag)
         {
             sliderUI.SetActive(true);
             spraycanAnimator.SetBool("isSpraying", true);
-            particleSystem.enableEmission = true;
+            sprayParticle.Play();
         }
 
-        // Hide slider UI and reset timer when mouse button is released
+        // Cancel tagging when mouse button is released
         if (Input.GetMouseButtonUp(0) && isAtWall && !hasDoneThisTag)
         {
             elapsedTime = 0;
             tagImage.fillAmount = 0;
             sliderUI.SetActive(false);
             spraycanAnimator.SetBool("isSpraying", false);
-            particleSystem.enableEmission = false;
-
-
+            sprayParticle.Stop();
         }
     }
 
-    // Updates the player's interaction range status
-    public void SetInRange(bool inRange)
+    #endregion
+
+    #region Interaction
+
+    // Show or hide the interaction UI depending on player proximity
+    public void ShowUI(bool show)
     {
-        if (isInRange != inRange && !hasDoneThisTag)
+        if (show && !hasDoneThisTag)
         {
-            isInRange = inRange;
-            OnRangeChanged?.Invoke(isInRange);
+            if (currentUI == null)
+            {
+                currentUI = Instantiate(visualFeedBackInteraction);
+            }
+        }
+        else if (!show && currentUI != null)
+        {
+            Destroy(currentUI);
+            currentUI = null;
         }
     }
 
-    // Handles player interaction with an object
+    // Called when the player interacts with the tagging object
     public void Interact(GameObject Instigator)
     {
-        //if payer has done this tag it skips
+        // Exit if already tagged
         if (hasDoneThisTag)
         {
             return;
@@ -129,127 +134,97 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
         Debug.Log("Interacted with a wall");
 
-        // Lock player position to the predefined locked position
+        // Move and rotate player to the tagging spot
         StartCoroutine(SmoothMovePlayer());
         StartCoroutine(SmoothRotatePlayer());
 
-        // Show the spray can
+        // Activate spray can visuals
         sprayCan.SetActive(true);
+        sprayParticle.Stop();
 
-        // Disable player movement and camera controls
+        // Disable movement and camera while tagging
         playerMovement.enabled = false;
         playerCam.enabled = false;
     }
 
-    // Stops the interaction and restores player movement
+    // Cancel tagging and return control to player
     private void StopInteracting()
     {
         Debug.Log("Stopped Interacting with a wall");
 
-        // Re-enable player movement and camera controls
         playerMovement.enabled = true;
         playerCam.enabled = true;
         isAtWall = false;
 
-        // Takes away the sparay can
         sprayCan.SetActive(false);
     }
 
-    // Counts down interaction time, stopping interaction after 2 seconds
+    // Handles the progress of the tagging
     private void Countdown()
     {
+        // Update elapsed time while holding mouse button
         elapsedTime += Time.deltaTime;
         int seconds = Mathf.FloorToInt(elapsedTime % 60);
 
-        // Update the slider value to reflect the elapsed time
+        // Update UI slider and tag image fill amount
         slider.value = elapsedTime;
-
-        // Make the tag appear
         tagImage.fillAmount = elapsedTime / tagTime;
 
+        // Finish tagging after required time
         if (seconds == tagTime)
         {
+            sprayParticle.Stop();
             sliderUI.SetActive(false);
-            Album.Instance.Add(tag);
+            Album.Instance.Add(gratffitiTag); // Add tag to player's collection
             hasDoneThisTag = true;
             StopInteracting();
         }
     }
 
-    #region Event Systems 
-    private void OnEnable()
-    {
-        // Subscribe to the range change event
-        OnRangeChanged += HandleRangeChange;
-    }
-
-    private void OnDisable()
-    {
-        // Unsubscribe from the range change event
-        OnRangeChanged -= HandleRangeChange;
-    }
     #endregion
 
-    // Handles UI feedback when player enters or exits interaction range
-    private void HandleRangeChange(bool inRange)
-    {
-        if (inRange && currentUI == null)
-        {
-            // Instantiate visual feedback UI if in range
-            currentUI = Instantiate(visualFeedBackInteraction);
-        }
-        else if (!inRange && currentUI != null)
-        {
-            // Destroy UI feedback when out of range
-            Destroy(currentUI);
-            currentUI = null;
-        }
-    }
-
     #region Smooth Transitions
+
+    // Smoothly rotate the camera to face the tagging spot
     public IEnumerator SmoothRotatePlayer()
     {
-        // Check if the camera's current rotation is different from the target locked position rotation
         if (cam.transform.rotation != lockedPlayerPosistion.transform.rotation)
         {
-            float time = 0f; // Timer to track the interpolation progress
+            float time = 0f;
+            Quaternion startRotation = cam.transform.rotation;
+            Quaternion endRotation = lockedPlayerPosistion.transform.rotation;
 
-            Quaternion startRotation = cam.transform.rotation; // Store the camera's initial rotation
-            Quaternion endRotation = lockedPlayerPosistion.transform.rotation; // Store the target rotation
-
-            // Gradually rotate the camera towards the target over 3 seconds
             while (time < movingToWalTime)
             {
                 cam.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time / movingToWalTime);
-                time += Time.deltaTime; // Increment the timer with delta time
-                yield return null; // Wait for the next frame before continuing
+                time += Time.deltaTime;
+                yield return null;
             }
 
-            cam.transform.rotation = endRotation; // Ensure the final rotation is exactly the target rotation
-            isAtWall = true; // After the player end the animation of going to the place is able to make the tag
+            cam.transform.rotation = endRotation;
+            isAtWall = true;
         }
     }
 
+    // Smoothly move the player to the tagging position
     public IEnumerator SmoothMovePlayer()
     {
-        // Check if the players's current position is different from the target locked position position
         if (player.transform.position != lockedPlayerPosistion.transform.position)
         {
-            float time = 0f; // Timer to track the interpolation progress
+            float time = 0f;
+            Vector3 startPosition = player.transform.position;
+            Vector3 endPosition = lockedPlayerPosistion.transform.position;
 
-            Vector3 startPosition = player.transform.position; // Store the players's initial position
-            Vector3 endPosition = lockedPlayerPosistion.transform.position; // Store the target position
-
-            // Gradually rotate the camera towards the target over 3 seconds
             while (time < movingToWalTime)
             {
                 player.transform.position = Vector3.Lerp(startPosition, endPosition, time / movingToWalTime);
-                time += Time.deltaTime; // Increment the timer with delta time
-                yield return null; // Wait for the next frame before continuing
+                time += Time.deltaTime;
+                yield return null;
             }
 
-            player.transform.position = endPosition; // Ensure the final position is exactly the target position
+            player.transform.position = endPosition;
         }
     }
+
     #endregion
 }
