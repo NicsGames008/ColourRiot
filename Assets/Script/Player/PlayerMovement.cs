@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
+
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Keybindings")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -20,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
 
     bool grounded;
+    bool wasGrounded;
 
     public Transform orientation;
 
@@ -29,10 +34,34 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
     Rigidbody rb;
 
+    float lastYVelocity;
+    bool isSprinting;
+
+    [Header("Stamina")]
+    public float maxStamina = 100f;
+    public float currentStamina;
+    public float staminaRegenRate = 10f;
+    public float staminaSprintDrain = 20f;
+    public float fallStaminaDrainMultiplier = 2f;
+    public float sprintMultiplier = 1.5f;
+
+    [Header("UI")]
+    public Slider StaminaBar;
+
+    
+    
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        currentStamina = maxStamina;
+        StaminaBar.maxValue = maxStamina;
+        StaminaBar.value = currentStamina;
+
+        
+        
     }
 
     void Update()
@@ -41,10 +70,18 @@ public class PlayerMovement : MonoBehaviour
 
         MyInput();
         SpeedControl();
-
+        HandleStamina();
+        HandleFallStaminaDrain();
 
         if (grounded) rb.drag = groundDrag;
         else rb.drag = 0;
+
+        wasGrounded = grounded;
+        lastYVelocity = rb.velocity.y;
+        
+        StaminaBar.value = currentStamina;
+
+        
     }
 
     void FixedUpdate()
@@ -57,6 +94,8 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        isSprinting = Input.GetKey(sprintKey) && grounded && currentStamina > 0;
+
         if (Input.GetKeyDown(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
@@ -67,33 +106,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+        float currentSpeed = moveSpeed;
+
+        if (isSprinting)
+            currentSpeed *= sprintMultiplier;
+
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         moveDirection = moveDirection.normalized;
 
-        if (grounded)
-        {
-            rb.AddForce(moveDirection * moveSpeed * 10f, ForceMode.Force);
-        }
-        else
-        {
-            rb.AddForce(moveDirection * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-        }
+        float speedMultiplier = grounded ? 1f : airMultiplier;
+        rb.AddForce(moveDirection * currentSpeed * 10f * speedMultiplier, ForceMode.Force);
     }
 
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (flatVel.magnitude > moveSpeed)
+        if (flatVel.magnitude > moveSpeed * (isSprinting ? sprintMultiplier : 1f))
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            Vector3 limitedVel = flatVel.normalized * moveSpeed * (isSprinting ? sprintMultiplier : 1f);
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
 
     private void Jump()
     {
-
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
@@ -103,6 +140,34 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
+    private void HandleStamina()
+    {
+        if (isSprinting)
+        {
+            currentStamina -= staminaSprintDrain * Time.deltaTime;
+            currentStamina = Mathf.Max(currentStamina, 0f);
+        }
+        else if (currentStamina < maxStamina)
+        {
+            currentStamina += staminaRegenRate * Time.deltaTime;
+            currentStamina = Mathf.Min(currentStamina, maxStamina);
+        }
+    }
+
+    private void HandleFallStaminaDrain()
+    {
+        if (!wasGrounded && grounded)
+        {
+            float fallImpact = Mathf.Abs(lastYVelocity);
+
+            if (fallImpact > 10f) 
+            {
+                float staminaDamage = fallImpact * fallStaminaDrainMultiplier;
+                currentStamina -= staminaDamage;
+                currentStamina = Mathf.Max(currentStamina, 0f);
+            }
+        }
+    }
 
     void OnDrawGizmosSelected()
     {
