@@ -134,22 +134,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraHolder
       objectReference: {fileID: 0}
-    - target: {fileID: 3272339175722568962, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
-      propertyPath: lengthInSec
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272339175722568962, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
-      propertyPath: ShapeModule.angle
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272339175722568962, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272339175722568962, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 3768382894106016743, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
       propertyPath: cameraPosition
       value: 
@@ -196,14 +180,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6304076142236784692, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6447926329681478379, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6901762116497286122, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
