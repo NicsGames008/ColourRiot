@@ -1,92 +1,112 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+// This state handles patrolling behavior for an enemy using Unity's NavMesh system
 public class Enemy_PatroleState : AStateBehaviour
 {
+    // Patrol movement speed
     [SerializeField] private float patrollingspeed = 3f;
-    [SerializeField] private WayPointManager poiManager = null;
-    private int lastPOIRequested = 0;
 
+    // Reference to the waypoint manager that provides patrol points
+    [SerializeField] private WayPointManager waypointManager = null;
+
+    // Tracks which WayPoint index the enemy was last assigned
+    private int lastWayPointRequested = 0;
+
+    // References to required components
     private NavMeshAgent agent = null;
     private LineOfSight monsterLineOfSight = null;
 
-    // Example of getting all the relevant components
+    // Called once to initialize the state. Fails if required components are missing.
     public override bool InitializeState()
     {
         agent = GetComponent<NavMeshAgent>();
         monsterLineOfSight = GetComponent<LineOfSight>();
 
+        // Make sure both components exist
         if (agent == null || monsterLineOfSight == null)
             return false;
+
         return true;
     }
 
-    // Rquest a POI and move on from there, setup the agent
+    // Called when this state begins
     public override void OnStateStart()
     {
-        if (!poiManager.IsIndexValid(lastPOIRequested))
+        // Reset the patrol index if it's out of bounds
+        if (!waypointManager.IsIndexValid(lastWayPointRequested))
         {
-            lastPOIRequested = 0;
+            lastWayPointRequested = 0;
         }
 
-        Transform poiTransform = poiManager.GetPOIAtIndex(lastPOIRequested);
+        // Get the patrol target and set the NavMeshAgent destination
+        Transform poiTransform = waypointManager.GetwaypointsAtIndex(lastWayPointRequested);
         if (poiTransform)
         {
             agent.isStopped = false;
             agent.SetDestination(poiTransform.position);
-            SetAgentSpeed(patrollingspeed);
-            lastPOIRequested++;
+
+
+            // Increment index for next point
+            lastWayPointRequested++;
         }
     }
 
-    // Keep agent moving between points unless interupted in the StateTransitionCondition
+    // Called once per frame while this state is active
     public override void OnStateUpdate()
     {
+        // If the agent has reached its current destination, move to the next point
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            if (!poiManager.IsIndexValid(lastPOIRequested))
+            if (!waypointManager.IsIndexValid(lastWayPointRequested))
             {
-                lastPOIRequested = 0;
+                lastWayPointRequested = 0;
             }
 
-            Transform poiTransform = poiManager.GetPOIAtIndex(lastPOIRequested);
+            Transform poiTransform = waypointManager.GetwaypointsAtIndex(lastWayPointRequested);
             if (poiTransform)
             {
                 agent.isStopped = false;
                 agent.SetDestination(poiTransform.position);
 
-                lastPOIRequested++;
+                lastWayPointRequested++;
             }
         }
+        // Set the agent's movement characteristics based on patrol speed
+        SetAgentSpeed(patrollingspeed);
     }
-    // Cleanup of the state, as we should always turn off any variables we turn on in start, next state can turn them back on if it see's fit to do so
+
+    // Called when this state ends
     public override void OnStateEnd()
     {
+        // Stop movement when leaving this state
         agent.isStopped = true;
     }
 
-    // Transition out of this state if we see the player.
+    // Determines if this state should transition to another
     public override int StateTransitionCondition()
     {
+        // If the player has been seen, transition to chasing
         if (monsterLineOfSight.HasSeenPlayerThisFrame())
         {
             return (int)EMonsterState.Chasing;
         }
 
+        // Otherwise, remain in this state
         return (int)EMonsterState.Invalid;
     }
 
+    // Helper method to apply speed-based adjustments to the NavMeshAgent
     void SetAgentSpeed(float newSpeed)
     {
         agent.speed = newSpeed;
 
-        // Base reference values
+        // These values represent the default baseline behavior
         float baseSpeed = 3f;
         float baseAngularSpeed = 120f;
         float baseAcceleration = 8f;
 
+        // Scale angular speed and acceleration based on the speed ratio
         float speedRatio = newSpeed / baseSpeed;
 
         agent.angularSpeed = baseAngularSpeed * speedRatio;

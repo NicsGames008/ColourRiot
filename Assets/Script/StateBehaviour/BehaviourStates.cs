@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+// Enum representing the different possible states a monster can be in
 public enum EMonsterState
 {
+    // Used as a default or error state when the monster state is not set correctly
     Invalid = -1,
+
+    // The monster is following a predefined path or area
     Patrolling,
+
+    // The monster has detected the player and is actively chasing them
     Chasing,
 }

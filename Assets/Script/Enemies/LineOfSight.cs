@@ -1,70 +1,76 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// This class handles checking whether the player is within the enemy's field of view and line of sight
 public class LineOfSight : MonoBehaviour
 {
+    // The maximum distance the raycast can travel to detect the player
     [SerializeField] private float maxRaycastDistance = 20f;
+
+    // Reference to the player's Transform component
     private Transform playerTransform = null;
 
+    // Boolean flag to track whether the player was seen during this frame
     private bool hasSeenPlayerThisFrame = false;
 
-    // Start is called before the first frame update
+    // Called when the object is first initialized (before Start)
     void Awake()
     {
-        // Find the first player as this should be the only one in the level anyways
+        // Find the player in the scene using the "Player" tag
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Transform>();
     }
 
-    // Update is called once per frame
+    // Called once per frame
     void Update()
     {
-        // 45 degree angle from either side of the forward facing vector, we convert from Euler to Radians
+        // Define the field of view cone (in degrees), then convert to radians
         const float visionConeEulerAngles = 45.0f;
         float radVisionCone = visionConeEulerAngles * Mathf.Deg2Rad;
 
-        // Get the object forward then the direction to the player
+        // Get this object's forward vector and the direction to the player
         Vector3 forwardVector = transform.forward;
         Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
 
-        // Use the dot product to see how close these two angles are aka in radians
+        // Use dot product to check if the player is within the vision cone
         float dotProduct = Vector3.Dot(forwardVector, directionToPlayer);
+
+        // If the angle to the player is outside the cone, player is not visible
         if (dotProduct < radVisionCone)
         {
             hasSeenPlayerThisFrame = false;
             return;
         }
 
-        // If the player is technically in the vision cone then let's check through physics that he is physically visible
-        // If he is we just go ahead and toggle a boolean on and save that information for later.
+        // If the player is inside the cone, perform a raycast to check line of sight
         Vector3 directionalMagnitudeToPlayer = (playerTransform.position - transform.position);
         float distanceToHeadset = directionalMagnitudeToPlayer.magnitude;
 
-        // Cast ray only up to the lesser of the actual distance or maxRaycastDistance
+        // Only raycast up to the maximum allowed distance or the actual distance to the player
         float raycastDistance = Mathf.Min(distanceToHeadset, maxRaycastDistance);
         Ray ray = new Ray(transform.position, directionalMagnitudeToPlayer.normalized);
         RaycastHit hitInfo;
 
+        // Visualize the raycast in the scene view for debugging
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * raycastDistance, Color.red, 10.0f);
 
+        // Perform the raycast and check if it hits the player
         if (Physics.Raycast(ray, out hitInfo, raycastDistance))
         {
             if (hitInfo.collider.gameObject.CompareTag("Player"))
             {
+                // Player is seen and not obstructed
                 hasSeenPlayerThisFrame = true;
                 return;
             }
         }
 
+        // Player was not seen this frame
         hasSeenPlayerThisFrame = false;
-
-
-
     }
 
-    // Accessor Function
+    // Public method to check if the player was seen during this frame
     public bool HasSeenPlayerThisFrame()
     {
         return hasSeenPlayerThisFrame;
     }
 }
+
