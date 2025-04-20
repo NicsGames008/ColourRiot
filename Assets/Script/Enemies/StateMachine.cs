@@ -72,6 +72,7 @@ public class StateMachine : MonoBehaviour
 
         // Check if it's time to switch states
         int newState = currentState.StateTransitionCondition();
+        Debug.Log(currentState);
         if (IsValidNewStateIndex(newState))
         {
             // End the current state and start the new one

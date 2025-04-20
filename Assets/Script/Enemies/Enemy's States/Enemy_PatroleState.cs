@@ -15,16 +15,22 @@ public class Enemy_PatroleState : AStateBehaviour
 
     // References to required components
     private NavMeshAgent agent = null;
-    private LineOfSight monsterLineOfSight = null;
+    private LineOfSight enemyLineOfSight = null;
+    private GameObject[] enemyNoiseDetectionGO = null;
+    private NoiseDetection enemyNoiseDetection = null;
+
+    private Transform susTagLocation = null;
 
     // Called once to initialize the state. Fails if required components are missing.
     public override bool InitializeState()
     {
         agent = GetComponent<NavMeshAgent>();
-        monsterLineOfSight = GetComponent<LineOfSight>();
+        enemyLineOfSight = GetComponent<LineOfSight>();
+
+        enemyNoiseDetectionGO = GameObject.FindGameObjectsWithTag("TaggableWall");
 
         // Make sure both components exist
-        if (agent == null || monsterLineOfSight == null)
+        if (agent == null || enemyLineOfSight == null)
             return false;
 
         return true;
@@ -72,6 +78,29 @@ public class Enemy_PatroleState : AStateBehaviour
                 lastWayPointRequested++;
             }
         }
+
+
+        foreach (var noiseDetectionGO in enemyNoiseDetectionGO)
+        {
+            enemyNoiseDetection = noiseDetectionGO.GetComponentInChildren<NoiseDetection>();
+
+
+            // Log all children
+            foreach (Transform child in noiseDetectionGO.transform)
+            {
+                if (child != null && child.name == "NoiseDetection")
+                {
+                    susTagLocation = child;
+                }
+            }
+
+            if (enemyNoiseDetection != null && enemyNoiseDetection.HasPoliceHeardTag(gameObject))
+            {
+                Debug.Log("Has heard a tag");
+                agent.ResetPath();
+                agent.SetDestination(susTagLocation.position);
+            }
+        }
         // Set the agent's movement characteristics based on patrol speed
         SetAgentSpeed(patrollingspeed);
     }
@@ -87,13 +116,14 @@ public class Enemy_PatroleState : AStateBehaviour
     public override int StateTransitionCondition()
     {
         // If the player has been seen, transition to chasing
-        if (monsterLineOfSight.HasSeenPlayerThisFrame())
+        if (enemyLineOfSight.HasSeenPlayerThisFrame())
         {
-            return (int)EMonsterState.Chasing;
+            return (int)EEnemyState.Chasing;
         }
 
+
         // Otherwise, remain in this state
-        return (int)EMonsterState.Invalid;
+        return (int)EEnemyState.Invalid;
     }
 
     // Helper method to apply speed-based adjustments to the NavMeshAgent

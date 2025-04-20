@@ -1,5 +1,5 @@
 // Enum representing the different possible states a monster can be in
-public enum EMonsterState
+public enum EEnemyState
 {
     // Used as a default or error state when the monster state is not set correctly
     Invalid = -1,
@@ -8,5 +8,5 @@ public enum EMonsterState
     Patrolling,
 
     // The monster has detected the player and is actively chasing them
-    Chasing,
+    Chasing
 }

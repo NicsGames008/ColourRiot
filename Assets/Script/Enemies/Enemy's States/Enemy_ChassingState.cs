@@ -79,10 +79,10 @@ public class Enemy_ChassingState : AStateBehaviour
     {
         // If the player has not been seen for the entire timer duration, go back to patrolling
         if (timer < 0)
-            return (int)EMonsterState.Patrolling;
+            return (int)EEnemyState.Patrolling;
 
         // Otherwise, stay in the current state
-        return (int)EMonsterState.Invalid;
+        return (int)EEnemyState.Invalid;
     }
 
     // Helper method to scale movement-related properties based on the agent's speed
