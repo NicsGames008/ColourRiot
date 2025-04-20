@@ -1,101 +1,113 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-// Ensure the GameObject has a NavMeshAgent component
+// Requires a NavMeshAgent to be attached to this GameObject
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy_ChassingState : AStateBehaviour
 {
     // Speed at which the enemy chases the player
     [SerializeField] private float chassingSpeed = 7f;
 
-    // Reference to the player’s transform (target)
-    [SerializeField] private Transform playerTransform = null;
 
-    // Cached references
+    // Sound played while the enemy is chasing the player
+    [SerializeField] private AudioClip runningSound;
+
+    // Cached component references
+    private Transform playerTransform = null;
     private NavMeshAgent agent = null;
-    private LineOfSight monsterLineOfSight = null;
+    private LineOfSight enemyLineOfSight = null;
+    private AudioSource audioSource;
 
-    // Time before the enemy gives up chasing if it loses sight of the player
+    // How long the enemy will continue to chase after losing sight of the player
     [SerializeField] private float timeToLooseInterest = 3.0f;
 
-    // Countdown timer used to track time without seeing the player
+    // Internal timer for tracking how long the player has been out of sight
     private float timer = 0.0f;
 
-    // Called once when the state is initialized by the state machine
+    // Called once when this state is initialized
     public override bool InitializeState()
     {
-        // Grab required components
+        // Cache required components
         agent = GetComponent<NavMeshAgent>();
-        monsterLineOfSight = GetComponent<LineOfSight>();
+        enemyLineOfSight = GetComponent<LineOfSight>();
+        playerTransform = GameObject.FindWithTag("Player").transform;
+        audioSource = GameObject.FindWithTag("MainCamera")?.GetComponent<AudioSource>();
 
-        // Make sure all required references are valid
-        if (agent == null || playerTransform == null || monsterLineOfSight == null)
+        // Initialization fails if any required reference is missing
+        if (agent == null || playerTransform == null || enemyLineOfSight == null)
             return false;
 
         return true;
     }
 
-    // Called when this state becomes active
+    // Called once when entering this state
     public override void OnStateStart()
     {
-        // Reset the timer every time we enter this state
+        // Reset chase timer
         timer = timeToLooseInterest;
 
+        // Play the chase sound on loop
+        audioSource.clip = runningSound;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
-    // Called every frame while this state is active
+    // Called every frame while in this state
     public override void OnStateUpdate()
     {
-        // Check if the player is currently visible
-        if (monsterLineOfSight.HasSeenPlayerThisFrame())
+        // If the enemy sees the player this frame, keep chasing
+        if (enemyLineOfSight.HasSeenPlayerThisFrame())
         {
-            // Reset the timer because we still see the player
+            // Reset timer since the player is still in sight
             timer = timeToLooseInterest;
 
-            // Update the destination to chase the player
-            agent.ResetPath(); // Clear current path first
+            // Move towards the player's current position
+            agent.ResetPath();
             agent.SetDestination(playerTransform.position);
 
-            // Update speed and turning based on chase speed
+            // Apply chase movement characteristics
             SetAgentSpeed(chassingSpeed);
         }
         else
         {
-            // Decrease the timer if the player is no longer visible
+            // Reduce the timer since the player is no longer visible
             timer -= Time.deltaTime;
         }
     }
 
-    // Called when exiting this state
+    // Called once when exiting this state
     public override void OnStateEnd()
     {
-        // Stop the agent and clear its path when leaving this state
+        // Stop movement and clean up path
         agent.isStopped = true;
         agent.ResetPath();
+
+        // Stop chase sound
+        audioSource.Stop();
+        audioSource.loop = false;
     }
 
-    // Determines whether to switch to another state
+    // Determines if the state should transition to a new one
     public override int StateTransitionCondition()
     {
-        // If the player has not been seen for the entire timer duration, go back to patrolling
+        // If the player has been out of sight too long, return to patrolling
         if (timer < 0)
             return (int)EEnemyState.Patrolling;
 
-        // Otherwise, stay in the current state
+        // Stay in this state otherwise
         return (int)EEnemyState.Invalid;
     }
 
-    // Helper method to scale movement-related properties based on the agent's speed
+    // Helper to adjust agent speed, turn rate, and acceleration based on a speed value
     void SetAgentSpeed(float newSpeed)
     {
         agent.speed = newSpeed;
 
-        // Base speed values to scale from
+        // Reference values used for scaling
         float baseSpeed = 3f;
         float baseAngularSpeed = 120f;
         float baseAcceleration = 8f;
 
-        // Determine ratio based on new speed and apply it
         float speedRatio = newSpeed / baseSpeed;
 
         agent.angularSpeed = baseAngularSpeed * speedRatio;

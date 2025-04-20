@@ -22,9 +22,8 @@ public class LineOfSight : MonoBehaviour
     // Called once per frame
     void Update()
     {
-        // Define the field of view cone (in degrees), then convert to radians
-        const float visionConeEulerAngles = 45.0f;
-        float radVisionCone = visionConeEulerAngles * Mathf.Deg2Rad;
+        float visionConeDegrees = 90.0f;
+        float dotThreshold = Mathf.Cos(visionConeDegrees * 0.5f * Mathf.Deg2Rad);
 
         // Get this object's forward vector and the direction to the player
         Vector3 forwardVector = transform.forward;
@@ -34,7 +33,7 @@ public class LineOfSight : MonoBehaviour
         float dotProduct = Vector3.Dot(forwardVector, directionToPlayer);
 
         // If the angle to the player is outside the cone, player is not visible
-        if (dotProduct < radVisionCone)
+        if (dotProduct < dotThreshold)
         {
             hasSeenPlayerThisFrame = false;
             return;
