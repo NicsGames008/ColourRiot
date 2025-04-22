@@ -43,6 +43,8 @@ public class TagInteraction : MonoBehaviour, IInteractable
     private Image tagImage; // Image component that visually fills as tagging progresses
     private Animator spraycanAnimator; // Animator for the spray can
 
+    private PlayerState playerState;
+
     #endregion
 
     #region Unity Methods
@@ -52,6 +54,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // Locate player and camera in the scene
         player = GameObject.FindWithTag("Player");
         cam = GameObject.FindWithTag("MainCamera");
+        playerState = player.GetComponent<PlayerState>();
 
         Transform cTransform = transform.Find("NoiseDetection");
 
@@ -154,8 +157,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
         sprayParticle.Stop();
 
         // Disable movement and camera while tagging
-        playerMovement.enabled = false;
-        playerCam.enabled = false;
+        //playerMovement.enabled = false;
+        //playerCam.enabled = false;
+        playerState.ChangePlayerState(EPlayerState.InWall);
     }
 
     // Cancel tagging and return control to player
@@ -163,8 +167,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
     {
         Debug.Log("Stopped Interacting with a wall");
 
-        playerMovement.enabled = true;
-        playerCam.enabled = true;
+        //playerMovement.enabled = true;
+        //playerCam.enabled = true;
+        playerState.ChangePlayerState(EPlayerState.Moving);
         isAtWall = false;
 
         sprayCan.SetActive(false);

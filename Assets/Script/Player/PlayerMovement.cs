@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,20 +49,17 @@ public class PlayerMovement : MonoBehaviour
     [Header("UI")]
     public Slider StaminaBar;
 
-    
-    
-    
+    private PlayerState playerState;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerState = gameObject.GetComponent<PlayerState>();
         rb.freezeRotation = true;
 
         currentStamina = maxStamina;
         StaminaBar.maxValue = maxStamina;
         StaminaBar.value = currentStamina;
-
-        
-        
     }
 
     void Update()
@@ -78,15 +76,28 @@ public class PlayerMovement : MonoBehaviour
 
         wasGrounded = grounded;
         lastYVelocity = rb.velocity.y;
-        
+
         StaminaBar.value = currentStamina;
 
-        
+
+        Debug.Log(playerState.GetPlayerstate());
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            playerState.ChangePlayerState(EPlayerState.InWall);
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            playerState.ChangePlayerState(EPlayerState.Moving);
+        }
     }
 
     void FixedUpdate()
     {
-        MovePlayer();
+        if (playerState.GetPlayerstate() == EPlayerState.Moving)
+        {
+            MovePlayer();
+        }
     }
 
     private void MyInput()

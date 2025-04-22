@@ -9,4 +9,12 @@ public enum EEnemyState
 
     // The monster has detected the player and is actively chasing them
     Chasing
+
+}public enum EPlayerState
+{
+    Invalid = -1,
+    Moving,
+    Paused,
+    InWall,
+    Dead
 }
