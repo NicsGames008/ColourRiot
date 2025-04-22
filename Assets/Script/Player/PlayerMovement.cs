@@ -79,9 +79,6 @@ public class PlayerMovement : MonoBehaviour
 
         StaminaBar.value = currentStamina;
 
-
-        Debug.Log(playerState.GetPlayerstate());
-
         if (Input.GetKeyDown(KeyCode.K))
         {
             playerState.ChangePlayerState(EPlayerState.InWall);

@@ -47,14 +47,20 @@ public class Enemy_ChassingState : AStateBehaviour
         timer = timeToLooseInterest;
 
         // Play the chase sound on loop
-        audioSource.clip = runningSound;
-        audioSource.loop = true;
-        audioSource.Play();
+            audioSource.clip = runningSound;
+            audioSource.loop = true;
+            audioSource.Play();
     }
 
     // Called every frame while in this state
     public override void OnStateUpdate()
     {
+        //if (PauseMenu.gameIsPause)
+        //    audioSource.Stop();
+        //else
+        //    audioSource.Play();
+        Debug.Log(PauseMenu.gameIsPause);
+
         // If the enemy sees the player this frame, keep chasing
         if (enemyLineOfSight.HasSeenPlayerThisFrame())
         {
