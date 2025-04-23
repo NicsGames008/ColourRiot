@@ -2,18 +2,19 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed;
+    public float moveSpeed = 6f;
     public float groundDrag;
-
-    public float jumpForce;
+    public float jumpForce = 8f;
     public float jumpCooldown;
     public float airMultiplier;
-    bool readyToJump = true;
+    private bool readyToJump = true;
+
+    [Header("Jump Tuning")]
+    public float fallMultiplier = 2f;
+    public float lowJumpMultiplier = 1.5f;
 
     [Header("Keybindings")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -24,19 +25,19 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    bool grounded;
-    bool wasGrounded;
+    private bool grounded;
+    private bool wasGrounded;
 
     public Transform orientation;
 
-    float horizontalInput;
-    float verticalInput;
+    private float horizontalInput;
+    private float verticalInput;
+    private bool isSprinting;
 
-    Vector3 moveDirection;
-    Rigidbody rb;
+    private Vector3 moveDirection;
+    private Rigidbody rb;
 
-    float lastYVelocity;
-    bool isSprinting;
+    private float lastYVelocity;
 
     [Header("Stamina")]
     public float maxStamina = 100f;
@@ -48,6 +49,24 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("UI")]
     public Slider StaminaBar;
+    public CanvasGroup staminaGroup;
+    public Image staminaFill;
+    public Color fullStaminaColor = Color.green;
+    public Color midStaminaColor = Color.yellow;
+    public Color lowStaminaColor = Color.red;
+
+    [Header("UI Fade")]
+    private float staminaFadeTimer;
+    public float staminaFadeDelay = 1.5f;
+    public float staminaFadeSpeed = 2f;
+
+    [Header("Camera Bobbing")]
+    public Transform headBobTarget;
+    public float bobFrequency = 8f;
+    public float bobAmplitude = 0.05f;
+    public float sprintBobMultiplier = 1.5f;
+    private float bobTimer = 0f;
+    private Vector3 headStartPos;
 
     private PlayerState playerState;
 
@@ -58,8 +77,21 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         currentStamina = maxStamina;
+
         StaminaBar.maxValue = maxStamina;
         StaminaBar.value = currentStamina;
+        staminaGroup.alpha = 0f;
+
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+
+
+
+
+
+
+        //if (headBobTarget != null)
+            //headStartPos = headBobTarget.localPosition;
     }
 
     void Update()
@@ -70,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
         HandleStamina();
         HandleFallStaminaDrain();
+        JumpPhysics();
 
         if (grounded) rb.drag = groundDrag;
         else rb.drag = 0;
@@ -77,16 +110,43 @@ public class PlayerMovement : MonoBehaviour
         wasGrounded = grounded;
         lastYVelocity = rb.velocity.y;
 
+      
+
         StaminaBar.value = currentStamina;
 
-        if (Input.GetKeyDown(KeyCode.K))
+        
+        if (isSprinting || currentStamina < maxStamina)
         {
-            playerState.ChangePlayerState(EPlayerState.InWall);
+            staminaFadeTimer = staminaFadeDelay;
         }
-        else if (Input.GetKeyDown(KeyCode.L))
+
+        if (staminaFadeTimer > 0)
         {
-            playerState.ChangePlayerState(EPlayerState.Moving);
+            staminaFadeTimer -= Time.deltaTime;
+            staminaGroup.alpha = Mathf.Lerp(staminaGroup.alpha, 1f, Time.deltaTime * staminaFadeSpeed);
         }
+        else
+        {
+            staminaGroup.alpha = Mathf.Lerp(staminaGroup.alpha, 0f, Time.deltaTime * staminaFadeSpeed);
+        }
+
+      
+
+        float percent = currentStamina / maxStamina;
+
+        if (percent > 0.5f)
+        {
+            float t = (percent - 0.5f) * 2f;
+            staminaFill.color = Color.Lerp(midStaminaColor, fullStaminaColor, t);
+        }
+        else
+        {
+            float t = percent * 2f;
+            staminaFill.color = Color.Lerp(lowStaminaColor, midStaminaColor, t);
+        }
+
+      
+        //ApplyHeadBob();
     }
 
     void FixedUpdate()
@@ -115,7 +175,6 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         float currentSpeed = moveSpeed;
-
         if (isSprinting)
             currentSpeed *= sprintMultiplier;
 
@@ -129,10 +188,11 @@ public class PlayerMovement : MonoBehaviour
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        float maxSpeed = moveSpeed * (isSprinting ? sprintMultiplier : 1f);
 
-        if (flatVel.magnitude > moveSpeed * (isSprinting ? sprintMultiplier : 1f))
+        if (flatVel.magnitude > maxSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed * (isSprinting ? sprintMultiplier : 1f);
+            Vector3 limitedVel = flatVel.normalized * maxSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
@@ -150,7 +210,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleStamina()
     {
-        if (isSprinting)
+        bool isMoving = horizontalInput != 0 || verticalInput != 0;
+
+        if (isSprinting && isMoving)
         {
             currentStamina -= staminaSprintDrain * Time.deltaTime;
             currentStamina = Mathf.Max(currentStamina, 0f);
@@ -167,8 +229,9 @@ public class PlayerMovement : MonoBehaviour
         if (!wasGrounded && grounded)
         {
             float fallImpact = Mathf.Abs(lastYVelocity);
+            fallImpact = Mathf.Min(fallImpact, 20f);
 
-            if (fallImpact > 10f) 
+            if (fallImpact > 10f)
             {
                 float staminaDamage = fallImpact * fallStaminaDrainMultiplier;
                 currentStamina -= staminaDamage;
@@ -176,6 +239,45 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    private void JumpPhysics()
+    {
+        if (!grounded)
+        {
+            if (rb.velocity.y < 0)
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1f) * Time.deltaTime;
+            }
+            else if (rb.velocity.y > 0 && !Input.GetKey(jumpKey))
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1f) * Time.deltaTime;
+            }
+        }
+    }
+
+    //private void ApplyHeadBob()
+    //{
+       // if (headBobTarget == null) return;
+
+       // bool isMoving = horizontalInput != 0 || verticalInput != 0;
+      //  float speedFactor = isSprinting ? sprintBobMultiplier : 1f;
+
+       // if (grounded && isMoving)
+       // {
+          //  bobTimer += Time.deltaTime * bobFrequency * speedFactor;
+
+           // float bobOffsetY = Mathf.Sin(bobTimer) * bobAmplitude;
+          //  float bobOffsetX = Mathf.Cos(bobTimer * 0.5f) * bobAmplitude * 0.5f;
+
+        //    headBobTarget.localPosition = headStartPos + new Vector3(bobOffsetX, bobOffsetY, 0f);
+      //  }
+     //   else
+      //  {
+            // Smooth return to idle position
+      //      headBobTarget.localPosition = Vector3.Lerp(headBobTarget.localPosition, headStartPos, Time.deltaTime * 5f);
+      //      bobTimer = 0f;
+      //  }
+   // }
 
     void OnDrawGizmosSelected()
     {

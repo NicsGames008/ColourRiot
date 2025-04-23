@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 3348106419799411591}
   - component: {fileID: 4171929169890430986}
   - component: {fileID: 2362720286359741134}
-  - component: {fileID: 4676079025642758760}
+  - component: {fileID: 5129146984325050796}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -251,6 +251,8 @@ MonoBehaviour:
   jumpForce: 7
   jumpCooldown: 0
   airMultiplier: 0.4
+  fallMultiplier: 2
+  lowJumpMultiplier: 1.5
   jumpKey: 32
   sprintKey: 304
   groundCheck: {fileID: 7751026925205438580}
@@ -266,6 +268,17 @@ MonoBehaviour:
   fallStaminaDrainMultiplier: 2
   sprintMultiplier: 1.5
   StaminaBar: {fileID: 0}
+  staminaGroup: {fileID: 0}
+  staminaFill: {fileID: 0}
+  fullStaminaColor: {r: 0, g: 1, b: 0, a: 1}
+  midStaminaColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  lowStaminaColor: {r: 1, g: 0, b: 0, a: 1}
+  staminaFadeDelay: 1.5
+  staminaFadeSpeed: 2
+  headBobTarget: {fileID: 0}
+  bobFrequency: 8
+  bobAmplitude: 0.05
+  sprintBobMultiplier: 1.5
 --- !u!114 &2362720286359741134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,8 +292,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tags: []
---- !u!114 &4676079025642758760
+--- !u!114 &5129146984325050796
 MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5006479102293079289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f439ce8bfe63fb2419a7d78770c341d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  climbSpeed: 3
+--- !u!1 &9218568642262697567
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}

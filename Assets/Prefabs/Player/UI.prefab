@@ -1468,6 +1468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6994125233700586857}
   - component: {fileID: 6345670157721028745}
+  - component: {fileID: 5280996854726039623}
   m_Layer: 5
   m_Name: StaminaBar
   m_TagString: Untagged
@@ -1547,3 +1548,15 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &5280996854726039623
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9014551477482720324}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
