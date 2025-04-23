@@ -55,11 +55,12 @@ public class Enemy_ChassingState : AStateBehaviour
     // Called every frame while in this state
     public override void OnStateUpdate()
     {
-        //if (PauseMenu.gameIsPause)
-        //    audioSource.Stop();
-        //else
-        //    audioSource.Play();
-        Debug.Log(PauseMenu.gameIsPause);
+        if (PauseMenu.gameIsPause)
+            audioSource.pitch = 0f;
+        else
+            audioSource.pitch = 1.0f;
+
+        Debug.Log($"{PauseMenu.gameIsPause} {audioSource.pitch}");
 
         // If the enemy sees the player this frame, keep chasing
         if (enemyLineOfSight.HasSeenPlayerThisFrame())
