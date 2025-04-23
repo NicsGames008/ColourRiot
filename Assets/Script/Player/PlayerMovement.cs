@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     public float bobFrequency = 8f;
     public float bobAmplitude = 0.05f;
     public float sprintBobMultiplier = 1.5f;
-    private float bobTimer = 0f;
+    //private float bobTimer = 0f;
     private Vector3 headStartPos;
 
     void Start()
