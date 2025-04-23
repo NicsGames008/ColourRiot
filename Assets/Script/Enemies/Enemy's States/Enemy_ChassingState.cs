@@ -60,8 +60,6 @@ public class Enemy_ChassingState : AStateBehaviour
         else
             audioSource.pitch = 1.0f;
 
-        Debug.Log($"{PauseMenu.gameIsPause} {audioSource.pitch}");
-
         // If the enemy sees the player this frame, keep chasing
         if (enemyLineOfSight.HasSeenPlayerThisFrame())
         {

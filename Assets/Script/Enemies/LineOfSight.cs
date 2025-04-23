@@ -49,7 +49,7 @@ public class LineOfSight : MonoBehaviour
         RaycastHit hitInfo;
 
         // Visualize the raycast in the scene view for debugging
-        Debug.DrawLine(ray.origin, ray.origin + ray.direction * raycastDistance, Color.red, 10.0f);
+        Debug.DrawLine(ray.origin, ray.origin + ray.direction * raycastDistance, Color.red, 3.0f);
 
         // Perform the raycast and check if it hits the player
         if (Physics.Raycast(ray, out hitInfo, raycastDistance))
