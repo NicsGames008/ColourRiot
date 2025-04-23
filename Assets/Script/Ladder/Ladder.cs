@@ -1,52 +1,94 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using Input = UnityEngine.Windows.Input;
-
 
 public class Ladder : MonoBehaviour
 {
-    public Transform ladder;
-    bool ladderActive = false;
-    public float speedUpDown;
-    public PlayerMovement playerMovement;
-    
+    public float climbSpeed = 3f;
+    private bool isClimbing = false;
+    private Rigidbody rb;
+    private PlayerMovement playerMovement;
+
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         playerMovement = GetComponent<PlayerMovement>();
-        ladderActive = false;
     }
 
-    private void OnTriggerEnter(Collider col)
+    private void OnTriggerEnter(Collider other)
     {
-        if (col.gameObject.tag == "ladder") ;
+        if (other.CompareTag("Ladder"))
         {
+            Debug.Log("Entered ladder trigger");
+            isClimbing = true;
+
+          
+
+            Vector3 snapPos = transform.position;
+            snapPos.x = other.transform.position.x;
+            snapPos.z = other.transform.position.z;
+            transform.position = snapPos;
+
+
+
+         
+            Vector3 lookDir = other.transform.position - transform.position;
+            lookDir.y = 0f;
+            if (lookDir != Vector3.zero)
+                transform.rotation = Quaternion.LookRotation(lookDir);
+
             playerMovement.enabled = false;
-            ladderActive = true;
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+        }
+        else if (other.CompareTag("LadderTop") && isClimbing)
+        {
+            Debug.Log("Top of ladder reached!");
+
+            isClimbing = false;
+            playerMovement.enabled = true;
+            rb.useGravity = true;
+
+           
+
+
+            Vector3 exitPos = transform.position + transform.forward * 0.5f;
+            exitPos.y += 0.2f; 
+            transform.position = exitPos;
+
+            rb.velocity = Vector3.zero;
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            Debug.Log("Exited ladder trigger");
+            isClimbing = false;
+
+           
+
+
+            playerMovement.enabled = true;
+            rb.useGravity = true;
         }
     }
 
-    private void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.tag == "ladder") ;
-        {
-            playerMovement.enabled = true;
-            ladderActive = false;
-        }
-    }
-    
     void Update()
     {
-        if (ladderActive == true && KeyCode.W == KeyCode.UpArrow)
+        if (isClimbing)
         {
-            ladder.transform.position += Vector3.up * speedUpDown * Time.deltaTime;
-        }
+            float vertical = Input.GetAxisRaw("Vertical");
+            Vector3 climbVelocity = new Vector3(0f, vertical * climbSpeed, 0f);
+            rb.velocity = climbVelocity;
 
-        if (ladderActive == true && KeyCode.S == KeyCode.DownArrow)
-        {
-            ladder.transform.position += Vector3.down * speedUpDown * Time.deltaTime;
+          
+
+
+            if (vertical == 0)
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
     }
 }

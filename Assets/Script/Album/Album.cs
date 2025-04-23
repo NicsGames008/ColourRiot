@@ -21,7 +21,7 @@ public class Album : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: Keep it alive across scenes
+            
         }
         else
         {
