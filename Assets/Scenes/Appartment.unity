@@ -803,7 +803,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: Vinz
   dialogueLine: Hey there! Wanna tag something?
-  sceneToLoad: Scenes/Tests/DitoMov
+  sceneToLoad: Scenes/Neighborhood
   sceneLoadDelay: 2
 --- !u!65 &962706404
 BoxCollider:
