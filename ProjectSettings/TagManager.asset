@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Spraycan
+  - Enemy
+  - TaggableWall
   - Ladder
   - LadderTop
   - NPC
@@ -18,7 +20,7 @@ TagManager:
   - Ground
   - Interactable
   - Buildings
-  - 
+  - Environment
   - 
   - 
   - 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Xml.Linq;
 using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
     private GameObject currentUI; // Instance of the feedback UI
     private GameObject player; // Reference to the player object
     private GameObject cam; // Reference to the main camera
+    private GameObject noiseCollider; // Reference to gameobject that has the noiseCollider
 
     private bool isAtWall = false; // Is the player near the wall and ready to tag
     private bool hasDoneThisTag = false; // Has the tag already been completed
@@ -41,6 +43,8 @@ public class TagInteraction : MonoBehaviour, IInteractable
     private Image tagImage; // Image component that visually fills as tagging progresses
     private Animator spraycanAnimator; // Animator for the spray can
 
+    private PlayerState playerState;
+
     #endregion
 
     #region Unity Methods
@@ -50,6 +54,14 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // Locate player and camera in the scene
         player = GameObject.FindWithTag("Player");
         cam = GameObject.FindWithTag("MainCamera");
+        playerState = player.GetComponent<PlayerState>();
+
+        Transform cTransform = transform.Find("NoiseDetection");
+
+        if (cTransform != null)
+        {
+            noiseCollider = cTransform.gameObject;
+        }
 
         // Get references to necessary components
         playerMovement = player.GetComponent<PlayerMovement>();
@@ -87,6 +99,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         if (Input.GetMouseButtonDown(0) && isAtWall && !hasDoneThisTag)
         {
             sliderUI.SetActive(true);
+            noiseCollider.SetActive(true);
             spraycanAnimator.SetBool("isSpraying", true);
             sprayParticle.Play();
         }
@@ -97,6 +110,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
             elapsedTime = 0;
             tagImage.fillAmount = 0;
             sliderUI.SetActive(false);
+            noiseCollider.SetActive(false);
             spraycanAnimator.SetBool("isSpraying", false);
             sprayParticle.Stop();
         }
@@ -143,8 +157,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
         sprayParticle.Stop();
 
         // Disable movement and camera while tagging
-        playerMovement.enabled = false;
-        playerCam.enabled = false;
+        //playerMovement.enabled = false;
+        //playerCam.enabled = false;
+        playerState.ChangePlayerState(EPlayerState.InWall);
     }
 
     // Cancel tagging and return control to player
@@ -152,8 +167,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
     {
         Debug.Log("Stopped Interacting with a wall");
 
-        playerMovement.enabled = true;
-        playerCam.enabled = true;
+        //playerMovement.enabled = true;
+        //playerCam.enabled = true;
+        playerState.ChangePlayerState(EPlayerState.Moving);
         isAtWall = false;
 
         sprayCan.SetActive(false);
@@ -170,6 +186,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         slider.value = elapsedTime;
         tagImage.fillAmount = elapsedTime / tagTime;
 
+
         // Finish tagging after required time
         if (seconds == tagTime)
         {
@@ -177,6 +194,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
             sliderUI.SetActive(false);
             Album.Instance.Add(gratffitiTag); // Add tag to player's collection
             hasDoneThisTag = true;
+            noiseCollider.SetActive(false);
             StopInteracting();
         }
     }

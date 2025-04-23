@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using System.Runtime.InteropServices;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
@@ -67,9 +68,12 @@ public class PlayerMovement : MonoBehaviour
     //private float bobTimer = 0f;
     private Vector3 headStartPos;
 
+    private PlayerState playerState;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerState = gameObject.GetComponent<PlayerState>();
         rb.freezeRotation = true;
 
         currentStamina = maxStamina;
@@ -147,7 +151,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        MovePlayer();
+        if (playerState.GetPlayerstate() == EPlayerState.Moving)
+        {
+            MovePlayer();
+        }
     }
 
     private void MyInput()
