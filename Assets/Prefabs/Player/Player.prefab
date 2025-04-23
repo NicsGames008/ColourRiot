@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 4171929169890430986}
   - component: {fileID: 2362720286359741134}
   - component: {fileID: 5129146984325050796}
+  - component: {fileID: 7079369864558430127}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -305,8 +306,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   climbSpeed: 3
---- !u!1 &9218568642262697567
-GameObject:
+--- !u!114 &7079369864558430127
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
