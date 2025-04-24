@@ -16,3 +16,4 @@ MonoBehaviour:
   name: Longus
   description: sus in the horizontal way
   image: {fileID: 21300000, guid: 480eb2dd408c51246a6840e1b3dac669, type: 3}
+  levelUnlocked: 1

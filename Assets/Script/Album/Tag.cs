@@ -10,4 +10,5 @@ public class Tag : ScriptableObject
     public new string name;
     public string description;
     public Sprite image;
+    public int levelUnlocked;
 }

@@ -16,3 +16,4 @@ MonoBehaviour:
   name: Green
   description: A green tag
   image: {fileID: 21300000, guid: 91dc1704390e87d4399646817d6f311c, type: 3}
+  levelUnlocked: 1

@@ -33,7 +33,7 @@ public class Enemy_PatroleState : AStateBehaviour
         // Cache required components
         agent = GetComponent<NavMeshAgent>();
         enemyLineOfSight = GetComponent<LineOfSight>();
-        audioSource = GameObject.FindWithTag("MainCamera")?.GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
         // Find all objects tagged as "TaggableWall" (used for noise detection)
         enemyNoiseDetectionGO = GameObject.FindGameObjectsWithTag("TaggableWall");

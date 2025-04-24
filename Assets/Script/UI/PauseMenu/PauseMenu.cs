@@ -9,10 +9,17 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private GameObject pauseMenuUI;
 
+    private PlayerState playerState;
+
+    private void Start()
+    {
+        playerState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && playerState.GetPlayerstate() != EPlayerState.Dead)
         {
             if (gameIsPause)
             {
@@ -32,6 +39,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1.0f;
         gameIsPause = false;
+        playerState.ChangePlayerState(EPlayerState.Moving);
+
     }
 
     void Pause()
@@ -41,6 +50,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPause = true;
+        playerState.ChangePlayerState(EPlayerState.Paused);
     }
 
 

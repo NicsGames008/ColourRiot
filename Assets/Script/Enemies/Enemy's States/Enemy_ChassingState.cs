@@ -8,7 +8,6 @@ public class Enemy_ChassingState : AStateBehaviour
     // Speed at which the enemy chases the player
     [SerializeField] private float chassingSpeed = 7f;
 
-
     // Sound played while the enemy is chasing the player
     [SerializeField] private AudioClip runningSound;
 
@@ -17,6 +16,7 @@ public class Enemy_ChassingState : AStateBehaviour
     private NavMeshAgent agent = null;
     private LineOfSight enemyLineOfSight = null;
     private AudioSource audioSource;
+    private PlayerState playerState;
 
     // How long the enemy will continue to chase after losing sight of the player
     [SerializeField] private float timeToLooseInterest = 3.0f;
@@ -31,7 +31,8 @@ public class Enemy_ChassingState : AStateBehaviour
         agent = GetComponent<NavMeshAgent>();
         enemyLineOfSight = GetComponent<LineOfSight>();
         playerTransform = GameObject.FindWithTag("Player").transform;
-        audioSource = GameObject.FindWithTag("MainCamera")?.GetComponent<AudioSource>();
+        playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
+        audioSource = GetComponent<AudioSource>();
 
         // Initialization fails if any required reference is missing
         if (agent == null || playerTransform == null || enemyLineOfSight == null)
@@ -55,7 +56,7 @@ public class Enemy_ChassingState : AStateBehaviour
     // Called every frame while in this state
     public override void OnStateUpdate()
     {
-        if (PauseMenu.gameIsPause)
+        if (playerState.GetPlayerstate() != EPlayerState.Moving)
             audioSource.pitch = 0f;
         else
             audioSource.pitch = 1.0f;

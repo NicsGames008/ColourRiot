@@ -102,8 +102,8 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // Cancel tagging when mouse button is released
         if (Input.GetMouseButtonUp(0) && isAtWall && !hasDoneThisTag)
         {
-            elapsedTime = 0;
-            tagImage.fillAmount = 0;
+            //elapsedTime = 0;
+            //tagImage.fillAmount = 0;
             timerUI.SetActive(false);
             noiseCollider.SetActive(false);
             spraycanAnimator.SetBool("isSpraying", false);

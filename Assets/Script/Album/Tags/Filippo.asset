@@ -16,3 +16,4 @@ MonoBehaviour:
   name: Filippo
   description: A good Looking man
   image: {fileID: 21300000, guid: 8b10b0df9dafc294dbe3cf3ce11d32f4, type: 3}
+  levelUnlocked: 1

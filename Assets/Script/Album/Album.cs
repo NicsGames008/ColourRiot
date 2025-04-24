@@ -11,10 +11,6 @@ public class Album : MonoBehaviour
 
     public List<Tag> tags = new List<Tag>();
 
-
-    // Define an event for inventory changes
-    public event Action OnInventoryChanged;
-
     private void Awake()
     {
         // Ensure that there is only one instance of Inventory
@@ -32,12 +28,10 @@ public class Album : MonoBehaviour
     public void Add(Tag item)
     {
         tags.Add(item);
-        OnInventoryChanged?.Invoke(); // Trigger the event
     }
 
     public void Remove(Tag item)
     {
         tags.Remove(item);
-        OnInventoryChanged?.Invoke(); // Trigger the event
     }
 }
