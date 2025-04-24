@@ -724,6 +724,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.011
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.425
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
@@ -1513,6 +1525,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.42
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
@@ -1823,6 +1843,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.7000008
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.42000008
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
@@ -2172,15 +2200,15 @@ PrefabInstance:
       objectReference: {fileID: 1996345322}
     - target: {fileID: 6304076142236784692, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.7951336
+      value: -18.46
       objectReference: {fileID: 0}
     - target: {fileID: 6304076142236784692, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1096985
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6304076142236784692, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2436885
+      value: 14.45
       objectReference: {fileID: 0}
     - target: {fileID: 6304076142236784692, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
       propertyPath: m_LocalRotation.w
