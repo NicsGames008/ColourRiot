@@ -79,19 +79,19 @@ public class TagInteraction : MonoBehaviour, IInteractable
     private void Update()
     {
         // Stop tagging if player presses 'E'
-        if (Input.GetKeyDown(KeyCode.E) && isAtWall)
+        if (Input.GetKeyDown(KeyCode.E) && isAtWall && playerState.GetPlayerstate() == EPlayerState.InWall)
         {
             StopInteracting();
         }
 
         // Continue tagging if left mouse button is held
-        if (Input.GetMouseButton(0) && isAtWall && !hasDoneThisTag)
+        if (Input.GetMouseButton(0) && isAtWall && !hasDoneThisTag && playerState.GetPlayerstate() == EPlayerState.InWall)
         {
             Countdown();
         }
 
         // Start tagging when mouse is pressed
-        if (Input.GetMouseButtonDown(0) && isAtWall && !hasDoneThisTag)
+        if (Input.GetMouseButtonDown(0) && isAtWall && !hasDoneThisTag && playerState.GetPlayerstate() == EPlayerState.InWall)
         {
             timerUI.SetActive(true);
             noiseCollider.SetActive(true);
@@ -100,7 +100,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         }
 
         // Cancel tagging when mouse button is released
-        if (Input.GetMouseButtonUp(0) && isAtWall && !hasDoneThisTag)
+        if (Input.GetMouseButtonUp(0) && isAtWall && !hasDoneThisTag && playerState.GetPlayerstate() == EPlayerState.InWall)
         {
             //elapsedTime = 0;
             //tagImage.fillAmount = 0;

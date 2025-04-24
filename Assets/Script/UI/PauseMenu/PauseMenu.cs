@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour
 
     private PlayerState playerState;
 
+    private EPlayerState currentPlayerState;
+
     private void Start()
     {
         playerState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>();
@@ -39,8 +41,14 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1.0f;
         gameIsPause = false;
-        playerState.ChangePlayerState(EPlayerState.Moving);
-
+        if (currentPlayerState == EPlayerState.Moving)
+        {
+            playerState.ChangePlayerState(EPlayerState.Moving);
+        }
+        else if (currentPlayerState == EPlayerState.InWall)
+        {
+            playerState.ChangePlayerState(EPlayerState.InWall);
+        }
     }
 
     void Pause()
@@ -50,6 +58,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPause = true;
+        currentPlayerState = playerState.GetPlayerstate();
         playerState.ChangePlayerState(EPlayerState.Paused);
     }
 
