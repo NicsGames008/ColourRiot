@@ -261,7 +261,7 @@ MonoBehaviour:
   groundDistance: 0.1
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   orientation: {fileID: 9144515615938231990}
   maxStamina: 100
   currentStamina: 0

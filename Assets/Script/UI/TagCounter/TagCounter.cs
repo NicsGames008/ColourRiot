@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class TagCounter : MonoBehaviour
 {
-    [SerializeField] private int maxTags = 8;
     [SerializeField] private int levelAt = 0;
 
     private TextMeshProUGUI text;
     private Album album;
+    private int maxTags;
 
     private void Awake()
     {
         text = GetComponentInChildren<TextMeshProUGUI>();
         album = GameObject.FindGameObjectWithTag("Player").GetComponent<Album>();
+        maxTags = GameObject.FindGameObjectsWithTag("TaggableWall").Length;
     }
 
     // Start is called before the first frame update
@@ -29,7 +30,6 @@ public class TagCounter : MonoBehaviour
             }
         }
         text.text = $"{i}/{maxTags}";
-
     }
 
     // Update is called once per frame
