@@ -23,6 +23,12 @@ public class TagCounter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        if (SceneManager.GetActiveScene().name == "Appartment")
+        {
+            gameObject.SetActive(false);
+        }
+
         int tagDoneOnTheLevel = 0;
         foreach (var tag in album.tags)
         {
