@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24cbaac7f009e4840bfb99b69f3fb220, type: 3}
-  m_Name: Longus
+  m_Name: GreenM
   m_EditorClassIdentifier: 
-  id: 1
-  name: Longus
-  description: sus in the horizontal way
-  image: {fileID: 21300000, guid: 480eb2dd408c51246a6840e1b3dac669, type: 3}
-  levelUnlocked: 1
+  id: 4
+  name: Green
+  description: A green tag
+  image: {fileID: 21300000, guid: 91dc1704390e87d4399646817d6f311c, type: 3}
+  levelUnlocked: Neighborhood

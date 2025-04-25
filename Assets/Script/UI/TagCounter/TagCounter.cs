@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TagCounter : MonoBehaviour
 {
-    [SerializeField] private int levelAt = 0;
-
+    private string levelAt;
     private TextMeshProUGUI text;
     private Album album;
     private int maxTags;
@@ -16,20 +16,22 @@ public class TagCounter : MonoBehaviour
         text = GetComponentInChildren<TextMeshProUGUI>();
         album = GameObject.FindGameObjectWithTag("Player").GetComponent<Album>();
         maxTags = GameObject.FindGameObjectsWithTag("TaggableWall").Length;
+        levelAt = SceneManager.GetActiveScene().name;
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        int i = 0;
+        int tagDoneOnTheLevel = 0;
         foreach (var tag in album.tags)
         {
             if (tag.levelUnlocked == levelAt)
             {
-                i++;
+                tagDoneOnTheLevel++;
             }
         }
-        text.text = $"{i}/{maxTags}";
+        text.text = $"{tagDoneOnTheLevel}/{maxTags}";
     }
 
     // Update is called once per frame

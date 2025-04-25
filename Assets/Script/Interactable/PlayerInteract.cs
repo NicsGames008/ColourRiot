@@ -32,17 +32,30 @@ public class PlayerInteract : MonoBehaviour
         {
             IInteractable interactableObject = hitInfo.collider.GetComponent<IInteractable>(); // Get the interactable component
 
-            if (interactableObject != null && interactableObject is TagInteraction currentWall)
+            if (interactableObject != null)
             {
-                if (!currentWall.HasDoneThisTag)
+                if (interactableObject is TagInteraction currentWall)
                 {
-                    currentWall.ShowUI(true);
-                    lastInteractable = interactableObject;
-                }
+                    if (!currentWall.HasDoneThisTag)
+                    {
+                        currentWall.ShowUI(true);
+                        lastInteractable = interactableObject;
+                    }
 
-                if (Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        currentWall.Interact(gameObject);
+                    }
+                }
+                else if (interactableObject is VanInteraction currentVan)
                 {
-                    interactableObject.Interact(gameObject);
+                    currentVan.ShowUI(true);
+                    lastInteractable = interactableObject;
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        currentVan.Interact(gameObject);
+                    }
                 }
             }
         }
@@ -52,6 +65,11 @@ public class PlayerInteract : MonoBehaviour
             if (lastInteractable != null && lastInteractable is TagInteraction previousWall)
             {
                 previousWall.ShowUI(false);
+                lastInteractable = null;
+            }
+            else if (lastInteractable != null && lastInteractable is VanInteraction previousVan)
+            {
+                previousVan.ShowUI(false);
                 lastInteractable = null;
             }
         }
