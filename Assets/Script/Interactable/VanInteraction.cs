@@ -76,8 +76,6 @@ public class VanInteraction : MonoBehaviour, IInteractable
             }
         }
 
-        Debug.Log(tagDoneOnTheLevel);
-
         if (show)
         {
             if (currentUI == null && !(levelAt == "TrainStation" && tagDoneOnTheLevel > 0))

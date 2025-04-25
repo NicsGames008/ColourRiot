@@ -9161,7 +9161,7 @@ PrefabInstance:
       objectReference: {fileID: 23800000, guid: 13e9a3c29cc53a344aad3aadec6130b2, type: 2}
     - target: {fileID: 6213865744923355706, guid: d14d444377ff0104bb0f4bf61f2febe8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 6213865744923355706, guid: d14d444377ff0104bb0f4bf61f2febe8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9169,7 +9169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6213865744923355706, guid: d14d444377ff0104bb0f4bf61f2febe8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 6213865744923355706, guid: d14d444377ff0104bb0f4bf61f2febe8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9274,6 +9274,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 11957768}
     m_Modifications:
+    - target: {fileID: 1439792700109879424, guid: f7265d65b7fa0ef4a82349dd51b7c59b, type: 3}
+      propertyPath: a
+      value: Neighborhood
+      objectReference: {fileID: 0}
+    - target: {fileID: 1439792700109879424, guid: f7265d65b7fa0ef4a82349dd51b7c59b, type: 3}
+      propertyPath: levelName
+      value: TrainStation
+      objectReference: {fileID: 0}
     - target: {fileID: 5981223745758299303, guid: f7265d65b7fa0ef4a82349dd51b7c59b, type: 3}
       propertyPath: m_Name
       value: Van
