@@ -1,98 +1,69 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-// Handles patrol behavior for an enemy using Unity's NavMesh system
 public class Enemy_PatroleState : AStateBehaviour
 {
-    // Speed at which the enemy moves while patrolling
     [SerializeField] private float patrollingspeed = 3f;
-
-    // Reference to a waypoint manager that provides patrol points
-    [SerializeField] private WayPointManager waypointManager = null;
-
-    // Sound clips for suspicion and spotting the player
+    [SerializeField] private WPManager graphManager = null;
     [SerializeField] private AudioClip foundPlayerSound;
     [SerializeField] private AudioClip suspitionSound;
+    [SerializeField] private float waypointReachThreshold = 0.2f;
+    [SerializeField] private float rotationSpeed = 5f;
 
-    // Tracks the last patrol waypoint index requested
-    private int lastWayPointRequested = 0;
-
-    // Cached references
-    private NavMeshAgent agent = null;
-    private LineOfSight enemyLineOfSight = null;
-    private GameObject[] enemyNoiseDetectionGO = null;
-    private NoiseDetection enemyNoiseDetection = null;
-    private Transform susTagLocation = null;
-
-    // For playing audio clips
+    private NavMeshAgent agent;
     private AudioSource audioSource;
+    private LineOfSight enemyLineOfSight;
+    private NoiseDetection enemyNoiseDetection;
 
-    // Called once when the state is initialized by the state machine
+    private GameObject[] noiseSources;
+    private Transform susTagLocation;
+
+    private int patrolIndex = 0;
+    private List<Node> path = null;
+    private int pathIndex = 0;
+    private bool usingGraph = false;
+
+    private Coroutine patrolCoroutine;
+
     public override bool InitializeState()
     {
-        // Cache required components
         agent = GetComponent<NavMeshAgent>();
         enemyLineOfSight = GetComponent<LineOfSight>();
         audioSource = GetComponent<AudioSource>();
+        noiseSources = GameObject.FindGameObjectsWithTag("TaggableWall");
 
-        // Find all objects tagged as "TaggableWall" (used for noise detection)
-        enemyNoiseDetectionGO = GameObject.FindGameObjectsWithTag("TaggableWall");
-
-        // Initialization fails if required components are missing
-        if (agent == null || enemyLineOfSight == null)
-            return false;
-
-        return true;
+        return agent != null && enemyLineOfSight != null;
     }
 
-    // Called once when this state becomes active
     public override void OnStateStart()
     {
-        // Reset patrol index if it's invalid
-        if (!waypointManager.IsIndexValid(lastWayPointRequested))
-            lastWayPointRequested = 0;
+        agent.isStopped = false;
 
-        // Move to the first valid patrol point
-        Transform poiTransform = waypointManager.GetwaypointsAtIndex(lastWayPointRequested);
-        if (poiTransform)
-        {
-            agent.isStopped = false;
-            agent.SetDestination(poiTransform.position);
-            lastWayPointRequested++;
-        }
+        if (patrolCoroutine != null)
+            StopCoroutine(patrolCoroutine);
+
+        patrolCoroutine = StartCoroutine(PatrolRoutine());
     }
 
-    // Called every frame while this state is active
     public override void OnStateUpdate()
     {
-        // If the agent has reached its destination, move to the next patrol point
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        // NavMesh movement fallback
+        if (!usingGraph && agent.remainingDistance <= agent.stoppingDistance)
         {
-            if (!waypointManager.IsIndexValid(lastWayPointRequested))
-                lastWayPointRequested = 0;
-
-            Transform poiTransform = waypointManager.GetwaypointsAtIndex(lastWayPointRequested);
-            if (poiTransform)
-            {
-                agent.isStopped = false;
-                agent.SetDestination(poiTransform.position);
-                lastWayPointRequested++;
-            }
+            if (patrolCoroutine != null)
+                StopCoroutine(patrolCoroutine);
+            patrolCoroutine = StartCoroutine(PatrolRoutine());
         }
 
-        // Check all tagged noise sources for suspicion triggers
-        foreach (var noiseDetectionGO in enemyNoiseDetectionGO)
+        // Check for noise
+        foreach (var noiseGO in noiseSources)
         {
-            enemyNoiseDetection = noiseDetectionGO.GetComponentInChildren<NoiseDetection>();
+            enemyNoiseDetection = noiseGO.GetComponentInChildren<NoiseDetection>();
+            foreach (Transform child in noiseGO.transform)
+                if (child.name == "NoiseDetection") susTagLocation = child;
 
-            // Find the "NoiseDetection" child transform
-            foreach (Transform child in noiseDetectionGO.transform)
-            {
-                if (child != null && child.name == "NoiseDetection")
-                    susTagLocation = child;
-            }
-
-            // If the enemy detects noise it cares about, investigate
             if (enemyNoiseDetection != null && enemyNoiseDetection.HasPoliceHeardTag(gameObject))
             {
                 Debug.Log("Enemy heard a tag");
@@ -102,42 +73,143 @@ public class Enemy_PatroleState : AStateBehaviour
             }
         }
 
-        // Continuously apply patrol speed to the agent
         SetAgentSpeed(patrollingspeed);
     }
-
-    // Called once when this state ends
     public override void OnStateEnd()
     {
-        // Stop the agent when leaving this state
-        agent.isStopped = true;
+        if (patrolCoroutine != null)
+            StopCoroutine(patrolCoroutine);
+
+        if (agent.enabled)
+        {
+            agent.isStopped = true;
+        }
+
+        agent.enabled = true; // Always enable it for the next state (like chasing)
     }
 
-    // Determines if the state should transition to a new one
+
+
     public override int StateTransitionCondition()
     {
-        // If the enemy sees the player, play a sound and switch to chasing
         if (enemyLineOfSight.HasSeenPlayerThisFrame())
         {
             audioSource.PlayOneShot(foundPlayerSound);
             return (int)EEnemyState.Chasing;
         }
-
-        // Stay in patrol state by default
         return (int)EEnemyState.Invalid;
     }
 
-    // Helper method to update NavMeshAgent's movement characteristics
+    IEnumerator PatrolRoutine()
+    {
+        // Ensure state starts clean
+        usingGraph = false;
+
+        GameObject nearest = GetNearestWaypoint();
+        float distanceToNearest = Vector3.Distance(transform.position, nearest.transform.position);
+
+        // If far from graph, walk to it using NavMesh
+        if (distanceToNearest > 1.5f)
+        {
+            agent.enabled = true; // ✅ Ensure NavMesh is active
+            agent.isStopped = false;
+            agent.SetDestination(nearest.transform.position);
+
+            while (Vector3.Distance(transform.position, nearest.transform.position) > waypointReachThreshold)
+                yield return null;
+        }
+
+        // Now on a waypoint — update patrolIndex to match the closest node
+        patrolIndex = GetWaypointIndex(nearest);
+
+        // Start patrol on graph
+        agent.enabled = false; // ✅ Disable NavMeshAgent before manual movement
+        usingGraph = true;
+
+        while (true)
+        {
+            GameObject current = graphManager.waypoints[patrolIndex];
+            GameObject next = graphManager.waypoints[(patrolIndex + 1) % graphManager.waypoints.Length];
+
+
+            if (graphManager.graph.AStar(current, next))
+            {
+                path = graphManager.graph.pathList;
+                pathIndex = 1;
+
+                while (pathIndex < path.Count)
+                {
+                    Vector3 target = path[pathIndex].GetId().transform.position;
+
+                    while (Vector3.Distance(transform.position, target) > waypointReachThreshold)
+                    {
+                        // Move manually
+                        transform.position = Vector3.MoveTowards(transform.position, target, patrollingspeed * Time.deltaTime);
+
+                        // Rotate smoothly toward movement direction
+                        Vector3 dir = (target - transform.position).normalized;
+                        if (dir.magnitude > 0.1f)
+                        {
+                            Quaternion lookRot = Quaternion.LookRotation(dir);
+                            transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * rotationSpeed);
+                        }
+
+                        yield return null;
+                    }
+
+                    pathIndex++;
+                }
+
+                transform.position = next.transform.position;
+                patrolIndex = (patrolIndex + 1) % graphManager.waypoints.Length;
+            }
+            else
+            {
+                Debug.LogWarning("Failed to find path between nodes.");
+                yield return new WaitForSeconds(1f);
+            }
+
+            yield return null;
+        }
+    }
+
+
+    int GetWaypointIndex(GameObject node)
+    {
+        for (int i = 0; i < graphManager.waypoints.Length; i++)
+        {
+            if (graphManager.waypoints[i] == node)
+                return i;
+        }
+        return 0;
+    }
+
+
+    GameObject GetNearestWaypoint()
+    {
+        GameObject nearest = null;
+        float minDist = Mathf.Infinity;
+
+        foreach (GameObject wp in graphManager.waypoints)
+        {
+            float dist = Vector3.Distance(transform.position, wp.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                nearest = wp;
+            }
+        }
+
+        return nearest;
+    }
+
     void SetAgentSpeed(float newSpeed)
     {
         agent.speed = newSpeed;
-
-        // Reference speed values
         float baseSpeed = 3f;
         float baseAngularSpeed = 120f;
         float baseAcceleration = 8f;
 
-        // Adjust turn rate and acceleration relative to speed
         float speedRatio = newSpeed / baseSpeed;
         agent.angularSpeed = baseAngularSpeed * speedRatio;
         agent.acceleration = baseAcceleration * speedRatio;
