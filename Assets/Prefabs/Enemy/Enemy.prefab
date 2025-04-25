@@ -124,7 +124,7 @@ GameObject:
   m_Layer: 0
   m_Name: Waypoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -428,12 +428,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4be887ec90cf3e4c961451ee188f2a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrollingspeed: 3
+  patrollingSpeed: 3
+  waypointReachThreshold: 0.2
+  rotationSpeed: 5
   graphManager: {fileID: 6080983387878703331}
   foundPlayerSound: {fileID: 8300000, guid: fc9a746d93ac30b4db56be69c1d5a3e0, type: 3}
   suspitionSound: {fileID: 8300000, guid: 0a5fa4ed7e66bdc489e60bfd2f24fc25, type: 3}
-  waypointReachThreshold: 0.2
-  rotationSpeed: 5
 --- !u!114 &8027834658424850381
 MonoBehaviour:
   m_ObjectHideFlags: 0
