@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jump Tuning")]
     public float fallMultiplier = 2f;
     public float lowJumpMultiplier = 1.5f;
+    public float maxFallSpeed = -20f; 
 
     [Header("Keybindings")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -51,9 +52,6 @@ public class PlayerMovement : MonoBehaviour
     public Slider StaminaBar;
     public CanvasGroup staminaGroup;
     public Image staminaFill;
-    public Color fullStaminaColor = Color.green;
-    public Color midStaminaColor = Color.yellow;
-    public Color lowStaminaColor = Color.red;
 
     [Header("UI Fade")]
     private float staminaFadeTimer;
@@ -65,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     public float bobFrequency = 8f;
     public float bobAmplitude = 0.05f;
     public float sprintBobMultiplier = 1.5f;
-    //private float bobTimer = 0f;
+    private float bobTimer = 0f;
     private Vector3 headStartPos;
 
     private PlayerState playerState;
@@ -73,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerState = gameObject.GetComponent<PlayerState>();
+        playerState = GetComponent<PlayerState>();
         rb.freezeRotation = true;
 
         currentStamina = maxStamina;
@@ -85,13 +83,8 @@ public class PlayerMovement : MonoBehaviour
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
-
-
-
-
-
-        //if (headBobTarget != null)
-            //headStartPos = headBobTarget.localPosition;
+        if (headBobTarget != null)
+            headStartPos = headBobTarget.localPosition;
     }
 
     void Update()
@@ -102,7 +95,6 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
         HandleStamina();
         HandleFallStaminaDrain();
-        JumpPhysics();
 
         if (grounded) rb.drag = groundDrag;
         else rb.drag = 0;
@@ -110,15 +102,10 @@ public class PlayerMovement : MonoBehaviour
         wasGrounded = grounded;
         lastYVelocity = rb.velocity.y;
 
-      
-
         StaminaBar.value = currentStamina;
 
-        
         if (isSprinting || currentStamina < maxStamina)
-        {
             staminaFadeTimer = staminaFadeDelay;
-        }
 
         if (staminaFadeTimer > 0)
         {
@@ -130,23 +117,13 @@ public class PlayerMovement : MonoBehaviour
             staminaGroup.alpha = Mathf.Lerp(staminaGroup.alpha, 0f, Time.deltaTime * staminaFadeSpeed);
         }
 
-      
-
+       
         float percent = currentStamina / maxStamina;
+        Color lowBlue = new Color(0.1f, 0.1f, 0.3f);  
+        Color fullBlue = new Color(0.2f, 0.4f, 0.8f); 
+        staminaFill.color = Color.Lerp(lowBlue, fullBlue, percent);
 
-        if (percent > 0.5f)
-        {
-            float t = (percent - 0.5f) * 2f;
-            staminaFill.color = Color.Lerp(midStaminaColor, fullStaminaColor, t);
-        }
-        else
-        {
-            float t = percent * 2f;
-            staminaFill.color = Color.Lerp(lowStaminaColor, midStaminaColor, t);
-        }
-
-      
-        //ApplyHeadBob();
+        // ApplyHeadBob(); // optional toggle
     }
 
     void FixedUpdate()
@@ -155,6 +132,8 @@ public class PlayerMovement : MonoBehaviour
         {
             MovePlayer();
         }
+
+        ApplyJumpGravity(); 
     }
 
     private void MyInput()
@@ -175,8 +154,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         float currentSpeed = moveSpeed;
-        if (isSprinting)
-            currentSpeed *= sprintMultiplier;
+        if (isSprinting) currentSpeed *= sprintMultiplier;
 
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         moveDirection = moveDirection.normalized;
@@ -193,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
         if (flatVel.magnitude > maxSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * maxSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, rb.velocity.z);
         }
     }
 
@@ -240,44 +218,53 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void JumpPhysics()
+    private void ApplyJumpGravity()
     {
         if (!grounded)
         {
+            Vector3 gravityAdjustment = Vector3.zero;
+
             if (rb.velocity.y < 0)
             {
-                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1f) * Time.deltaTime;
+                gravityAdjustment = Vector3.up * Physics.gravity.y * (fallMultiplier - 1f);
             }
             else if (rb.velocity.y > 0 && !Input.GetKey(jumpKey))
             {
-                rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1f) * Time.deltaTime;
+                gravityAdjustment = Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1f);
+            }
+
+            rb.velocity += gravityAdjustment * Time.fixedDeltaTime;
+
+            
+            if (rb.velocity.y < maxFallSpeed)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, maxFallSpeed, rb.velocity.z);
             }
         }
     }
 
-    //private void ApplyHeadBob()
-    //{
-       // if (headBobTarget == null) return;
+    private void ApplyHeadBob()
+    {
+        if (headBobTarget == null) return;
 
-       // bool isMoving = horizontalInput != 0 || verticalInput != 0;
-      //  float speedFactor = isSprinting ? sprintBobMultiplier : 1f;
+        bool isMoving = horizontalInput != 0 || verticalInput != 0;
+        float speedFactor = isSprinting ? sprintBobMultiplier : 1f;
 
-       // if (grounded && isMoving)
-       // {
-          //  bobTimer += Time.deltaTime * bobFrequency * speedFactor;
+        if (grounded && isMoving)
+        {
+            bobTimer += Time.deltaTime * bobFrequency * speedFactor;
 
-           // float bobOffsetY = Mathf.Sin(bobTimer) * bobAmplitude;
-          //  float bobOffsetX = Mathf.Cos(bobTimer * 0.5f) * bobAmplitude * 0.5f;
+            float bobOffsetY = Mathf.Sin(bobTimer) * bobAmplitude;
+            float bobOffsetX = Mathf.Cos(bobTimer * 0.5f) * bobAmplitude * 0.5f;
 
-        //    headBobTarget.localPosition = headStartPos + new Vector3(bobOffsetX, bobOffsetY, 0f);
-      //  }
-     //   else
-      //  {
-            // Smooth return to idle position
-      //      headBobTarget.localPosition = Vector3.Lerp(headBobTarget.localPosition, headStartPos, Time.deltaTime * 5f);
-      //      bobTimer = 0f;
-      //  }
-   // }
+            headBobTarget.localPosition = headStartPos + new Vector3(bobOffsetX, bobOffsetY, 0f);
+        }
+        else
+        {
+            headBobTarget.localPosition = Vector3.Lerp(headBobTarget.localPosition, headStartPos, Time.deltaTime * 5f);
+            bobTimer = 0f;
+        }
+    }
 
     void OnDrawGizmosSelected()
     {

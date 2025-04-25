@@ -404,6 +404,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8069726355034655806, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -802,9 +806,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcName: Vinz
-  dialogueLine: Hey there! Wanna tag something?
+  dialogueLine: Hey M ready to go have some fun?
+  dialogueChoice: Start the mission? (Y/N)
   sceneToLoad: Scenes/Neighborhood
-  sceneLoadDelay: 2
+  sceneLoadDelay: 6
+  dialoguePanel: {fileID: 1456850463}
+  dialogueText: {fileID: 2124286467}
+  dialogueDuration: 5
+  interactionPromptGroup: {fileID: 1884826359}
+  fadeSpeed: 4
 --- !u!65 &962706404
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -931,6 +941,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217965852}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1456850463 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1447020792920272981, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+  m_PrefabInstance: {fileID: 302469555}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1560999507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1145,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9144515615938231990, guid: a964d186b2173414995eabd2a49f326c, type: 3}
   m_PrefabInstance: {fileID: 1861498193}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &1884826359 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 5404215362051596509, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+  m_PrefabInstance: {fileID: 302469555}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1906592210 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6094699871802037377, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
@@ -1240,6 +1260,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2034322695}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2124286467 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1696620435552704180, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+  m_PrefabInstance: {fileID: 302469555}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

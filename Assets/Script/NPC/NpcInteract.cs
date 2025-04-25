@@ -1,53 +1,84 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
 
 public class NPCInteract : MonoBehaviour
 {
-
-
     [Header("NPC Info")]
     public string npcName = "Vinz";
     [TextArea] public string dialogueLine = "Hey there! Wanna tag something?";
+    [TextArea] public string dialogueChoice = "Start the mission? (Y/N)";
 
     [Header("Mission")]
-    public string sceneToLoad; 
+    public string sceneToLoad;
     public float sceneLoadDelay = 2f;
+
+    [Header("Dialogue UI")]
+    public GameObject dialoguePanel;
+    public TextMeshProUGUI dialogueText;
+    public float dialogueDuration = 3f;
+
+    [Header("Prompt UI")]
+    public CanvasGroup interactionPromptGroup;
+    public float fadeSpeed = 4f;
 
     private bool isPlayerNear = false;
     private bool transitioning = false;
+    private bool waitingForChoice = false;
 
     void Update()
     {
-        if (isPlayerNear && Input.GetKeyDown(KeyCode.E))
+        if (isPlayerNear && Input.GetKeyDown(KeyCode.E) && !transitioning)
         {
-            Interact();
+            StartDialogue();
         }
-    }
 
-
-
-
-    void Interact()
-    {
-        if (!transitioning)
+        if (waitingForChoice)
         {
-            Debug.Log($"[NPC: {npcName}] says: {dialogueLine}");
-            transitioning = true;
-
-            if (!string.IsNullOrEmpty(sceneToLoad))
+            if (Input.GetKeyDown(KeyCode.Y))
             {
-                Debug.Log("Preparing to load mission scene...");
+                waitingForChoice = false;
                 StartCoroutine(LoadSceneAfterDelay());
             }
+            else if (Input.GetKeyDown(KeyCode.N))
+            {
+                waitingForChoice = false;
+                CloseDialogue();
+            }
+        }
+
+        HandlePromptFade();
+    }
+
+    void StartDialogue()
+    {
+        transitioning = true;
+        ShowDialogue(dialogueLine + "\n\n" + dialogueChoice);
+        waitingForChoice = true;
+    }
+
+    void ShowDialogue(string text)
+    {
+        if (dialoguePanel != null && dialogueText != null)
+        {
+            dialoguePanel.SetActive(true);
+            dialogueText.text = text;
         }
     }
 
+    void CloseDialogue()
+    {
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
 
+        transitioning = false;
+    }
 
     IEnumerator LoadSceneAfterDelay()
     {
-        yield return new WaitForSeconds(sceneLoadDelay);
+        ShowDialogue("Awesome. Let's go!");
+        yield return new WaitForSeconds(dialogueDuration);
         SceneManager.LoadScene(sceneToLoad);
     }
 
@@ -56,25 +87,24 @@ public class NPCInteract : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNear = true;
-            ShowPrompt(true);
         }
     }
-
-
-
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerNear = false;
-            ShowPrompt(false);
+            CloseDialogue();
         }
     }
 
-
-    void ShowPrompt(bool show)
+    void HandlePromptFade()
     {
-        Debug.Log(show ? "[E] Talk" : "Out of range.");
+        if (interactionPromptGroup == null) return;
+
+        float targetAlpha = isPlayerNear && !transitioning ? 1f : 0f;
+        interactionPromptGroup.alpha = Mathf.Lerp(interactionPromptGroup.alpha, targetAlpha, Time.deltaTime * fadeSpeed);
+        interactionPromptGroup.blocksRaycasts = targetAlpha > 0.1f;
     }
 }
