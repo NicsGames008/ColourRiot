@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jump Tuning")]
     public float fallMultiplier = 2f;
     public float lowJumpMultiplier = 1.5f;
-    public float maxFallSpeed = -20f; 
+    public float maxFallSpeed = -20f; // Optional clamp for falling speed
 
     [Header("Keybindings")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private bool grounded;
     private bool wasGrounded;
 
-    public Transform orientation;
+    public Transform orientation; // CAMERA orientation
 
     private float horizontalInput;
     private float verticalInput;
@@ -91,6 +91,8 @@ public class PlayerMovement : MonoBehaviour
     {
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
+        RotatePlayerToCamera(); // <-- Added rotation to match camera
+
         MyInput();
         SpeedControl();
         HandleStamina();
@@ -117,13 +119,13 @@ public class PlayerMovement : MonoBehaviour
             staminaGroup.alpha = Mathf.Lerp(staminaGroup.alpha, 0f, Time.deltaTime * staminaFadeSpeed);
         }
 
-       
+        // 🌀 Stamina bar color: dark blue to vibrant blue
         float percent = currentStamina / maxStamina;
-        Color lowBlue = new Color(0.1f, 0.1f, 0.3f);  
-        Color fullBlue = new Color(0.2f, 0.4f, 0.8f); 
+        Color lowBlue = new Color(0.1f, 0.1f, 0.3f);
+        Color fullBlue = new Color(0.2f, 0.4f, 0.8f);
         staminaFill.color = Color.Lerp(lowBlue, fullBlue, percent);
 
-        // ApplyHeadBob(); // optional toggle
+        // ApplyHeadBob(); // Optional toggle
     }
 
     void FixedUpdate()
@@ -133,7 +135,16 @@ public class PlayerMovement : MonoBehaviour
             MovePlayer();
         }
 
-        ApplyJumpGravity(); 
+        ApplyJumpGravity(); // Frame-rate independent jump gravity
+    }
+
+    private void RotatePlayerToCamera()
+    {
+        Vector3 viewDirection = new Vector3(orientation.forward.x, 0f, orientation.forward.z).normalized;
+        if (viewDirection.magnitude >= 0.1f)
+        {
+            transform.forward = viewDirection;
+        }
     }
 
     private void MyInput()
@@ -159,8 +170,14 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         moveDirection = moveDirection.normalized;
 
-        float speedMultiplier = grounded ? 1f : airMultiplier;
-        rb.AddForce(moveDirection * currentSpeed * 10f * speedMultiplier, ForceMode.Force);
+        if (grounded)
+        {
+            rb.AddForce(moveDirection * currentSpeed * 10f, ForceMode.Force);
+        }
+        else
+        {
+            rb.AddForce(moveDirection * currentSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
     }
 
     private void SpeedControl()
@@ -177,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); // reset vertical velocity
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
@@ -235,7 +252,7 @@ public class PlayerMovement : MonoBehaviour
 
             rb.velocity += gravityAdjustment * Time.fixedDeltaTime;
 
-            
+            // Clamp falling speed
             if (rb.velocity.y < maxFallSpeed)
             {
                 rb.velocity = new Vector3(rb.velocity.x, maxFallSpeed, rb.velocity.z);
