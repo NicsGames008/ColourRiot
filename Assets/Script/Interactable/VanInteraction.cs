@@ -49,12 +49,13 @@ public class VanInteraction : MonoBehaviour, IInteractable
             if (levelAt == "Neighborhood")
             {
                 Debug.Log("Go to appartment from Neighborhood");
-                //SceneManager.LoadScene("Appartment");
+                AlbumManager.Instance.AddTagsFromAlbum();
+                SceneManager.LoadScene("Appartment");
             }
             else if (levelAt == "TrainStation" && tagDoneOnTheLevel == 0)
             {
                 Debug.Log("Go to appartment from Train Station");
-                //SceneManager.LoadScene("Appartment");
+                SceneManager.LoadScene("Appartment");
             }
             else
             {

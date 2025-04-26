@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Album : MonoBehaviour
 {
@@ -11,19 +9,21 @@ public class Album : MonoBehaviour
 
     public List<Tag> tags = new List<Tag>();
 
-    private void Awake()
+    private IEnumerator Start()
     {
-        // Ensure that there is only one instance of Inventory
-        if (Instance == null)
-        {
+        if(Instance == null)
             Instance = this;
-            
-        }
         else
-        {
             Destroy(gameObject); // Destroy duplicate instances
+
+        while (AlbumManager.Instance == null)
+        {
+            yield return null; // wait until next frame
         }
+
+        AlbumManager.Instance.AddStoredTagsToAlbum();
     }
+
 
     public void Add(Tag item)
     {
