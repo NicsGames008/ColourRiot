@@ -8804,6 +8804,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4198285732690566482, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7132302983056737930, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_Name
       value: UI
@@ -9170,6 +9174,10 @@ PrefabInstance:
     - target: {fileID: 891059569383434253, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: m_FillOrigin
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2522960111008123185, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: m_Parameters.numCornerVertices
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2661175143770267691, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: m_LocalPosition.y

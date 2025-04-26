@@ -5,7 +5,7 @@ using UnityEngine;
 public class MetallicOscilator : MonoBehaviour
 {
     private Material targetMaterial;
-    [SerializeField] private float speed = 2f;
+    [SerializeField] private float speed = 0.25f;
 
     private float metallicValue = 0f;
     private bool increasing = true;
@@ -32,9 +32,9 @@ public class MetallicOscilator : MonoBehaviour
         if (increasing)
         {
             metallicValue += Time.deltaTime * speed;
-            if (metallicValue >= 0.5f)
+            if (metallicValue >= 0.75f)
             {
-                metallicValue = 0.5f;
+                metallicValue = 0.75f;
                 increasing = false;
             }
         }
