@@ -6,16 +6,17 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 6f;
-    public float groundDrag;
+    public float groundDrag = 5f;
     public float jumpForce = 8f;
-    public float jumpCooldown;
-    public float airMultiplier;
+    public float jumpCooldown = 0.2f;
+    public float airMultiplier = 3f; // Stronger mid-air control!
+
     private bool readyToJump = true;
 
     [Header("Jump Tuning")]
     public float fallMultiplier = 2f;
     public float lowJumpMultiplier = 1.5f;
-    public float maxFallSpeed = -20f; 
+    public float maxFallSpeed = -20f;
 
     [Header("Keybindings")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -29,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private bool grounded;
     private bool wasGrounded;
 
-    public Transform orientation;
+    public Transform orientation; // CAMERA orientation
 
     private float horizontalInput;
     private float verticalInput;
@@ -92,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         MyInput();
-        SpeedControl();
         HandleStamina();
         HandleFallStaminaDrain();
 
@@ -117,13 +117,13 @@ public class PlayerMovement : MonoBehaviour
             staminaGroup.alpha = Mathf.Lerp(staminaGroup.alpha, 0f, Time.deltaTime * staminaFadeSpeed);
         }
 
-       
+        // Stamina bar color (dark blue -> vibrant blue)
         float percent = currentStamina / maxStamina;
-        Color lowBlue = new Color(0.1f, 0.1f, 0.3f);  
-        Color fullBlue = new Color(0.2f, 0.4f, 0.8f); 
+        Color lowBlue = new Color(0.1f, 0.1f, 0.3f);
+        Color fullBlue = new Color(0.2f, 0.4f, 0.8f);
         staminaFill.color = Color.Lerp(lowBlue, fullBlue, percent);
 
-        // ApplyHeadBob(); // optional toggle
+        // ApplyHeadBob(); // optional
     }
 
     void FixedUpdate()
@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
             MovePlayer();
         }
 
-        ApplyJumpGravity(); 
+        ApplyJumpGravity();
     }
 
     private void MyInput()
@@ -143,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
 
         isSprinting = Input.GetKey(sprintKey) && grounded && currentStamina > 0;
 
-        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded)
+        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded && Mathf.Abs(rb.velocity.y) < 0.2f)
         {
             readyToJump = false;
             Jump();
@@ -159,25 +159,33 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         moveDirection = moveDirection.normalized;
 
-        float speedMultiplier = grounded ? 1f : airMultiplier;
-        rb.AddForce(moveDirection * currentSpeed * 10f * speedMultiplier, ForceMode.Force);
+        Vector3 desiredMove = moveDirection * currentSpeed;
+
+        if (grounded)
+        {
+            rb.velocity = new Vector3(desiredMove.x, rb.velocity.y, desiredMove.z);
+        }
+        else
+        {
+            rb.velocity = new Vector3(
+                Mathf.Lerp(rb.velocity.x, desiredMove.x, airMultiplier * Time.fixedDeltaTime),
+                rb.velocity.y,
+                Mathf.Lerp(rb.velocity.z, desiredMove.z, airMultiplier * Time.fixedDeltaTime)
+            );
+        }
     }
 
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        float maxSpeed = moveSpeed * (isSprinting ? sprintMultiplier : 1f);
-
-        if (flatVel.magnitude > maxSpeed)
-        {
-            Vector3 limitedVel = flatVel.normalized * maxSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, rb.velocity.z);
-        }
+        // No longer needed because velocity is directly controlled!
     }
 
     private void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        Vector3 velocity = rb.velocity;
+        velocity.y = 0f; // Reset only vertical velocity
+        rb.velocity = velocity;
+
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
@@ -235,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
 
             rb.velocity += gravityAdjustment * Time.fixedDeltaTime;
 
-            
+            // Clamp fall speed
             if (rb.velocity.y < maxFallSpeed)
             {
                 rb.velocity = new Vector3(rb.velocity.x, maxFallSpeed, rb.velocity.z);
