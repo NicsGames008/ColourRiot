@@ -8122,18 +8122,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0.4528302
-      objectReference: {fileID: 0}
-    - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.4528302
-      objectReference: {fileID: 0}
-    - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.4528302
-      objectReference: {fileID: 0}
-    - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
