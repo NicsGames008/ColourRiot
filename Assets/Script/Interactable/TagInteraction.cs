@@ -152,8 +152,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
         sprayParticle.Stop();
 
         // Disable movement and camera while tagging
-        //playerMovement.enabled = false;
-        //playerCam.enabled = false;
         playerState.ChangePlayerState(EPlayerState.InWall);
     }
 
@@ -162,8 +160,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
     {
         Debug.Log("Stopped Interacting with a wall");
 
-        //playerMovement.enabled = true;
-        //playerCam.enabled = true;
         playerState.ChangePlayerState(EPlayerState.Moving);
         isAtWall = false;
 
