@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag = 5f;
     public float jumpForce = 8f;
     public float jumpCooldown = 0.2f;
-    public float airMultiplier = 3f; // Stronger mid-air control!
+    public float airMultiplier = 3f;
 
     private bool readyToJump = true;
 
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private bool grounded;
     private bool wasGrounded;
 
-    public Transform orientation; // CAMERA orientation
+    public Transform orientation; 
 
     private float horizontalInput;
     private float verticalInput;
@@ -69,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerState playerState;
 
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -87,6 +89,8 @@ public class PlayerMovement : MonoBehaviour
         if (headBobTarget != null)
             headStartPos = headBobTarget.localPosition;
     }
+
+
 
     void Update()
     {
@@ -117,13 +121,18 @@ public class PlayerMovement : MonoBehaviour
             staminaGroup.alpha = Mathf.Lerp(staminaGroup.alpha, 0f, Time.deltaTime * staminaFadeSpeed);
         }
 
-        // Stamina bar color (dark blue -> vibrant blue)
+    
+
+
+
         float percent = currentStamina / maxStamina;
         Color lowBlue = new Color(0.1f, 0.1f, 0.3f);
         Color fullBlue = new Color(0.2f, 0.4f, 0.8f);
         staminaFill.color = Color.Lerp(lowBlue, fullBlue, percent);
 
-        // ApplyHeadBob(); // optional
+
+
+
     }
 
     void FixedUpdate()
@@ -175,19 +184,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void SpeedControl()
-    {
-        // No longer needed because velocity is directly controlled!
-    }
+    
+
+
 
     private void Jump()
     {
         Vector3 velocity = rb.velocity;
-        velocity.y = 0f; // Reset only vertical velocity
+        velocity.y = 0f; 
         rb.velocity = velocity;
 
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
+
+
+
 
     private void ResetJump()
     {
@@ -210,6 +221,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+
+
     private void HandleFallStaminaDrain()
     {
         if (!wasGrounded && grounded)
@@ -225,6 +239,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+
+
 
     private void ApplyJumpGravity()
     {
@@ -251,6 +268,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+
+
     private void ApplyHeadBob()
     {
         if (headBobTarget == null) return;
@@ -273,6 +293,9 @@ public class PlayerMovement : MonoBehaviour
             bobTimer = 0f;
         }
     }
+
+
+
 
     void OnDrawGizmosSelected()
     {
