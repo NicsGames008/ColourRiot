@@ -66,13 +66,16 @@ public class Ladder : MonoBehaviour
             Debug.Log("Exited ladder trigger");
             isClimbing = false;
 
-           
-
-
             playerMovement.enabled = true;
             rb.useGravity = true;
+
+            Vector3 ladderForward = other.transform.forward;
+            Vector3 pushDirection = ladderForward + Vector3.up;
+            rb.AddForce(pushDirection.normalized * 8f, ForceMode.Impulse);
         }
     }
+
+
 
     void Update()
     {
