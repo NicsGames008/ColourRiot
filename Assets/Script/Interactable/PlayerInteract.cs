@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerInteract : MonoBehaviour
 {
+    [SerializeField] private float distanceToInteract;
+
     private Camera MainCamera; // Reference to the main camera
     private GameObject player; // Reference to the player object
     private IInteractable lastInteractable = null;
@@ -21,14 +23,13 @@ public class PlayerInteract : MonoBehaviour
         if (player == null)
             return;
 
-        float distance = 3f; // Maximum interaction distance
         Vector3 RayOrigin = player.transform.position; // Set ray origin to the player's position
         Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition); // Create a ray from the mouse positione
 
         int interactableLayerMask = 1 << LayerMask.NameToLayer("Interactable"); // Define the interactable layer mask
 
         // Cast a ray from the camera towards the mouse position to check for interactable objects
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, distance, interactableLayerMask))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, distanceToInteract, interactableLayerMask))
         {
             IInteractable interactableObject = hitInfo.collider.GetComponent<IInteractable>(); // Get the interactable component
 

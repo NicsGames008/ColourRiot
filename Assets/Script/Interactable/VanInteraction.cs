@@ -10,13 +10,15 @@ public class VanInteraction : MonoBehaviour, IInteractable
     private GameObject currentUI; // Instance of the feedback UI
     private Album album;
 
-    [SerializeField] private string levelAt;
+    private int maxTags;
+    private string levelAt;
 
     // Start is called before the first frame update
     void Start()
     {
         album = GameObject.FindGameObjectWithTag("Player").GetComponent<Album>();
         levelAt = SceneManager.GetActiveScene().name;
+        maxTags = GameObject.FindGameObjectsWithTag("TaggableWall").Length;
     }
 
     // Update is called once per frame
@@ -52,7 +54,7 @@ public class VanInteraction : MonoBehaviour, IInteractable
                 AlbumManager.Instance.AddTagsFromAlbum();
                 SceneManager.LoadScene("Appartment");
             }
-            else if (levelAt == "TrainStation" && tagDoneOnTheLevel == 0)
+            else if (levelAt == "TrainStation" && (tagDoneOnTheLevel == 0 || tagDoneOnTheLevel == maxTags))
             {
                 Debug.Log("Go to appartment from Train Station");
                 SceneManager.LoadScene("Appartment");
@@ -79,7 +81,7 @@ public class VanInteraction : MonoBehaviour, IInteractable
 
         if (show)
         {
-            if (currentUI == null && !(levelAt == "TrainStation" && tagDoneOnTheLevel > 0))
+            if (currentUI == null && !(levelAt == "TrainStation" && tagDoneOnTheLevel > 0 && tagDoneOnTheLevel < maxTags))
             {
                 currentUI = Instantiate(visualFeedBackInteraction);
             }
