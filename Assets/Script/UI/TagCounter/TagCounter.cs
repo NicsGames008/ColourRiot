@@ -11,12 +11,19 @@ public class TagCounter : MonoBehaviour
     private Album album;
     private int maxTags;
 
+
+    private bool timerStarted = false; 
+    private TimerManager timerManager;
+
     private void Awake()
     {
         text = GetComponentInChildren<TextMeshProUGUI>();
         album = GameObject.FindGameObjectWithTag("Player").GetComponent<Album>();
         maxTags = GameObject.FindGameObjectsWithTag("TaggableWall").Length;
         levelAt = SceneManager.GetActiveScene().name;
+
+
+        timerManager = FindObjectOfType<TimerManager>();
 
     }
 
@@ -52,6 +59,16 @@ public class TagCounter : MonoBehaviour
             }
         }
         text.text = $"{tagDoneOnTheLevel}/{maxTags}";
+
+        if (tagDoneOnTheLevel > 0 && !timerStarted)
+        {
+            timerStarted = true;
+            if (timerManager != null)
+            {
+                timerManager.StartTimer();
+            }
+        }
+
 
         if (tagDoneOnTheLevel == maxTags)
         {
