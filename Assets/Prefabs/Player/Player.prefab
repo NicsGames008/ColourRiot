@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 5129146984325050796}
   - component: {fileID: 7079369864558430127}
   - component: {fileID: 772306704802995393}
+  - component: {fileID: 8196671168657736967}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -255,6 +256,7 @@ MonoBehaviour:
   airMultiplier: 0.4
   fallMultiplier: 2
   lowJumpMultiplier: 1.5
+  maxFallSpeed: -20
   jumpKey: 32
   sprintKey: 304
   groundCheck: {fileID: 7751026925205438580}
@@ -272,9 +274,6 @@ MonoBehaviour:
   StaminaBar: {fileID: 0}
   staminaGroup: {fileID: 0}
   staminaFill: {fileID: 0}
-  fullStaminaColor: {r: 0, g: 1, b: 0, a: 1}
-  midStaminaColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  lowStaminaColor: {r: 1, g: 0, b: 0, a: 1}
   staminaFadeDelay: 1.5
   staminaFadeSpeed: 2
   headBobTarget: {fileID: 0}
@@ -332,3 +331,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathScreen: {fileID: 0}
+--- !u!114 &8196671168657736967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5006479102293079289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c812cf59bf0293740ad7e7f5af07d383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagToCheatIntoAlbumNeighbotHood: {fileID: 11400000, guid: b85b2776d4422a84487fb94aeb86ca8b, type: 2}
+  tagToCheatIntoAlbumTrainStation: {fileID: 11400000, guid: 0b6081922d8ee2240a208e0d76226985, type: 2}

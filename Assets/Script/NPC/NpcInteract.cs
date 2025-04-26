@@ -43,7 +43,7 @@ public class NPCInteract : MonoBehaviour
         StartCoroutine(DelayedSceneCheck());
     }
 
-    private IEnumerator DelayedSceneCheck()
+    public IEnumerator DelayedSceneCheck()
     {
         yield return null; // Wait 1 frame to let everything initialize
 
