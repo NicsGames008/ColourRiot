@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Xml.Linq;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 

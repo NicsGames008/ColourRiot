@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TrainStation.unity
     guid: fb05c8fdbe7dba744b79585e3dcaa939
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tests/DitoMov.unity
     guid: 22c4d3a3fa6b78f4c83ab69c5e3f53f2
   m_configObjects: {}
