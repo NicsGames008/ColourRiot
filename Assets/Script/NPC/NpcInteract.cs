@@ -26,6 +26,44 @@ public class NPCInteract : MonoBehaviour
     private bool isPlayerNear = false;
     private bool transitioning = false;
     private bool waitingForChoice = false;
+    private Album album;
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartCoroutine(DelayedSceneCheck());
+    }
+
+    private IEnumerator DelayedSceneCheck()
+    {
+        yield return null; // Wait 1 frame to let everything initialize
+
+        sceneToLoad = "Neighborhood";
+        album = GameObject.FindGameObjectWithTag("Player").GetComponent<Album>();
+
+        int tagOnNeighborhood = 0;
+        foreach (var tag in album.tags)
+        {
+            if (tag.levelUnlocked == "Neighborhood")
+            {
+                tagOnNeighborhood++;
+            }
+        }
+        if (tagOnNeighborhood >= 10)
+        {
+            sceneToLoad = "TrainStation";
+        }
+    }
+
 
     void Update()
     {
@@ -78,7 +116,7 @@ public class NPCInteract : MonoBehaviour
     IEnumerator LoadSceneAfterDelay()
     {
         ShowDialogue("Awesome. Let's go!");
-        yield return new WaitForSeconds(dialogueDuration);
+        yield return new WaitForSeconds(sceneLoadDelay);
         SceneManager.LoadScene(sceneToLoad);
     }
 

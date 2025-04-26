@@ -6,7 +6,7 @@ public class AlbumManager : MonoBehaviour
 {
     public static AlbumManager Instance { get; private set; }
 
-    [SerializeField ]private List<Tag> storedTags = new List<Tag>();
+    [SerializeField] private List<Tag> storedTags = new List<Tag>();
 
     private void Awake()
     {
@@ -22,7 +22,6 @@ public class AlbumManager : MonoBehaviour
         }
     }
 
-    // Push stored tags into the Album if they are not already there
     public void AddStoredTagsToAlbum()
     {
         if (Album.Instance == null)
@@ -31,16 +30,11 @@ public class AlbumManager : MonoBehaviour
             return;
         }
 
-        foreach (Tag tag in storedTags)
-        {
-            if (!Album.Instance.tags.Contains(tag))
-            {
-                Album.Instance.tags.Add(tag);
-            }
-        }
+        Album.Instance.tags.Clear(); // First, clear the Album's tag list
+        Album.Instance.tags.AddRange(storedTags); // Then, add all storedTags
     }
 
-    // Add any missing tags from Album into AlbumManager's storedTags
+
     public void AddTagsFromAlbum()
     {
         if (Album.Instance == null)
@@ -49,14 +43,10 @@ public class AlbumManager : MonoBehaviour
             return;
         }
 
-        foreach (Tag tag in Album.Instance.tags)
-        {
-            if (!storedTags.Contains(tag))
-            {
-                storedTags.Add(tag);
-            }
-        }
+        storedTags.Clear(); // First, clear the stored tags
+        storedTags.AddRange(Album.Instance.tags); // Then, add all Album tags
     }
+
 
 
     // Get the stored list

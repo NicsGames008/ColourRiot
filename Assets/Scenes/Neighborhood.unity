@@ -8990,6 +8990,46 @@ PrefabInstance:
       propertyPath: deathScreen
       value: 
       objectReference: {fileID: 514583143}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
     - target: {fileID: 4171929169890430986, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: StaminaBar
       value: 
