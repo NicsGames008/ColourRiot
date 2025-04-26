@@ -50,11 +50,9 @@ public class Ladder : MonoBehaviour
            
 
 
-            Vector3 exitPos = transform.position + transform.forward * 0.5f;
-            exitPos.y += 0.2f; 
-            transform.position = exitPos;
-
-            rb.velocity = Vector3.zero;
+             Vector3 ladderForward = other.transform.forward;
+            Vector3 pushDirection = ladderForward + Vector3.up;
+            rb.AddForce(pushDirection.normalized * 3f, ForceMode.Impulse);
         }
 
     }
@@ -71,7 +69,7 @@ public class Ladder : MonoBehaviour
 
             Vector3 ladderForward = other.transform.forward;
             Vector3 pushDirection = ladderForward + Vector3.up;
-            rb.AddForce(pushDirection.normalized * 8f, ForceMode.Impulse);
+            rb.AddForce(pushDirection.normalized * 3f, ForceMode.Impulse);
         }
     }
 
