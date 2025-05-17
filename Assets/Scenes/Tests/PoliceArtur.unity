@@ -221,10 +221,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1821513841804058441, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
       insertIndex: -1
       addedObject: {fileID: 836904151}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6328455883242195377, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 827718673}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
 --- !u!1 &88192810
 GameObject:
@@ -709,11 +706,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2.011
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.425
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
@@ -937,23 +934,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1221336273928779128, guid: a964d186b2173414995eabd2a49f326c, type: 3}
   m_PrefabInstance: {fileID: 229424558}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &827718662 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6328455883242195377, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
-  m_PrefabInstance: {fileID: 55700522}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &827718673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827718662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b89cdce5ab1e13b498e5e7d7cc11399c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &836904150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,11 +1604,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.42
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
@@ -1940,14 +1920,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 1.7000008
-      objectReference: {fileID: 0}
-    - target: {fileID: 4585292842931126315, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.42000008
-      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
