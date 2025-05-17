@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8787246660698982612}
   m_Layer: 8
-  m_Name: MediumBuilding
+  m_Name: MediumBuilding2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 77492ab19a6722448a907b99e5f9e02b, type: 2}
+  - {fileID: 7498461928983958705, guid: 4fa26d1a6072619479797a07c814950d, type: 3}
   - {fileID: -2813467912831258332, guid: 4fa26d1a6072619479797a07c814950d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
