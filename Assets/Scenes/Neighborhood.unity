@@ -4108,7 +4108,7 @@ Transform:
   m_GameObject: {fileID: 614470004}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -57.73, y: -0.44, z: -14}
+  m_LocalPosition: {x: -57.73, y: 0, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9768,7 +9768,7 @@ Transform:
   m_GameObject: {fileID: 1706155320}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 43, y: -0.44, z: -14}
+  m_LocalPosition: {x: 43, y: 0, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10307,6 +10307,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4379934690953746762, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
+    - target: {fileID: 4379934690953746762, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4942779118627166059, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -10318,6 +10326,28 @@ PrefabInstance:
     - target: {fileID: 5050721911786315518, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: maxTags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153969667630408227, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_text
+      value: '[E] t
+
+        o Talks'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153969667630408227, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
+    - target: {fileID: 6153969667630408227, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362769529750057272, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
+    - target: {fileID: 6362769529750057272, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7132302983056737930, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_Name
@@ -10332,16 +10362,40 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
+    - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+      objectReference: {fileID: 1561018525762547838, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
     - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4285756275
       objectReference: {fileID: 0}
+    - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8179360887576551385, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250200461959390775, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
+    - target: {fileID: 8250200461959390775, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182197454683144879, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
+    - target: {fileID: 9182197454683144879, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11241,6 +11295,10 @@ PrefabInstance:
       propertyPath: sprayParticle
       value: 
       objectReference: {fileID: 1614179218}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: movingToWalTime
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5636826986996571839, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: m_Name
       value: Interactable Wall (1)
@@ -11549,7 +11607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4870788653286965232, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -7.97
       objectReference: {fileID: 0}
     - target: {fileID: 4870788653286965232, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11557,7 +11615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4870788653286965232, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 85
+      value: 42.53
       objectReference: {fileID: 0}
     - target: {fileID: 4870788653286965232, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12310,7 +12368,7 @@ Transform:
   m_GameObject: {fileID: 2108732249}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.4300003, y: -0.44, z: -14}
+  m_LocalPosition: {x: -4.4300003, y: 0, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

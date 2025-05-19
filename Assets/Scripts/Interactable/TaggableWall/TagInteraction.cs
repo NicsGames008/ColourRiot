@@ -196,15 +196,15 @@ public class TagInteraction : MonoBehaviour, IInteractable
     public IEnumerator SmoothRotatePlayer()
     {
         if (cam.transform.rotation != lockedPlayerPosistion.transform.rotation)
-        {
-            float time = 0f;
+        {  
+            float time = Time.deltaTime;
             Quaternion startRotation = cam.transform.rotation;
             Quaternion endRotation = lockedPlayerPosistion.transform.rotation;
 
             while (time < movingToWalTime)
             {
                 cam.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time / movingToWalTime);
-                time += Time.unscaledDeltaTime;
+                time += Time.deltaTime;
                 yield return null;
             }
 
@@ -218,18 +218,23 @@ public class TagInteraction : MonoBehaviour, IInteractable
     {
         if (player.transform.position != lockedPlayerPosistion.transform.position)
         {
-            float time = 0f;
+            float time = Time.deltaTime;
             Vector3 startPosition = player.transform.position;
             Vector3 endPosition = lockedPlayerPosistion.transform.position;
+            player.GetComponent<Rigidbody>().useGravity = false;
+            player.GetComponent<Rigidbody>().isKinematic = true;
 
             while (time < movingToWalTime)
             {
-                player.transform.position = Vector3.Lerp(startPosition, endPosition, time / movingToWalTime);
-                time += Time.unscaledDeltaTime;
+                player.GetComponent<Rigidbody>().position = Vector3.Lerp(startPosition, endPosition, time / movingToWalTime);
+                time += Time.deltaTime;
                 yield return null;
             }
 
             player.transform.position = endPosition;
+            player.GetComponent<Rigidbody>().useGravity = true;
+            player.GetComponent<Rigidbody>().isKinematic = false;
+
         }
     }
 

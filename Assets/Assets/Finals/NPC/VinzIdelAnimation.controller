@@ -11,7 +11,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 4322604718464473768}
-    m_Position: {x: 177.61058, y: 168.88844, z: 0}
+    m_Position: {x: 180, y: 170, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -28,7 +28,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Animator Controller
+  m_Name: VinzIdelAnimation
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:

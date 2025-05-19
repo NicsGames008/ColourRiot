@@ -693,6 +693,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6153969667630408227, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_text
+      value: '[E] to Talk'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153969667630408227, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7132302983056737930, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_Name
       value: UI
