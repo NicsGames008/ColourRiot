@@ -14,6 +14,8 @@ public class PlayerInteract : MonoBehaviour
     {
         MainCamera = Camera.main; // Assign the main camera
         player = GameObject.FindWithTag("Player"); // Find and assign the player object by tag
+
+        //Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame

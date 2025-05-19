@@ -66,7 +66,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
         // Get image component (child of the second child)
         GameObject secondChild = this.transform.GetChild(1).gameObject;
-        GameObject childOfSecondChild = secondChild.transform.GetChild(0).gameObject;
+        GameObject childOfSecondChild = secondChild.transform.GetChild(1).gameObject;
         tagImage = childOfSecondChild.GetComponent<Image>();
 
         // Set slider max value to required tag time
@@ -204,7 +204,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
             while (time < movingToWalTime)
             {
                 cam.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time / movingToWalTime);
-                time += Time.deltaTime;
+                time += Time.unscaledDeltaTime;
                 yield return null;
             }
 
@@ -225,7 +225,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
             while (time < movingToWalTime)
             {
                 player.transform.position = Vector3.Lerp(startPosition, endPosition, time / movingToWalTime);
-                time += Time.deltaTime;
+                time += Time.unscaledDeltaTime;
                 yield return null;
             }
 
