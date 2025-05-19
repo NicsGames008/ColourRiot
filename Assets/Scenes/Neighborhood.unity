@@ -10308,10 +10308,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4379934690953746762, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
-    - target: {fileID: 4379934690953746762, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
@@ -10342,10 +10338,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6362769529750057272, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
-    - target: {fileID: 6362769529750057272, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
@@ -10361,14 +10353,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
-    - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 1561018525762547838, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
     - target: {fileID: 7711800139540333432, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4285756275
@@ -10389,10 +10373,6 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 9182197454683144879, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
     - target: {fileID: 9182197454683144879, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1

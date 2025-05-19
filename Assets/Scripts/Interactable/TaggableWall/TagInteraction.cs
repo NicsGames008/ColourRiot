@@ -221,8 +221,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
             float time = Time.deltaTime;
             Vector3 startPosition = player.transform.position;
             Vector3 endPosition = lockedPlayerPosistion.transform.position;
-            player.GetComponent<Rigidbody>().useGravity = false;
-            player.GetComponent<Rigidbody>().isKinematic = true;
 
             while (time < movingToWalTime)
             {
@@ -232,9 +230,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
             }
 
             player.transform.position = endPosition;
-            player.GetComponent<Rigidbody>().useGravity = true;
-            player.GetComponent<Rigidbody>().isKinematic = false;
-
         }
     }
 
