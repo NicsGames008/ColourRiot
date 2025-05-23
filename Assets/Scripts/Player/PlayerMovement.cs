@@ -69,8 +69,6 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerState playerState;
 
-
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -89,8 +87,6 @@ public class PlayerMovement : MonoBehaviour
         if (headBobTarget != null)
             headStartPos = headBobTarget.localPosition;
     }
-
-
 
     void Update()
     {
@@ -121,18 +117,10 @@ public class PlayerMovement : MonoBehaviour
             staminaGroup.alpha = Mathf.Lerp(staminaGroup.alpha, 0f, Time.deltaTime * staminaFadeSpeed);
         }
 
-    
-
-
-
         float percent = currentStamina / maxStamina;
         Color lowBlue = new Color(0.1f, 0.1f, 0.3f);
         Color fullBlue = new Color(0.2f, 0.4f, 0.8f);
         staminaFill.color = Color.Lerp(lowBlue, fullBlue, percent);
-
-
-
-
     }
 
     void FixedUpdate()
@@ -140,9 +128,9 @@ public class PlayerMovement : MonoBehaviour
         if (playerState.GetPlayerstate() == EPlayerState.Moving)
         {
             MovePlayer();
+        ApplyJumpGravity();
         }
 
-        ApplyJumpGravity();
     }
 
     private void MyInput()
@@ -152,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
 
         isSprinting = Input.GetKey(sprintKey) && grounded && currentStamina > 0;
 
-        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded && Mathf.Abs(rb.velocity.y) < 0.2f)
+        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded && Mathf.Abs(rb.velocity.y) < 0.2f && playerState.GetPlayerstate() == EPlayerState.Moving)
         {
             readyToJump = false;
             Jump();

@@ -10,6 +10,8 @@ public class PlayerCheats : MonoBehaviour
 
     private Album album;
 
+    private bool isInvulnerable = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,5 +42,14 @@ public class PlayerCheats : MonoBehaviour
         {
             SceneManager.LoadScene("TrainStation");
         }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            isInvulnerable = !isInvulnerable;
+        }
+    }
+
+    public bool GetIsInvulnerable()
+    {
+        return isInvulnerable;
     }
 }
