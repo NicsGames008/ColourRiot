@@ -6,7 +6,6 @@ public class StateMachine : MonoBehaviour
 {
     // List of state behaviors for this object.
     // Each element must inherit from AStateBehaviour.
-    // IMPORTANT: The order must match the order in your EMonsterState enum.
     [SerializeField] private List<AStateBehaviour> stateBehaviours = new List<AStateBehaviour>();
 
     // This value corresponds to the index in the enum/stateBehaviours list.
@@ -77,23 +76,6 @@ public class StateMachine : MonoBehaviour
             // End the current state and start the new one
             currentState.OnStateEnd();
             currentState = stateBehaviours[newState];
-            currentState.OnStateStart();
-        }
-    }
-
-    // Returns true if the given state is the currently active one
-    public bool IsCurrentState(AStateBehaviour stateBehaviour)
-    {
-        return currentState == stateBehaviour;
-    }
-
-    // Forces a state change to the specified index (used externally)
-    public void SetState(int index)
-    {
-        if (IsValidNewStateIndex(index))
-        {
-            currentState.OnStateEnd();
-            currentState = stateBehaviours[index];
             currentState.OnStateStart();
         }
     }

@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 3272812836871473955}
   m_Layer: 0
   m_Name: Cop
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chassingSpeed: 8
   runningSound: {fileID: 8300000, guid: 0fc39e8a50c2b50468f505db3f3b9cea, type: 3}
-  timeToLooseInterest: 3
+  lookingAroundAnimation: {fileID: 7400000, guid: ca865fd23c3bd8849924815b287387ca, type: 2}
 --- !u!114 &8194449374885202828
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class Enemy_PatroleState : AStateBehaviour
     [Header("Audio")]
     [SerializeField] private AudioClip foundPlayerSound;
     [SerializeField] private AudioClip suspitionSound;
+
     [Header("Animation")]
     [SerializeField] private AnimationStateController animationController;
     [SerializeField] private AnimationClip pointingAnimation;
@@ -26,7 +27,6 @@ public class Enemy_PatroleState : AStateBehaviour
 
     private bool isPlayingDetectionAnimation = false;
     private float animationTimer = 0f;
-    private bool wasUsingGraphBeforeDetection = false;
 
     // Component references
     private NavMeshAgent agent;
@@ -78,6 +78,7 @@ public class Enemy_PatroleState : AStateBehaviour
     public override void OnStateStart()
     {
         agent.isStopped = false;
+        animationController.SetBool("isLookingAround", false);
 
         // Restart patrol coroutine if needed
         if (patrolCoroutine != null)
@@ -147,9 +148,6 @@ public class Enemy_PatroleState : AStateBehaviour
             // Start detection sequence
             isPlayingDetectionAnimation = true;
             animationTimer = detectionAnimationLength;
-
-            // Store whether we were using graph navigation
-            wasUsingGraphBeforeDetection = usingGraph;
 
             // Stop all movement
             if (usingGraph)
@@ -306,21 +304,5 @@ public class Enemy_PatroleState : AStateBehaviour
         float speedRatio = newSpeed / baseSpeed;
         agent.angularSpeed = baseAngularSpeed * speedRatio;
         agent.acceleration = baseAcceleration * speedRatio;
-    }
-
-    public void OnPointingAnimationEnd()
-    {
-        if (isPlayingDetectionAnimation)
-        {
-            isPlayingDetectionAnimation = false;
-            animationController.SetBool("isPointing", false);
-
-            // Force state transition (requires access to StateMachine)
-            StateMachine stateMachine = GetComponent<StateMachine>();
-            if (stateMachine != null)
-            {
-                stateMachine.SetState((int)EEnemyState.Chasing);
-            }
-        }
     }
 }

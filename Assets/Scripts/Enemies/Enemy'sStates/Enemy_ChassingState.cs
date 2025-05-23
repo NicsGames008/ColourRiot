@@ -1,72 +1,68 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-// Requires a NavMeshAgent to be attached to this GameObject
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy_ChassingState : AStateBehaviour
 {
-    // Speed at which the enemy chases the player
+    [Header("Chase Settings")]
     [SerializeField] private float chassingSpeed = 7f;
 
-    // Sound played while the enemy is chasing the player
+    [Header("Audio")]
     [SerializeField] private AudioClip runningSound;
 
-    // Cached component references
-    private Transform playerTransform = null;
-    private NavMeshAgent agent = null;
-    private LineOfSight enemyLineOfSight = null;
+    [Header("Animation")]
+    [SerializeField] private AnimationClip lookingAroundAnimation;
+
+    // Component references
+    private Transform playerTransform;
+    private NavMeshAgent agent;
+    private LineOfSight enemyLineOfSight;
     private AudioSource audioSource;
     private PlayerState playerState;
     private AnimationStateController animationController;
 
-    // How long the enemy will continue to chase after losing sight of the player
-    [SerializeField] private float timeToLooseInterest = 3.0f;
+    // State tracking
+    private Vector3 playerLastKnownPosition;
+    private float timer;
+    private bool isLookingAround;
+    private bool hasReachedLastPosition;
 
-    // Internal timer for tracking how long the player has been out of sight
-    private float timer = 0.0f;
-
-    // Called once when this state is initialized
     public override bool InitializeState()
     {
-        // Cache required components
         agent = GetComponent<NavMeshAgent>();
         enemyLineOfSight = GetComponent<LineOfSight>();
         playerTransform = GameObject.FindWithTag("Player").transform;
-        playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
+        playerState = playerTransform.GetComponent<PlayerState>();
         audioSource = GetComponent<AudioSource>();
         animationController = GetComponent<AnimationStateController>();
 
-        // Initialization fails if any required reference is missing
         if (agent == null || playerTransform == null || enemyLineOfSight == null)
             return false;
 
         return true;
     }
 
-    // Called once when entering this state
     public override void OnStateStart()
     {
-        // Reset chase timer
-        timer = timeToLooseInterest;
+        timer = lookingAroundAnimation.length;
+        isLookingAround = false;
+        hasReachedLastPosition = false;
+        playerLastKnownPosition = playerTransform.position;
 
-        // Play the chase sound on loop
+        // Initialize movement
+        agent.enabled = true;
+        agent.isStopped = false;
+        SetAgentSpeed(chassingSpeed);
+        agent.SetDestination(playerLastKnownPosition);
+
+        // Start running animation and sound
+        animationController.SetBool("isRunning", true);
+        animationController.SetBool("isLookingAround", false);
         audioSource.clip = runningSound;
         audioSource.loop = true;
         audioSource.Play();
-
-        // Set running animation - make sure this is called
-        if (animationController != null)
-        {
-            animationController.SetBool("isRunning", true);
-            animationController.SetBool("isPointing", false); // Ensure pointing is off
-        }
-
-        // Make sure agent is enabled and moving
-        agent.enabled = true;
-        agent.isStopped = false;
     }
 
-    // Called every frame while in this state
     public override void OnStateUpdate()
     {
         if (playerState.GetPlayerstate() != EPlayerState.Moving)
@@ -74,67 +70,92 @@ public class Enemy_ChassingState : AStateBehaviour
         else
             audioSource.pitch = 1.0f;
 
-        // If the enemy sees the player this frame, keep chasing
+        // Always update the last known position if we can see the player
         if (enemyLineOfSight.HasSeenPlayerThisFrame())
         {
-            // Reset timer since the player is still in sight
-            timer = timeToLooseInterest;
+            playerLastKnownPosition = playerTransform.position;
+            timer = lookingAroundAnimation.length;
 
-            // Move towards the player's current position
-            agent.ResetPath();
-            agent.SetDestination(playerTransform.position);
-
-            // Apply chase movement characteristics
-            SetAgentSpeed(chassingSpeed);
+            if (isLookingAround)
+            {
+                // If we were looking around but found the player again
+                ResumeChasing();
+            }
+            else
+            {
+                // Continue normal chasing
+                agent.SetDestination(playerLastKnownPosition);
+            }
         }
-        else
+
+        // Check if we've reached the last known position
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !hasReachedLastPosition)
         {
-            // Reduce the timer since the player is no longer visible
+            hasReachedLastPosition = true;
+            StartLookingAround();
+        }
+
+        // Handle looking around state
+        if (isLookingAround)
+        {
             timer -= Time.deltaTime;
         }
     }
 
-    // Called once when exiting this state
+    private void ResumeChasing()
+    {
+        isLookingAround = false;
+        hasReachedLastPosition = false;
+
+        animationController.SetBool("isLookingAround", false);
+        animationController.SetBool("isRunning", true);
+
+        audioSource.pitch = 1.0f;
+        agent.isStopped = false;
+        agent.SetDestination(playerLastKnownPosition);
+    }
+
+    private void StartLookingAround()
+    {
+        isLookingAround = true;
+        agent.isStopped = true;
+
+        animationController.SetBool("isRunning", false);
+        animationController.SetBool("isLookingAround", true);
+
+        audioSource.pitch = 0f; // Lower pitch or stop sound
+    }
+
     public override void OnStateEnd()
     {
-        // Stop movement and clean up path
         agent.isStopped = true;
         agent.ResetPath();
 
-        // Stop chase sound
         audioSource.Stop();
         audioSource.loop = false;
-        
-        // Stop running animation
-        if (animationController != null)
-        {
-            animationController.SetBool("isRunning", false);
-        }
+
+        animationController.SetBool("isRunning", false);
+        animationController.SetBool("isLookingAround", false);
     }
 
-    // Determines if the state should transition to a new one
     public override int StateTransitionCondition()
     {
-        // If the player has been out of sight too long, return to patrolling
-        if (timer < 0)
+        // Only transition back to patrolling if we've been looking around long enough
+        if (isLookingAround && timer <= 0)
+        {
             return (int)EEnemyState.Patrolling;
+        }
 
-        // Stay in this state otherwise
         return (int)EEnemyState.Invalid;
     }
 
-    // Helper to adjust agent speed, turn rate, and acceleration based on a speed value
     void SetAgentSpeed(float newSpeed)
     {
         agent.speed = newSpeed;
-
-        // Reference values used for scaling
         float baseSpeed = 3f;
         float baseAngularSpeed = 120f;
         float baseAcceleration = 8f;
-
         float speedRatio = newSpeed / baseSpeed;
-
         agent.angularSpeed = baseAngularSpeed * speedRatio;
         agent.acceleration = baseAcceleration * speedRatio;
     }
