@@ -12,15 +12,6 @@ public class AnimationStateController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    // Public method to set the isRunning bool
-    public void SetRunning(bool isRunning)
-    {
-        if (animator != null)
-        {
-            animator.SetBool("IsRunning", isRunning);
-        }
-    }
-
     public void SetBool(string paramName, bool value)
     {
         if (animator != null)

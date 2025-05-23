@@ -53,7 +53,17 @@ public class Enemy_ChassingState : AStateBehaviour
         audioSource.clip = runningSound;
         audioSource.loop = true;
         audioSource.Play();
-        animationController.SetRunning(true);
+
+        // Set running animation - make sure this is called
+        if (animationController != null)
+        {
+            animationController.SetBool("isRunning", true);
+            animationController.SetBool("isPointing", false); // Ensure pointing is off
+        }
+
+        // Make sure agent is enabled and moving
+        agent.enabled = true;
+        agent.isStopped = false;
     }
 
     // Called every frame while in this state
@@ -94,7 +104,12 @@ public class Enemy_ChassingState : AStateBehaviour
         // Stop chase sound
         audioSource.Stop();
         audioSource.loop = false;
-        animationController.SetRunning(false);
+        
+        // Stop running animation
+        if (animationController != null)
+        {
+            animationController.SetBool("isRunning", false);
+        }
     }
 
     // Determines if the state should transition to a new one

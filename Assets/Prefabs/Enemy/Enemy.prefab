@@ -292,6 +292,8 @@ MonoBehaviour:
   graphManager: {fileID: 6080983387878703331}
   foundPlayerSound: {fileID: 8300000, guid: fc9a746d93ac30b4db56be69c1d5a3e0, type: 3}
   suspitionSound: {fileID: 8300000, guid: 0a5fa4ed7e66bdc489e60bfd2f24fc25, type: 3}
+  animationController: {fileID: 0}
+  pointingAnimation: {fileID: 7400000, guid: 644744f395da743409ceee18f7ce236a, type: 2}
 --- !u!114 &98311043716333122
 MonoBehaviour:
   m_ObjectHideFlags: 0

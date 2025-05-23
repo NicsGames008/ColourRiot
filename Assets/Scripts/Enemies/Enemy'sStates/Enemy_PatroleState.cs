@@ -18,6 +18,15 @@ public class Enemy_PatroleState : AStateBehaviour
     [Header("Audio")]
     [SerializeField] private AudioClip foundPlayerSound;
     [SerializeField] private AudioClip suspitionSound;
+    [Header("Animation")]
+    [SerializeField] private AnimationStateController animationController;
+    [SerializeField] private AnimationClip pointingAnimation;
+
+    private float detectionAnimationLength;
+
+    private bool isPlayingDetectionAnimation = false;
+    private float animationTimer = 0f;
+    private bool wasUsingGraphBeforeDetection = false;
 
     // Component references
     private NavMeshAgent agent;
@@ -45,12 +54,24 @@ public class Enemy_PatroleState : AStateBehaviour
         agent = GetComponent<NavMeshAgent>();
         enemyLineOfSight = GetComponent<LineOfSight>();
         audioSource = GetComponent<AudioSource>();
+        animationController = GetComponent<AnimationStateController>();
 
         // Get all noise-detectable walls
         noiseSources = GameObject.FindGameObjectsWithTag("TaggableWall");
 
+        // Get animation length automatically
+        if (pointingAnimation != null)
+        {
+            detectionAnimationLength = pointingAnimation.length;
+        }
+        else
+        {
+            Debug.LogError("Pointing animation clip not assigned!");
+            detectionAnimationLength = 2.0f; // Fallback value
+        }
+
         // Return true only if core components are valid
-        return agent != null && enemyLineOfSight != null;
+        return agent != null && enemyLineOfSight != null && animationController != null;
     }
 
     // Called once when this state becomes active.
@@ -68,34 +89,38 @@ public class Enemy_PatroleState : AStateBehaviour
     // Called every frame while this state is active.
     public override void OnStateUpdate()
     {
-        // If not on the graph and finished using NavMeshAgent, try to resume patrol
-        if (!usingGraph && agent.remainingDistance <= agent.stoppingDistance)
+        // Only do patrol updates if not playing detection animation
+        if (!isPlayingDetectionAnimation)
         {
-            if (patrolCoroutine != null)
-                StopCoroutine(patrolCoroutine);
-            patrolCoroutine = StartCoroutine(PatrolRoutine());
-        }
-
-        // Check for noise and investigate
-        foreach (var noiseGO in noiseSources)
-        {
-            enemyNoiseDetection = noiseGO.GetComponentInChildren<NoiseDetection>();
-
-            foreach (Transform child in noiseGO.transform)
-                if (child.name == "NoiseDetection")
-                    susTagLocation = child;
-
-            if (enemyNoiseDetection != null && enemyNoiseDetection.HasPoliceHeardTag(gameObject))
+            // If not on the graph and finished using NavMeshAgent, try to resume patrol
+            if (!usingGraph && agent.remainingDistance <= agent.stoppingDistance)
             {
-                Debug.Log("Enemy heard a tag");
-                agent.ResetPath();
-                audioSource.PlayOneShot(suspitionSound);
-                agent.SetDestination(susTagLocation.position);
+                if (patrolCoroutine != null)
+                    StopCoroutine(patrolCoroutine);
+                patrolCoroutine = StartCoroutine(PatrolRoutine());
             }
-        }
 
-        // Ensure the agent has the correct patrol speed
-        SetAgentSpeed(patrollingSpeed);
+            // Check for noise and investigate
+            foreach (var noiseGO in noiseSources)
+            {
+                enemyNoiseDetection = noiseGO.GetComponentInChildren<NoiseDetection>();
+
+                foreach (Transform child in noiseGO.transform)
+                    if (child.name == "NoiseDetection")
+                        susTagLocation = child;
+
+                if (enemyNoiseDetection != null && enemyNoiseDetection.HasPoliceHeardTag(gameObject))
+                {
+                    Debug.Log("Enemy heard a tag");
+                    agent.ResetPath();
+                    audioSource.PlayOneShot(suspitionSound);
+                    agent.SetDestination(susTagLocation.position);
+                }
+            }
+
+            // Ensure the agent has the correct patrol speed
+            SetAgentSpeed(patrollingSpeed);
+        }
     }
 
     // Called when this state ends.
@@ -103,6 +128,8 @@ public class Enemy_PatroleState : AStateBehaviour
     {
         if (patrolCoroutine != null)
             StopCoroutine(patrolCoroutine);
+
+        animationController.SetBool("isPointing", false);
 
         // Only stop if agent is active to avoid Unity error
         if (agent.enabled)
@@ -115,10 +142,45 @@ public class Enemy_PatroleState : AStateBehaviour
     // Handles state transitions.
     public override int StateTransitionCondition()
     {
-        if (enemyLineOfSight.HasSeenPlayerThisFrame())
+        if (enemyLineOfSight.HasSeenPlayerThisFrame() && !isPlayingDetectionAnimation)
         {
+            // Start detection sequence
+            isPlayingDetectionAnimation = true;
+            animationTimer = detectionAnimationLength;
+
+            // Store whether we were using graph navigation
+            wasUsingGraphBeforeDetection = usingGraph;
+
+            // Stop all movement
+            if (usingGraph)
+            {
+                // If using graph, stop the coroutine
+                if (patrolCoroutine != null)
+                    StopCoroutine(patrolCoroutine);
+            }
+            else
+            {
+                // If using NavMesh, stop the agent
+                agent.isStopped = true;
+            }
+
+            // Play pointing animation
+            animationController.SetBool("isPointing", true);
+
+            // Play sound
             audioSource.PlayOneShot(foundPlayerSound);
-            return (int)EEnemyState.Chasing;
+        }
+
+        // Only transition if animation is complete
+        if (isPlayingDetectionAnimation)
+        {
+            animationTimer -= Time.deltaTime;
+            if (animationTimer <= 0)
+            {
+                isPlayingDetectionAnimation = false;
+                animationController.SetBool("isPointing", false);
+                return (int)EEnemyState.Chasing;
+            }
         }
 
         return (int)EEnemyState.Invalid;
@@ -244,5 +306,21 @@ public class Enemy_PatroleState : AStateBehaviour
         float speedRatio = newSpeed / baseSpeed;
         agent.angularSpeed = baseAngularSpeed * speedRatio;
         agent.acceleration = baseAcceleration * speedRatio;
+    }
+
+    public void OnPointingAnimationEnd()
+    {
+        if (isPlayingDetectionAnimation)
+        {
+            isPlayingDetectionAnimation = false;
+            animationController.SetBool("isPointing", false);
+
+            // Force state transition (requires access to StateMachine)
+            StateMachine stateMachine = GetComponent<StateMachine>();
+            if (stateMachine != null)
+            {
+                stateMachine.SetState((int)EEnemyState.Chasing);
+            }
+        }
     }
 }
