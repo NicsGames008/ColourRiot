@@ -36,7 +36,7 @@ public class PlayerCaught : MonoBehaviour
 
         if (seconds == 5)
         {
-            SceneManager.LoadScene("Appartment");
+            SceneManager.LoadScene("Apartment");
         }
     }
 }

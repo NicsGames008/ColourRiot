@@ -17,6 +17,7 @@ public class Enemy_ChassingState : AStateBehaviour
     private LineOfSight enemyLineOfSight = null;
     private AudioSource audioSource;
     private PlayerState playerState;
+    private AnimationStateController animationController;
 
     // How long the enemy will continue to chase after losing sight of the player
     [SerializeField] private float timeToLooseInterest = 3.0f;
@@ -33,6 +34,7 @@ public class Enemy_ChassingState : AStateBehaviour
         playerTransform = GameObject.FindWithTag("Player").transform;
         playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
         audioSource = GetComponent<AudioSource>();
+        animationController = GetComponent<AnimationStateController>();
 
         // Initialization fails if any required reference is missing
         if (agent == null || playerTransform == null || enemyLineOfSight == null)
@@ -48,9 +50,10 @@ public class Enemy_ChassingState : AStateBehaviour
         timer = timeToLooseInterest;
 
         // Play the chase sound on loop
-            audioSource.clip = runningSound;
-            audioSource.loop = true;
-            audioSource.Play();
+        audioSource.clip = runningSound;
+        audioSource.loop = true;
+        audioSource.Play();
+        animationController.SetRunning(true);
     }
 
     // Called every frame while in this state
@@ -91,6 +94,7 @@ public class Enemy_ChassingState : AStateBehaviour
         // Stop chase sound
         audioSource.Stop();
         audioSource.loop = false;
+        animationController.SetRunning(false);
     }
 
     // Determines if the state should transition to a new one

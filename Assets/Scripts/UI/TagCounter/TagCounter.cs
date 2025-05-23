@@ -24,14 +24,13 @@ public class TagCounter : MonoBehaviour
 
 
         timerManager = FindObjectOfType<TimerManager>();
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
 
-        if (SceneManager.GetActiveScene().name == "Appartment")
+        if (SceneManager.GetActiveScene().name == "Apartment")
         {
             gameObject.SetActive(false);
         }

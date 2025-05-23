@@ -52,12 +52,12 @@ public class VanInteraction : MonoBehaviour, IInteractable
             {
                 Debug.Log("Go to appartment from Neighborhood");
                 AlbumManager.Instance.AddTagsFromAlbum();
-                SceneManager.LoadScene("Appartment");
+                SceneManager.LoadScene("Apartment");
             }
             else if (levelAt == "TrainStation" && (tagDoneOnTheLevel == 0 || tagDoneOnTheLevel == maxTags))
             {
                 Debug.Log("Go to appartment from Train Station");
-                SceneManager.LoadScene("Appartment");
+                SceneManager.LoadScene("Apartment");
             }
             else
             {
