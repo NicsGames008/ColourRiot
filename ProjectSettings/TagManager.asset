@@ -10,6 +10,7 @@ TagManager:
   - Ladder
   - LadderTop
   - NPC
+  - GameManager
   layers:
   - Default
   - TransparentFX

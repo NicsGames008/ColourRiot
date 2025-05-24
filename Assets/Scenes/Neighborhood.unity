@@ -514,7 +514,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: 8976188d328907f488178020787a2172, type: 2}
+      objectReference: {fileID: 11400000, guid: 47d4a93c3a712bc4f852208710951468, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -3298,7 +3298,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: b85b2776d4422a84487fb94aeb86ca8b, type: 2}
+      objectReference: {fileID: 11400000, guid: 0e148af537c82e24090f1e1dc06267f7, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -3795,7 +3795,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: b85b2776d4422a84487fb94aeb86ca8b, type: 2}
+      objectReference: {fileID: 11400000, guid: 810f921a378462a4d8000904bcf5e374, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -4678,6 +4678,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 403806717837465733, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 403806717837465733, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 403806717837465733, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 638806965085348570, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
       propertyPath: m_Name
       value: CameraHolder
@@ -4850,7 +4862,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: 8976188d328907f488178020787a2172, type: 2}
+      objectReference: {fileID: 11400000, guid: a222d7640ffd9764c9863bead506eaf5, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -5763,6 +5775,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7dfe874680a16f4b9e7568fa1d67950, type: 3}
+--- !u!1 &925647449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 925647450}
+  - component: {fileID: 925647451}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: GameManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &925647450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925647449}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 130.90005, y: -19.90328, z: 289.52554}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &925647451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925647449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16101bbeaa261fa49b59439d3e1bebd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &929216631
 GameObject:
   m_ObjectHideFlags: 0
@@ -5873,7 +5929,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: b85b2776d4422a84487fb94aeb86ca8b, type: 2}
+      objectReference: {fileID: 11400000, guid: 8976188d328907f488178020787a2172, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -6610,14 +6666,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1615846843}
     m_Modifications:
-    - target: {fileID: 3545746257357459566, guid: 1e262c5926e7cc84893d1e8805157fd3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 3545746257357459566, guid: 1e262c5926e7cc84893d1e8805157fd3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.87
-      objectReference: {fileID: 0}
     - target: {fileID: 1171027512246986746, guid: b7dfe874680a16f4b9e7568fa1d67950, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.07
@@ -6661,6 +6709,14 @@ PrefabInstance:
     - target: {fileID: 1547098995697711466, guid: b7dfe874680a16f4b9e7568fa1d67950, type: 3}
       propertyPath: m_Name
       value: SmallBuilding2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545746257357459566, guid: 1e262c5926e7cc84893d1e8805157fd3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545746257357459566, guid: 1e262c5926e7cc84893d1e8805157fd3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.87
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8115,7 +8171,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: 8976188d328907f488178020787a2172, type: 2}
+      objectReference: {fileID: 11400000, guid: fd6271451de551745bc6949a226b4187, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -8836,7 +8892,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+      objectReference: {fileID: 11400000, guid: 24ccf62f2b9e38943b7b9921f254bc7b, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -10465,6 +10521,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4879948537524436604, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4942779118627166059, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -11012,7 +11072,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: a1a2f76136c548b45adb1fcede44725b, type: 2}
+      objectReference: {fileID: 11400000, guid: 73b0e05919714054ca7229e08a4bae0f, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -11444,7 +11504,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+      objectReference: {fileID: 11400000, guid: e78c6d91e16e6ed4585187eb976c7d6d, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -13514,3 +13574,4 @@ SceneRoots:
   - {fileID: 11957768}
   - {fileID: 165901906}
   - {fileID: 1622940730}
+  - {fileID: 925647450}

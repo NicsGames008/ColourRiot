@@ -16,15 +16,43 @@ public class book : MonoBehaviour
         InitialState();
     }
 
+    private void OnEnable()
+    {
+        ResetPageOrder();
+        InitialState();
+    }
+
+    public void ResetPageOrder()
+    {
+        // Reverse the hierarchy order (so pages[0] is at the bottom, pages[10] at the top)
+        for (int i = 0; i < pages.Count; i++)
+        {
+            pages[i].SetSiblingIndex(i); // First, reset to default order
+        }
+        // Now reverse them by setting each page's sibling index in reverse
+        for (int i = 0; i < pages.Count; i++)
+        {
+            pages[i].SetSiblingIndex(pages.Count - 1 - i);
+        }
+        // Ensure the first page is active (since it's the "cover")
+        pages[0].SetAsLastSibling();
+    }
+
     public void InitialState()
     {
-        for (int i=0; i<pages.Count; i++)
+        // Reset rotations
+        for (int i = 0; i < pages.Count; i++)
         {
-            pages[i].transform.rotation=Quaternion.identity;
+            pages[i].transform.rotation = Quaternion.identity;
         }
-        pages[0].SetAsLastSibling();
-        backButton.SetActive(false);
 
+        // Make the first page visible (cover)
+        pages[0].SetAsLastSibling();
+
+        // Reset index and button states
+        index = -1;
+        backButton.SetActive(false);
+        forwardButton.SetActive(true); // Enable forward button (unless on last page)
     }
 
     public void RotateForward()

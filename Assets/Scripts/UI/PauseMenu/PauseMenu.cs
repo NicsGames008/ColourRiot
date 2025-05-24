@@ -40,6 +40,7 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         pauseMenuUI.SetActive(false);
+        albumUI.SetActive(false);
         Time.timeScale = 1.0f;
         gameIsPause = false;
         if (currentPlayerState == EPlayerState.Moving)
