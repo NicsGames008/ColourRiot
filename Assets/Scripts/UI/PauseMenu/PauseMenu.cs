@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPause = false;
 
     [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject albumUI;
 
     private PlayerState playerState;
 
@@ -66,6 +67,8 @@ public class PauseMenu : MonoBehaviour
     public void OpenAlbum()
     {
         Debug.Log("Open Album....");
+        pauseMenuUI.SetActive(false);
+        albumUI.SetActive(true);
     }
 
     public void OpenMainMenu()
