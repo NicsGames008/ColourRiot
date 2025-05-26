@@ -6,15 +6,14 @@ public class ShowAlbumPage : MonoBehaviour
 {
     [SerializeField] private Tag tagOnThisPag;
     [SerializeField] private GameObject page;
+    [SerializeField] private GameManager gameManager;
 
-    private GameObject gameManager;
     private GameObject player;
     private Album album;
 
     void OnEnable()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager");
-        player = gameManager.GetComponent<GameManager>().ReturnPlayer();
+        player = gameManager.ReturnPlayer();
         album = player.GetComponent<Album>();
 
         foreach (var tag in album.tags)
