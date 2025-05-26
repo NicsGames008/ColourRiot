@@ -40,6 +40,9 @@ public class book : MonoBehaviour
 
     public void InitialState()
     {
+        // Stop any running coroutines
+        StopAllCoroutines();
+
         // Reset rotations
         for (int i = 0; i < pages.Count; i++)
         {
@@ -53,8 +56,10 @@ public class book : MonoBehaviour
         index = -1;
         backButton.SetActive(false);
         forwardButton.SetActive(true); // Enable forward button (unless on last page)
-    }
 
+        // Reset rotation flag
+        rotate = false;
+    }
     public void RotateForward()
     {
         if (rotate == true) { return; }

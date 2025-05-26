@@ -12,18 +12,16 @@ public class PauseMenu : MonoBehaviour
 
     private PlayerState playerState;
     private EPlayerState currentPlayerState;
-    private SceneLoadManager sceneLoadManager; // Add this reference
+    private SceneLoadManager sceneLoadManager;
 
     private void Start()
     {
         playerState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>();
-        // Get reference to SceneLoadManager
         sceneLoadManager = FindObjectOfType<SceneLoadManager>();
     }
 
     void Update()
     {
-        // Check if scene is loading before processing pause input
         if (sceneLoadManager != null && SceneLoadManager.IsLoading) return;
 
         if (Input.GetKeyDown(KeyCode.Escape) && playerState.GetPlayerstate() != EPlayerState.Dead)
