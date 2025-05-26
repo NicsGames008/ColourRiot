@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,11 +8,13 @@ public class VanInteraction : MonoBehaviour, IInteractable
 {
 
     [SerializeField] private GameObject visualFeedBackInteraction; // UI feedback object for interaction
+    [SerializeField] private SceneLoadManager sceneLoadManager;
     private GameObject currentUI; // Instance of the feedback UI
     private Album album;
 
     private int maxTags;
     private string levelAt;
+    private bool isLoading = false;
 
     // Start is called before the first frame update
     void Start()
@@ -52,12 +55,17 @@ public class VanInteraction : MonoBehaviour, IInteractable
             {
                 Debug.Log("Go to appartment from Neighborhood");
                 AlbumManager.Instance.AddTagsFromAlbum();
-                SceneManager.LoadScene("Apartment");
+                StartCoroutine(sceneLoadManager.LoadSceneAsynchronously("Apartment"));
+                isLoading = true;
+                ShowUI(false);
             }
             else if (levelAt == "TrainStation" && (tagDoneOnTheLevel == 0 || tagDoneOnTheLevel == maxTags))
             {
                 Debug.Log("Go to appartment from Train Station");
-                SceneManager.LoadScene("Apartment");
+                AlbumManager.Instance.AddTagsFromAlbum();
+                StartCoroutine(sceneLoadManager.LoadSceneAsynchronously("Apartment"));
+                isLoading = true;
+                ShowUI(false);
             }
             else
             {
@@ -67,29 +75,31 @@ public class VanInteraction : MonoBehaviour, IInteractable
     }
 
 
-    // Show or hide the interaction UI depending on player proximity
     public void ShowUI(bool show)
     {
-        int tagDoneOnTheLevel = 0;
-        foreach (var tag in album.tags)
+        if (!show)
         {
-            if (tag.levelUnlocked == levelAt)
+            if (currentUI != null)
             {
-                tagDoneOnTheLevel++;
+                Destroy(currentUI);
+                currentUI = null;
             }
+            return;
         }
 
-        if (show)
+        // If we reach here, show == true
+        if (currentUI != null || isLoading)
+            return;
+
+        int tagsInLevel = album.tags.Count(tag => tag.levelUnlocked == levelAt);
+
+        bool isTrainStationWithTags = levelAt == "TrainStation" &&
+                                    tagsInLevel > 0 &&
+                                    tagsInLevel < maxTags;
+
+        if (!isTrainStationWithTags)
         {
-            if (currentUI == null && !(levelAt == "TrainStation" && tagDoneOnTheLevel > 0 && tagDoneOnTheLevel < maxTags))
-            {
-                currentUI = Instantiate(visualFeedBackInteraction);
-            }
-        }
-        else if (!show && currentUI != null)
-        {
-            Destroy(currentUI);
-            currentUI = null;
+            currentUI = Instantiate(visualFeedBackInteraction);
         }
     }
 }

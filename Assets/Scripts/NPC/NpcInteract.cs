@@ -25,9 +25,8 @@ public class NPCInteract : MonoBehaviour
     public float fadeSpeed = 4f;
 
     [Header("Loading Screen")]
-    [SerializeField] private GameObject loadingScreen;
-    [SerializeField] private VideoClip neighborhoodLoadingScreen;
-    [SerializeField] private VideoClip trainStationLoadingScreen;
+    [SerializeField] private SceneLoadManager sceneLoadManager;
+
 
     private bool isPlayerNear = false;
     private bool transitioning = false;
@@ -124,7 +123,8 @@ public class NPCInteract : MonoBehaviour
         ShowDialogue("Awesome. Let's go!");
         yield return new WaitForSeconds(sceneLoadDelay);
         //SceneManager.LoadScene(sceneToLoad);
-        StartCoroutine(LoadSceneAsynchronously(sceneToLoad));
+        dialoguePanel.SetActive(false);
+        StartCoroutine(sceneLoadManager.LoadSceneAsynchronously(sceneToLoad));
     }
 
     void OnTriggerEnter(Collider other)
@@ -153,42 +153,42 @@ public class NPCInteract : MonoBehaviour
         interactionPromptGroup.blocksRaycasts = targetAlpha > 0.1f;
     }
 
-    IEnumerator LoadSceneAsynchronously(string sceneName)
-    {
-        loadingScreen.SetActive(true);
-        dialoguePanel.SetActive(false);
+    //IEnumerator LoadSceneAsynchronously(string sceneName)
+    //{
+    //    loadingScreen.SetActive(true);
+    //    dialoguePanel.SetActive(false);
 
-        VideoPlayer videoPlayer = loadingScreen.GetComponent<VideoPlayer>();
+    //    VideoPlayer videoPlayer = loadingScreen.GetComponent<VideoPlayer>();
 
-        switch (sceneName)
-        {
-            case "Neighborhood":
-                videoPlayer.clip = neighborhoodLoadingScreen;
-                break;
-            case "TrainStation":
-                videoPlayer.clip = trainStationLoadingScreen;
-                break;
-        }
+    //    switch (sceneName)
+    //    {
+    //        case "Neighborhood":
+    //            videoPlayer.clip = neighborhoodLoadingScreen;
+    //            break;
+    //        case "TrainStation":
+    //            videoPlayer.clip = trainStationLoadingScreen;
+    //            break;
+    //    }
 
-        // Start tracking time
-        float elapsedTime = 0f;
-        float minimumWaitTime = 5f;
+    //    // Start tracking time
+    //    float elapsedTime = 0f;
+    //    float minimumWaitTime = 5f;
 
-        // Start loading the scene
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-        operation.allowSceneActivation = false; // Prevent automatic scene activation
+    //    // Start loading the scene
+    //    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+    //    operation.allowSceneActivation = false; // Prevent automatic scene activation
 
-        while (!operation.isDone)
-        {
-            elapsedTime += Time.deltaTime;
+    //    while (!operation.isDone)
+    //    {
+    //        elapsedTime += Time.deltaTime;
 
-            // Check if the loading has reached 90% (0.9) and waited at least 5 seconds
-            if (operation.progress >= 0.9f && elapsedTime >= minimumWaitTime)
-            {
-                operation.allowSceneActivation = true; // Allow the scene to activate
-            }
+    //        // Check if the loading has reached 90% (0.9) and waited at least 5 seconds
+    //        if (operation.progress >= 0.9f && elapsedTime >= minimumWaitTime)
+    //        {
+    //            operation.allowSceneActivation = true; // Allow the scene to activate
+    //        }
 
-            yield return null;
-        }
-    }
+    //        yield return null;
+    //    }
+    //}
 }
