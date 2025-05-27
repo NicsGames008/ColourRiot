@@ -735,15 +735,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: fdf3c0bb9eafef240a9b75e4505909da, type: 3}
       propertyPath: m_LocalScale.x
-      value: -593.3704
+      value: -668.9065
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fdf3c0bb9eafef240a9b75e4505909da, type: 3}
       propertyPath: m_LocalScale.y
-      value: -435.70297
+      value: -491.16797
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fdf3c0bb9eafef240a9b75e4505909da, type: 3}
       propertyPath: m_LocalScale.z
-      value: -538.54224
+      value: -607.0987
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fdf3c0bb9eafef240a9b75e4505909da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -751,7 +751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fdf3c0bb9eafef240a9b75e4505909da, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.829
+      value: 2.8364
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fdf3c0bb9eafef240a9b75e4505909da, type: 3}
       propertyPath: m_LocalPosition.z
@@ -811,15 +811,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 12561b2db9dfe9845baa9c64227545df, type: 3}
       propertyPath: m_LocalScale.x
-      value: 605.997
+      value: 730.28705
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 12561b2db9dfe9845baa9c64227545df, type: 3}
       propertyPath: m_LocalScale.y
-      value: 443.5455
+      value: 534.5167
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 12561b2db9dfe9845baa9c64227545df, type: 3}
       propertyPath: m_LocalScale.z
-      value: 443.5455
+      value: 534.5167
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 12561b2db9dfe9845baa9c64227545df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -827,7 +827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 12561b2db9dfe9845baa9c64227545df, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.84
+      value: -0.83134
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 12561b2db9dfe9845baa9c64227545df, type: 3}
       propertyPath: m_LocalPosition.z
@@ -887,6 +887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 882750350}
   - component: {fileID: 882750349}
+  - component: {fileID: 882750351}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -971,6 +972,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &882750351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882750348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!4 &896661986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1221336273928779128, guid: a964d186b2173414995eabd2a49f326c, type: 3}

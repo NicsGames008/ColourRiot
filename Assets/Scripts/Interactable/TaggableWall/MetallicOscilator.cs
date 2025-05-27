@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MetallicOscilator : MonoBehaviour
+public class GlowingOscillator : MonoBehaviour
 {
     private Material targetMaterial;
     [SerializeField] private float speed = 0.25f;
+    [SerializeField] private float minAlpha = 0.2f;
+    [SerializeField] private float maxAlpha = 0.5f;
 
-    private float metallicValue = 0f;
+    private float currentAlpha;
     private bool increasing = true;
 
     void Start()
@@ -17,6 +19,7 @@ public class MetallicOscilator : MonoBehaviour
         {
             // Create an instance so we don't modify the original material asset
             targetMaterial = renderer.material;
+            currentAlpha = minAlpha; // Start at minimum alpha
         }
         else
         {
@@ -31,23 +34,26 @@ public class MetallicOscilator : MonoBehaviour
 
         if (increasing)
         {
-            metallicValue += Time.deltaTime * speed;
-            if (metallicValue >= 0.75f)
+            currentAlpha += Time.deltaTime * speed;
+            if (currentAlpha >= maxAlpha)
             {
-                metallicValue = 0.75f;
+                currentAlpha = maxAlpha;
                 increasing = false;
             }
         }
         else
         {
-            metallicValue -= Time.deltaTime * speed;
-            if (metallicValue <= 0f)
+            currentAlpha -= Time.deltaTime * speed;
+            if (currentAlpha <= minAlpha)
             {
-                metallicValue = 0f;
+                currentAlpha = minAlpha;
                 increasing = true;
             }
         }
 
-        targetMaterial.SetFloat("_Metallic", metallicValue);
+        // Set the alpha value in the material's color
+        Color color = targetMaterial.color;
+        color.a = currentAlpha;
+        targetMaterial.color = color;
     }
 }
