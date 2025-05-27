@@ -11,7 +11,6 @@ public class SceneLoadManager : MonoBehaviour
     [SerializeField] private VideoClip trainStationLoadingScreen;
     [SerializeField] private VideoClip apartamentLoadingScreen;
 
-    // Add this to track loading state
     public static bool IsLoading { get; private set; }
 
     public IEnumerator LoadSceneAsynchronously(string sceneName)
@@ -19,7 +18,6 @@ public class SceneLoadManager : MonoBehaviour
         IsLoading = true;
         loadingScreen.SetActive(true);
 
-        // Get the parent UI object and disable all children except loading screen
         Transform parentUI = loadingScreen.transform.parent;
         if (parentUI != null)
         {
@@ -60,6 +58,8 @@ public class SceneLoadManager : MonoBehaviour
             if (operation.progress >= 0.9f && elapsedTime >= minimumWaitTime)
             {
                 operation.allowSceneActivation = true;
+                IsLoading = false;
+
             }
 
             yield return null;

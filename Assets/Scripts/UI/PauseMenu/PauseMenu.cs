@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -76,5 +77,7 @@ public class PauseMenu : MonoBehaviour
     public void OpenMainMenu()
     {
         Debug.Log("Open Main Menu....");
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("MainScreen");
     }
 }

@@ -96,8 +96,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: cb97d5c2164cda5488e51135e23c1e1c, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 36680b021f64479419c98faa98fab162, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1616,6 +1616,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 929216632}
     m_Modifications:
+    - target: {fileID: 1952034265091413313, guid: 4d0d673bdcf415d4198301bd67451f72, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7268378943672993654, guid: 4d0d673bdcf415d4198301bd67451f72, type: 3}
       propertyPath: m_Name
       value: WorldBoarder (13)
@@ -4431,9 +4435,9 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -4592,6 +4596,18 @@ PrefabInstance:
       propertyPath: cameraPosition
       value: 
       objectReference: {fileID: 880782823}
+    - target: {fileID: 4322800342240505282, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4322800342240505282, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.4340124
+      objectReference: {fileID: 0}
+    - target: {fileID: 4322800342240505282, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.7056604
+      objectReference: {fileID: 0}
     - target: {fileID: 4507299972933632339, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
       propertyPath: orientation
       value: 
@@ -11726,6 +11742,14 @@ PrefabInstance:
       propertyPath: deathScreen
       value: 
       objectReference: {fileID: 514583143}
+    - target: {fileID: 2512878249297773658, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820407291728212450, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4171929169890430986, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: StaminaBar
       value: 
@@ -11790,6 +11814,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4929955440148676500, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5006479102293079289, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: m_Name
       value: Player
@@ -11797,6 +11825,10 @@ PrefabInstance:
     - target: {fileID: 5160705360862300712, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: m_Radius
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849416539811799486, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
