@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143af501d36453f43bd19528b1fb7ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chassingSpeed: 8
+  chassingSpeed: 7
   runningSound: {fileID: 8300000, guid: 0fc39e8a50c2b50468f505db3f3b9cea, type: 3}
   lookingAroundAnimation: {fileID: 7400000, guid: ca865fd23c3bd8849924815b287387ca, type: 2}
 --- !u!114 &8194449374885202828
