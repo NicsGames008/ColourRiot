@@ -317,6 +317,7 @@ Transform:
   - {fileID: 6156654703253809376}
   - {fileID: 7704621957859139885}
   - {fileID: 870023848372861664}
+  - {fileID: 2954522949774076471}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6556213586168061251
@@ -410,4 +411,55 @@ MonoBehaviour:
   loadingScreen: {fileID: 0}
   neighborhoodLoadingScreen: {fileID: 32900000, guid: de0c9678a921d94478bbb94757cc0ff9, type: 3}
   trainStationLoadingScreen: {fileID: 32900000, guid: 77be9612e37aa7a479914b646a50d446, type: 3}
-  apartamentLoadingScreen: {fileID: 32900000, guid: de0c9678a921d94478bbb94757cc0ff9, type: 3}
+  apartamentFromNeighborhoodLoadingScreen: {fileID: 32900000, guid: de0c9678a921d94478bbb94757cc0ff9, type: 3}
+  apartamentFromTrainStationLoadingScreen: {fileID: 32900000, guid: 77be9612e37aa7a479914b646a50d446, type: 3}
+  apartamentFromMainScreenLoadingScreen: {fileID: 32900000, guid: 435041eda63a1de4d9592d1648930f47, type: 3}
+--- !u!1 &8010862179046496245
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2954522949774076471}
+  - component: {fileID: 1999956291646225172}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2954522949774076471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8010862179046496245}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -57.1299, y: -60.113663, z: 548.3925}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6366739852854899564}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1999956291646225172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8010862179046496245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: bef6eb148b2bacb4697b537b35979f63, type: 2}

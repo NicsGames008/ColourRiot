@@ -5,21 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class MainScreenBtns : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private SceneLoadManager sceneLoadManager;
 
     public void LoadApartemnt()
     {
-        SceneManager.LoadScene("Apartment");
+        //SceneManager.LoadScene("Apartment");
+        StartCoroutine(sceneLoadManager.LoadSceneAsynchronously("Apartment", "MainScreen"));
     }
 
     public void ExitGame()

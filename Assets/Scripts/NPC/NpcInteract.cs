@@ -124,7 +124,7 @@ public class NPCInteract : MonoBehaviour
         yield return new WaitForSeconds(sceneLoadDelay);
         //SceneManager.LoadScene(sceneToLoad);
         dialoguePanel.SetActive(false);
-        StartCoroutine(sceneLoadManager.LoadSceneAsynchronously(sceneToLoad));
+        StartCoroutine(sceneLoadManager.LoadSceneAsynchronously(sceneToLoad, null));
     }
 
     void OnTriggerEnter(Collider other)

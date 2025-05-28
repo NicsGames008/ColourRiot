@@ -55,7 +55,7 @@ public class VanInteraction : MonoBehaviour, IInteractable
             {
                 Debug.Log("Go to appartment from Neighborhood");
                 AlbumManager.Instance.AddTagsFromAlbum();
-                StartCoroutine(sceneLoadManager.LoadSceneAsynchronously("Apartment"));
+                StartCoroutine(sceneLoadManager.LoadSceneAsynchronously("Apartment", "Neighborhood"));
                 isLoading = true;
                 ShowUI(false);
             }
@@ -63,7 +63,7 @@ public class VanInteraction : MonoBehaviour, IInteractable
             {
                 Debug.Log("Go to appartment from Train Station");
                 AlbumManager.Instance.AddTagsFromAlbum();
-                StartCoroutine(sceneLoadManager.LoadSceneAsynchronously("Apartment"));
+                StartCoroutine(sceneLoadManager.LoadSceneAsynchronously("Apartment", "TrainStation"));
                 isLoading = true;
                 ShowUI(false);
             }
