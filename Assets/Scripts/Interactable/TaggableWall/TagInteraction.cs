@@ -24,6 +24,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
     [Header("FX")]
     [SerializeField] private ParticleSystem sprayParticle; // Particle effect for spray can
 
+    [Header("Player Data")]
+    [SerializeField] private GameManager gameManager; // Particle effect for spray can
+
     // Private references and state variables
     private GameObject lockedPlayerPosistion; // Target position to lock player during tag
     private GameObject currentUI; // Instance of the feedback UI
@@ -39,6 +42,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
     private Animator spraycanAnimator; // Animator for the spray can
 
     private PlayerState playerState;
+    private Album album;
 
     #endregion
 
@@ -47,9 +51,11 @@ public class TagInteraction : MonoBehaviour, IInteractable
     private void Awake()
     {
         // Locate player and camera in the scene
-        player = GameObject.FindWithTag("Player");
+        player = gameManager.ReturnPlayer();
+
         cam = GameObject.FindWithTag("MainCamera");
         playerState = player.GetComponent<PlayerState>();
+        album = player.GetComponent<Album>();
 
         Transform cTransform = transform.Find("NoiseDetection");
 
@@ -72,6 +78,18 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // Set slider max value to required tag time
         timer.maxValue = tagTime;
         tagImage.overrideSprite = gratffitiTag.image;
+        //tagImage.SetNativeSize();
+        //tagImage.rectTransform.localScale = new Vector3(0.002f, 0.002f, 0.002f);
+
+        foreach (var tag in album.tags)
+        {
+            if (tag == gratffitiTag)
+            {
+                hasDoneThisTag = true;
+                tagImage.fillAmount = 1;
+
+            }
+        }
     }
 
     private void Update()
@@ -100,8 +118,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // Cancel tagging when mouse button is released
         if (Input.GetMouseButtonUp(0) && isAtWall && !hasDoneThisTag && playerState.GetPlayerstate() == EPlayerState.InWall)
         {
-            //elapsedTime = 0;
-            //tagImage.fillAmount = 0;
             timerUI.SetActive(false);
             noiseCollider.SetActive(false);
             spraycanAnimator.SetBool("isSpraying", false);
@@ -234,4 +250,20 @@ public class TagInteraction : MonoBehaviour, IInteractable
     }
 
     #endregion
+
+    void FitImageToSize(Image image, Vector2 maxSize)
+    {
+        Sprite sprite = image.sprite;
+        if (sprite == null) return;
+
+        float spriteWidth = sprite.rect.width;
+        float spriteHeight = sprite.rect.height;
+
+        float widthRatio = maxSize.x / spriteWidth;
+        float heightRatio = maxSize.y / spriteHeight;
+        float scaleFactor = Mathf.Min(widthRatio, heightRatio);
+
+        image.rectTransform.sizeDelta = new Vector2(spriteWidth * scaleFactor, spriteHeight * scaleFactor);
+    }
+
 }

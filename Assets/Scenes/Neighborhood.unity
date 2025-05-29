@@ -518,6 +518,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1567715628}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
       objectReference: {fileID: 11400000, guid: 47d4a93c3a712bc4f852208710951468, type: 2}
@@ -3440,6 +3444,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1567715628}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
       objectReference: {fileID: 11400000, guid: 0e148af537c82e24090f1e1dc06267f7, type: 2}
@@ -3970,6 +3978,10 @@ PrefabInstance:
       propertyPath: sprayCan
       value: 
       objectReference: {fileID: 1567715628}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
@@ -5163,6 +5175,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1567715628}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
       objectReference: {fileID: 11400000, guid: a222d7640ffd9764c9863bead506eaf5, type: 2}
@@ -6306,6 +6322,10 @@ PrefabInstance:
       propertyPath: sprayCan
       value: 
       objectReference: {fileID: 1567715628}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
@@ -8978,6 +8998,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1567715628}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
       objectReference: {fileID: 11400000, guid: fd6271451de551745bc6949a226b4187, type: 2}
@@ -9708,6 +9732,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1567715628}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
       objectReference: {fileID: 11400000, guid: 24ccf62f2b9e38943b7b9921f254bc7b, type: 2}
@@ -10158,6 +10186,10 @@ PrefabInstance:
       propertyPath: sprayCan
       value: 
       objectReference: {fileID: 1567715628}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
@@ -11359,6 +11391,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1013548009096647948, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013548009096647948, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013548009096647948, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013548009096647948, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -12114,6 +12158,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1567715628}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
       objectReference: {fileID: 11400000, guid: 73b0e05919714054ca7229e08a4bae0f, type: 2}
@@ -12551,10 +12599,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2037037055}
     m_Modifications:
-    - target: {fileID: 146191781807876576, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
-      propertyPath: m_FillAmount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2661175143770267691, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00017723527
@@ -12655,6 +12699,10 @@ PrefabInstance:
       propertyPath: sprayCan
       value: 
       objectReference: {fileID: 1567715628}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
@@ -12959,6 +13007,50 @@ PrefabInstance:
       propertyPath: deathScreen
       value: 
       objectReference: {fileID: 514583143}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8976188d328907f488178020787a2172, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 73b0e05919714054ca7229e08a4bae0f, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: b3a953c113003414384db8cbb803f648, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 47d4a93c3a712bc4f852208710951468, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: e78c6d91e16e6ed4585187eb976c7d6d, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0e148af537c82e24090f1e1dc06267f7, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: fd6271451de551745bc6949a226b4187, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 810f921a378462a4d8000904bcf5e374, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: a222d7640ffd9764c9863bead506eaf5, type: 2}
+    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: tags.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: 24ccf62f2b9e38943b7b9921f254bc7b, type: 2}
     - target: {fileID: 2512878249297773658, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: m_Layer
       value: 10
