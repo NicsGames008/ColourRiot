@@ -11193,6 +11193,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 588510138}
+    - target: {fileID: 699106946146465614, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 1013548009096647948, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -11285,10 +11289,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1465666966530929962, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: a8b70462b0cff8c4ba9b811ef8c02f82, type: 3}
     - target: {fileID: 1626349612219905479, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -11310,6 +11310,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3deda8cd69e063f478adfc0e909ee5c3, type: 3}
     - target: {fileID: 2090491976924126422, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
+    - target: {fileID: 2536865369022310052, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 588510138}
@@ -11337,14 +11341,6 @@ PrefabInstance:
       propertyPath: maxTags
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 5181667455120975165, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 026cefe308a5c1c4987074b0ff5fbe3e, type: 3}
-    - target: {fileID: 5181667455120975165, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: b58befec64fd6ee43a11075f6be7e815, type: 2}
     - target: {fileID: 5795797221895584701, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_SizeDelta.x
       value: 315.9449
@@ -11451,6 +11447,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3deda8cd69e063f478adfc0e909ee5c3, type: 3}
+    - target: {fileID: 7822705881556770180, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 7880666274172568305, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: gameManager
       value: 
