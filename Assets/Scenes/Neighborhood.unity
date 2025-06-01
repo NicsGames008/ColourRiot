@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.8962264, g: 0.6523134, b: 0.5368903, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 9d55193ceb972da498d5a139201693de, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 88027291f8360b8488c43431233700f9, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -11173,10 +11173,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 84371899133682109, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8b70462b0cff8c4ba9b811ef8c02f82, type: 3}
     - target: {fileID: 223362773856705691, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 588510138}
+    - target: {fileID: 468042594495050027, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_Name
+      value: Tag
+      objectReference: {fileID: 0}
+    - target: {fileID: 468042594495050027, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 570652476237648752, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: gameManager
       value: 
@@ -11273,6 +11285,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1465666966530929962, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8b70462b0cff8c4ba9b811ef8c02f82, type: 3}
     - target: {fileID: 1626349612219905479, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -11321,6 +11337,14 @@ PrefabInstance:
       propertyPath: maxTags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5181667455120975165, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 026cefe308a5c1c4987074b0ff5fbe3e, type: 3}
+    - target: {fileID: 5181667455120975165, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: b58befec64fd6ee43a11075f6be7e815, type: 2}
     - target: {fileID: 5795797221895584701, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_SizeDelta.x
       value: 315.9449
@@ -11460,7 +11484,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1550413054763499057, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
@@ -12957,14 +12982,6 @@ PrefabInstance:
       propertyPath: deathScreen
       value: 
       objectReference: {fileID: 514583143}
-    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
-      propertyPath: tags.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
-      propertyPath: tags.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8976188d328907f488178020787a2172, type: 2}
     - target: {fileID: 2512878249297773658, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: m_Layer
       value: 10

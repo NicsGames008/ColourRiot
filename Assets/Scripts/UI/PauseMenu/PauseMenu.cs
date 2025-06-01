@@ -78,6 +78,12 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         albumUI.SetActive(true);
     }
+    
+    public void CloseAlbum()
+    {
+        pauseMenuUI.SetActive(true);
+        albumUI.SetActive(false);
+    }
 
     public void OpenMainMenu()
     {
