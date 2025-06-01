@@ -67,6 +67,9 @@ public class PlayerMovement : MonoBehaviour
     private float bobTimer = 0f;
     private Vector3 headStartPos;
 
+    [Header("Animation")]
+    public Animator animator;
+
     private PlayerState playerState;
 
     void Start()
@@ -144,14 +147,29 @@ public class PlayerMovement : MonoBehaviour
         {
             readyToJump = false;
             Jump();
+            //animator.SetTrigger("Jump");
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
 
     private void MovePlayer()
     {
+        if (verticalInput > 0 )
+        animator.SetBool("isWalking", true);
+        else
+        animator.SetBool("isWalking", false);
+
         float currentSpeed = moveSpeed;
-        if (isSprinting) currentSpeed *= sprintMultiplier;
+        if (isSprinting)
+        {
+            currentSpeed *= sprintMultiplier;
+
+            animator.SetBool("IsRunning", true);
+        }
+        else
+            animator.SetBool("IsRunning", false);
+
+        transform.rotation = orientation.rotation;
 
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         moveDirection = moveDirection.normalized;

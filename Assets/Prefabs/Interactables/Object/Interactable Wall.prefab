@@ -302,6 +302,7 @@ MonoBehaviour:
   movingToWalTime: 1.5
   gratffitiTag: {fileID: 0}
   sprayParticle: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!114 &2959286501393193364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,10 +408,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   possibleImages:
-  - {fileID: 21300000, guid: 53fd85ff20ced0a41a53eb59c3a0bd01, type: 3}
-  - {fileID: 21300000, guid: b23ee8b06acd55c4da5f076f402f738e, type: 3}
-  - {fileID: 21300000, guid: 0327750fb52ebc74bae0efd8cfe6be3c, type: 3}
-  - {fileID: 21300000, guid: 337758f306a6b7042b2df7b939f386be, type: 3}
+  - {fileID: 21300000, guid: d42389acd11ae554696202d6f413a9d7, type: 3}
+  - {fileID: 21300000, guid: 5a53ecd2ad8364f489d189271090409b, type: 3}
+  - {fileID: 21300000, guid: 853488b6782590a44a3707b4bcb344d8, type: 3}
 --- !u!1 &8043652389895417305
 GameObject:
   m_ObjectHideFlags: 0

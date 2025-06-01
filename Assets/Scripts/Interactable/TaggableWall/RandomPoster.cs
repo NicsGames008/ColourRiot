@@ -25,7 +25,7 @@ public class RandomPoster : MonoBehaviour
 
         // Assign and resize to native size
         imageComponent.sprite = randomSprite;
-        FitImageToSize(imageComponent, new Vector2(1.5f, 1.5f)); // Max width/height
+        FitImageToSize(imageComponent, new Vector2(2.5f, 2.5f)); // Max width/height
 
     }
 

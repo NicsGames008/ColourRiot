@@ -5472,6 +5472,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1107407413}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1419559226}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
       objectReference: {fileID: 11400000, guid: 84723fb46c253aa4f9707dc0c4f369f2, type: 2}
@@ -5727,6 +5731,10 @@ PrefabInstance:
       propertyPath: sprayCan
       value: 
       objectReference: {fileID: 1107407413}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1419559226}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
@@ -8172,6 +8180,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1107407413}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1419559226}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
       objectReference: {fileID: 11400000, guid: 0b6081922d8ee2240a208e0d76226985, type: 2}
@@ -8982,6 +8994,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1013548009096647948, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013548009096647948, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013548009096647948, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013548009096647948, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -9489,6 +9513,10 @@ PrefabInstance:
       propertyPath: sprayCan
       value: 
       objectReference: {fileID: 1107407413}
+    - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1419559226}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 

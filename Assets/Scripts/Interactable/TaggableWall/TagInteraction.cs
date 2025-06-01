@@ -251,19 +251,8 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
     #endregion
 
-    void FitImageToSize(Image image, Vector2 maxSize)
+    public bool ReturnHasDoneTag()
     {
-        Sprite sprite = image.sprite;
-        if (sprite == null) return;
-
-        float spriteWidth = sprite.rect.width;
-        float spriteHeight = sprite.rect.height;
-
-        float widthRatio = maxSize.x / spriteWidth;
-        float heightRatio = maxSize.y / spriteHeight;
-        float scaleFactor = Mathf.Min(widthRatio, heightRatio);
-
-        image.rectTransform.sizeDelta = new Vector2(spriteWidth * scaleFactor, spriteHeight * scaleFactor);
+        return hasDoneThisTag;
     }
-
 }

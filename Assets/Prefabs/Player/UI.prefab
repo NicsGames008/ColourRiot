@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 7709473923281315896}
   - component: {fileID: 7813692065896895594}
   - component: {fileID: 145506838133201378}
+  - component: {fileID: 1225467567244337332}
   m_Layer: 5
   m_Name: AlbumButton
   m_TagString: Untagged
@@ -384,6 +385,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &1225467567244337332
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034040034974041260}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 445c1284322683f46a5d7fc7d0a79b5e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1131694320728834198
 GameObject:
   m_ObjectHideFlags: 0
@@ -3929,6 +3951,7 @@ GameObject:
   - component: {fileID: 148874108352068883}
   - component: {fileID: 1961549934589398149}
   - component: {fileID: 5850280812857809719}
+  - component: {fileID: 1316176131255880328}
   m_Layer: 5
   m_Name: MainMenuButton
   m_TagString: Untagged
@@ -4050,6 +4073,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &1316176131255880328
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597222249000182811}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 445c1284322683f46a5d7fc7d0a79b5e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7733529780953640407
 GameObject:
   m_ObjectHideFlags: 0
@@ -4717,6 +4761,7 @@ GameObject:
   - component: {fileID: 8329336487040615569}
   - component: {fileID: 6406246300922008493}
   - component: {fileID: 7547800489298675716}
+  - component: {fileID: 5798069792179929350}
   m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
@@ -4838,6 +4883,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &5798069792179929350
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8737351892637461736}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 445c1284322683f46a5d7fc7d0a79b5e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8873033304699391539
 GameObject:
   m_ObjectHideFlags: 0

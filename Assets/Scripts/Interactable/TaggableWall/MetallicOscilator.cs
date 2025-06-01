@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GlowingOscillator : MonoBehaviour
@@ -8,12 +6,14 @@ public class GlowingOscillator : MonoBehaviour
     [SerializeField] private float speed = 0.25f;
     [SerializeField] private float minAlpha = 0.2f;
     [SerializeField] private float maxAlpha = 0.5f;
+    private TagInteraction tagInteraction;
 
     private float currentAlpha;
     private bool increasing = true;
 
     void Start()
-    {
+    {        
+        tagInteraction = GetComponent<TagInteraction>();
         Renderer renderer = GetComponent<Renderer>();
         if (renderer != null)
         {
@@ -29,6 +29,14 @@ public class GlowingOscillator : MonoBehaviour
 
     void Update()
     {
+        if (tagInteraction.ReturnHasDoneTag())
+        {
+            Color coulor = targetMaterial.color;
+            coulor.a = 0;
+            targetMaterial.color = coulor;
+            return;
+        }
+
         if (targetMaterial == null)
             return;
 
