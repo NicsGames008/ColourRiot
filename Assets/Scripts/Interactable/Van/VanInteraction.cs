@@ -37,7 +37,6 @@ public class VanInteraction : MonoBehaviour, IInteractable
         }
     }
 
-    // Called when the player interacts with the tagging object
     public void Interact(GameObject Instigator)
     {
         int tagDoneOnTheLevel = 0;
@@ -77,6 +76,12 @@ public class VanInteraction : MonoBehaviour, IInteractable
 
     public void ShowUI(bool show)
     {
+        // Don't show UI if game is paused
+        if (PauseMenu.gameIsPause)
+        {
+            show = false;
+        }
+
         if (!show)
         {
             if (currentUI != null)
@@ -87,7 +92,6 @@ public class VanInteraction : MonoBehaviour, IInteractable
             return;
         }
 
-        // If we reach here, show == true
         if (currentUI != null || isLoading)
             return;
 

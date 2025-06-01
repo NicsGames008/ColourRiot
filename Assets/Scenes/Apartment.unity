@@ -614,6 +614,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1507861139744159881}
+    - target: {fileID: 699106946146465614, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1507861139744159881}
     - target: {fileID: 1013548009096647948, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -738,6 +742,10 @@ PrefabInstance:
       propertyPath: backButton
       value: 
       objectReference: {fileID: 634597639}
+    - target: {fileID: 2536865369022310052, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1507861139744159881}
     - target: {fileID: 2650160661789024440, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_SizeDelta.x
       value: 115.6694
@@ -835,6 +843,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7693175520984322883, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1507861139744159881}
+    - target: {fileID: 7822705881556770180, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1507861139744159881}
@@ -1955,7 +1967,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 1456850463}
   dialogueText: {fileID: 2124286467}
   dialogueDuration: 5
-  interactionPromptGroup: {fileID: 1884826359}
+  interactionPromptGroup: {fileID: 1064117698}
   fadeSpeed: 4
   sceneLoadManager: {fileID: 1608863569}
 --- !u!65 &962706404
@@ -2063,6 +2075,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1713473412}
   m_SourcePrefab: {fileID: 100100000, guid: 34fa6f23d822cb34a82cf06161477ff8, type: 3}
+--- !u!225 &1064117698 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 3095116308746878847, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+  m_PrefabInstance: {fileID: 302469555}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1091738786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2884,14 +2901,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
-      propertyPath: tags.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2362720286359741134, guid: a964d186b2173414995eabd2a49f326c, type: 3}
-      propertyPath: tags.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8976188d328907f488178020787a2172, type: 2}
     - target: {fileID: 4171929169890430986, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: StaminaBar
       value: 
@@ -2965,11 +2974,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 9144515615938231990, guid: a964d186b2173414995eabd2a49f326c, type: 3}
   m_PrefabInstance: {fileID: 1861498193}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &1884826359 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 5404215362051596509, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-  m_PrefabInstance: {fileID: 302469555}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1886435238 stripped
 GameObject:

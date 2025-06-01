@@ -100,6 +100,17 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        // Don't process interactions if game is paused
+        if (PauseMenu.gameIsPause)
+        {
+            // If we were in the middle of tagging, stop it
+            if (isAtWall && playerState.GetPlayerstate() == EPlayerState.InWall)
+            {
+                StopInteracting();
+            }
+            return;
+        }
+
         // Stop tagging if player presses 'E'
         if (Input.GetKeyDown(KeyCode.E) && isAtWall && playerState.GetPlayerstate() == EPlayerState.InWall)
         {
@@ -140,6 +151,12 @@ public class TagInteraction : MonoBehaviour, IInteractable
     // Show or hide the interaction UI depending on player proximity
     public void ShowUI(bool show)
     {
+        // Don't show UI if game is paused
+        if (PauseMenu.gameIsPause)
+        {
+            show = false;
+        }
+
         if (show && !hasDoneThisTag)
         {
             if (currentUI == null)

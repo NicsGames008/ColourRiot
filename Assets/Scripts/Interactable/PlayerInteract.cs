@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private float distanceToInteract;
+    [SerializeField] private GameManager gameManager;
 
     private Camera MainCamera; // Reference to the main camera
     private GameObject player; // Reference to the player object
@@ -13,15 +14,22 @@ public class PlayerInteract : MonoBehaviour
     void Start()
     {
         MainCamera = Camera.main; // Assign the main camera
-        player = GameObject.FindWithTag("Player"); // Find and assign the player object by tag
+        player = gameManager.ReturnPlayer(); // Find and assign the player object by tag
     }
 
     // Update is called once per frame
     void Update()
     {
-        // If the player reference is null, exit the function
-        if (player == null)
+        if (player == null || PauseMenu.gameIsPause)
+        {
+            // Clear any active UI when paused or player is null
+            if (lastInteractable != null)
+            {
+                lastInteractable.ShowUI(false);
+                lastInteractable = null;
+            }
             return;
+        }
 
         Vector3 RayOrigin = player.transform.position; // Set ray origin to the player's position
         Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition); // Create a ray from the mouse positione

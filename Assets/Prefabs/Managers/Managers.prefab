@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceToInteract: 1.5
+  gameManager: {fileID: 7540753185275966019}
 --- !u!54 &393706973655459548
 Rigidbody:
   m_ObjectHideFlags: 0

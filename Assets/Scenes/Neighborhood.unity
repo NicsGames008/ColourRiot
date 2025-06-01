@@ -11325,6 +11325,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4794786786673071582, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4879948537524436604, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -11361,16 +11365,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6153969667630408227, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_text
-      value: '[E] t
-
-        o Talks'
-      objectReference: {fileID: 0}
-    - target: {fileID: 6153969667630408227, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: fa4e4943bbf4db8439afb883986efa14, type: 2}
     - target: {fileID: 6153969667630408227, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
@@ -11459,6 +11453,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 588510138}
+    - target: {fileID: 8179360887576551385, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_Name
+      value: Text
+      objectReference: {fileID: 0}
     - target: {fileID: 8179360887576551385, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_IsActive
       value: 0
