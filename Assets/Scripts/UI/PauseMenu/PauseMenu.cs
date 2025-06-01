@@ -10,6 +10,9 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private GameObject albumUI;
+    [SerializeField] private AudioClip pauseSound;
+
+    private AudioSource pauseSource;
 
     private PlayerState playerState;
     private EPlayerState currentPlayerState;
@@ -19,6 +22,7 @@ public class PauseMenu : MonoBehaviour
     {
         playerState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>();
         sceneLoadManager = FindObjectOfType<SceneLoadManager>();
+        pauseSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -65,6 +69,7 @@ public class PauseMenu : MonoBehaviour
         gameIsPause = true;
         currentPlayerState = playerState.GetPlayerstate();
         playerState.ChangePlayerState(EPlayerState.Paused);
+        pauseSource.PlayOneShot(pauseSound);
     }
 
     public void OpenAlbum()

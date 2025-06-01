@@ -24,6 +24,11 @@ public class TagInteraction : MonoBehaviour, IInteractable
     [Header("FX")]
     [SerializeField] private ParticleSystem sprayParticle; // Particle effect for spray can
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip spraySound; // Particle effect for spray can
+    [SerializeField] private AudioClip tagDone; // Particle effect for spray can
+    private AudioSource audioSource; // Particle effect for spray can
+
     [Header("Player Data")]
     [SerializeField] private GameManager gameManager; // Particle effect for spray can
 
@@ -56,6 +61,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         cam = GameObject.FindWithTag("MainCamera");
         playerState = player.GetComponent<PlayerState>();
         album = player.GetComponent<Album>();
+        audioSource = GetComponent<AudioSource>();
 
         Transform cTransform = transform.Find("NoiseDetection");
 
@@ -113,6 +119,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
             noiseCollider.SetActive(true);
             spraycanAnimator.SetBool("isSpraying", true);
             sprayParticle.Play();
+            audioSource.PlayOneShot(spraySound);
         }
 
         // Cancel tagging when mouse button is released
@@ -120,6 +127,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         {
             timerUI.SetActive(false);
             noiseCollider.SetActive(false);
+            audioSource.Stop();
             spraycanAnimator.SetBool("isSpraying", false);
             sprayParticle.Stop();
         }
@@ -176,8 +184,14 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
         playerState.ChangePlayerState(EPlayerState.Moving);
         isAtWall = false;
-
         sprayCan.SetActive(false);
+
+
+        // Only stop audio if we're not playing the completion sound
+        if (!hasDoneThisTag)
+        {
+            audioSource.Stop();
+        }
     }
 
     // Handles the progress of the tagging
@@ -200,6 +214,11 @@ public class TagInteraction : MonoBehaviour, IInteractable
             Album.Instance.Add(gratffitiTag); // Add tag to player's collection
             hasDoneThisTag = true;
             noiseCollider.SetActive(false);
+
+            // Play the completion sound and don't stop it immediately
+            audioSource.Stop(); // Stop any current sounds (like spraySound)
+            audioSource.PlayOneShot(tagDone);
+
             StopInteracting();
         }
     }

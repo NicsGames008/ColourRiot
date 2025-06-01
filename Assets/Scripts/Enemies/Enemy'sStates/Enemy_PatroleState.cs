@@ -18,6 +18,8 @@ public class Enemy_PatroleState : AStateBehaviour
     [Header("Audio")]
     [SerializeField] private AudioClip foundPlayerSound;
     [SerializeField] private AudioClip suspitionSound;
+    private AudioSource audioSource;
+
 
     [Header("Animation")]
     [SerializeField] private AnimationStateController animationController;
@@ -30,7 +32,6 @@ public class Enemy_PatroleState : AStateBehaviour
 
     // Component references
     private NavMeshAgent agent;
-    private AudioSource audioSource;
     private LineOfSight enemyLineOfSight;
     private NoiseDetection enemyNoiseDetection;
 
