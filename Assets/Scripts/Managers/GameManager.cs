@@ -1,19 +1,62 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+
+    public int MissionProgress { get; set; } = 0;
+
+    public bool HasSeenSecondMissionIntro = false;
+
+
     private GameObject player;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        // Ensure there's only one GameManager instance
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Persist between scenes
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnEnable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    {
+        // Update the reference to the player after every scene load
+        print("new player!");
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public GameObject ReturnPlayer()
     {
         return player;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            MissionProgress = 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            MissionProgress = 0;
+        }
     }
 }

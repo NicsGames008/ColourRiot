@@ -167,26 +167,24 @@ public class TagInteraction : MonoBehaviour, IInteractable
     // Handles the progress of the tagging
     private void Countdown()
     {
-        // Update elapsed time while holding mouse button
         elapsedTime += Time.deltaTime;
-        int seconds = Mathf.FloorToInt(elapsedTime % 60);
 
-        // Update UI slider and tag image fill amount
+        // Update UI
         timer.value = elapsedTime;
         tagImage.fillAmount = elapsedTime / tagTime;
 
-
-        // Finish tagging after required time
-        if (seconds == tagTime)
+        // Finish tag
+        if (elapsedTime >= tagTime && !hasDoneThisTag)
         {
             sprayParticle.Stop();
             timerUI.SetActive(false);
-            Album.Instance.Add(gratffitiTag); // Add tag to player's collection
+            Album.Instance.Add(gratffitiTag);
             hasDoneThisTag = true;
             noiseCollider.SetActive(false);
             StopInteracting();
         }
     }
+
 
     #endregion
 

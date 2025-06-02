@@ -290,9 +290,9 @@ MonoBehaviour:
   maxStamina: 100
   currentStamina: 0
   staminaRegenRate: 10
-  staminaSprintDrain: 20
+  staminaSprintDrain: 25
   fallStaminaDrainMultiplier: 2
-  sprintMultiplier: 1.5
+  sprintMultiplier: 2
   StaminaBar: {fileID: 0}
   staminaGroup: {fileID: 0}
   staminaFill: {fileID: 0}
