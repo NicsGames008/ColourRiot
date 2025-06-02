@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject ReturnPlayer()
     {
-        Debug.Log(player);
         return player;
     }
 

@@ -5468,6 +5468,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 30.046
       objectReference: {fileID: 0}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: e8b73c15167b1754c8450b8ef04f739e, type: 3}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: fc9871301492c204c9d9d059ad27c499, type: 3}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 65b86fdc29aa1a64ca9e39678026b3a9, type: 3}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
@@ -5728,6 +5740,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -178.534
       objectReference: {fileID: 0}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: e8b73c15167b1754c8450b8ef04f739e, type: 3}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: fc9871301492c204c9d9d059ad27c499, type: 3}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 65b86fdc29aa1a64ca9e39678026b3a9, type: 3}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
@@ -8417,6 +8441,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -74.153
       objectReference: {fileID: 0}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: e8b73c15167b1754c8450b8ef04f739e, type: 3}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: fc9871301492c204c9d9d059ad27c499, type: 3}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 65b86fdc29aa1a64ca9e39678026b3a9, type: 3}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
@@ -9791,6 +9827,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.839
       objectReference: {fileID: 0}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: e8b73c15167b1754c8450b8ef04f739e, type: 3}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: fc9871301492c204c9d9d059ad27c499, type: 3}
+    - target: {fileID: 4594864075768116002, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
+      propertyPath: possibleImages.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 65b86fdc29aa1a64ca9e39678026b3a9, type: 3}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
