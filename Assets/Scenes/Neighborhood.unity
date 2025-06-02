@@ -1482,10 +1482,6 @@ PrefabInstance:
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 3272812836871473955, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
-      propertyPath: m_Pitch
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6080983387878703331, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
       propertyPath: links.Array.size
       value: 6
