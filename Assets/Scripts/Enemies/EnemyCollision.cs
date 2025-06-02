@@ -13,11 +13,12 @@ public class EnemyCollision : MonoBehaviour
         playerCheats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCheats>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+private void OnCollisionEnter(Collision collision)
+{
+    if (collision.gameObject.CompareTag("Player") && !playerCheats.GetIsInvulnerable())
     {
-        if (!playerCheats.GetIsInvulnerable())
-        {
-            playerState.ChangePlayerState(EPlayerState.Dead);
-        }
+        playerState.ChangePlayerState(EPlayerState.Dead);
     }
+}
+
 }

@@ -13,12 +13,36 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         musicSource = GetComponent<AudioSource>();
-        musicSource.clip = backgroudMusic;
-        musicSource.Play();
+        if (backgroudMusic != null && musicSource != null)
+        {
+            musicSource.clip = backgroudMusic;
+            musicSource.loop = true;
+            musicSource.playOnAwake = false;
+            musicSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("dumb dumb forgot audio.");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+
+
+public void ChangeMusic(AudioClip newClip)
     {
-    }
+        if (newClip == null)
+        {
+        Debug.LogWarning("yep you forgot the audio boy.");
+        return;
+        }
+
+        if (musicSource.isPlaying)
+        {
+        musicSource.Stop();
+        }
+
+        musicSource.clip = newClip;
+        musicSource.loop = true;
+        musicSource.Play();
+    } 
 }

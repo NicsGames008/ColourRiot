@@ -15,6 +15,10 @@ public class TimerManager : MonoBehaviour
     private float timeRemaining;
     private bool timerRunning = false;
 
+    [SerializeField] private AudioClip timestarted;
+    private AudioManager audioManager;
+
+
     void Start()
     {
         if (timerText != null)
@@ -25,6 +29,9 @@ public class TimerManager : MonoBehaviour
 
         timeRemaining = startingTime;
         playerState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>();
+
+        audioManager = FindObjectOfType<AudioManager>();
+
     }
 
     void Update()
@@ -32,14 +39,17 @@ public class TimerManager : MonoBehaviour
         if (timerRunning)
         {
             timeRemaining -= Time.deltaTime;
-            UpdateTimerDisplay();
 
             if (timeRemaining <= 0f)
             {
                 timeRemaining = 0f;
                 timerRunning = false;
-                LoseGame();
+                UpdateTimerDisplay(); // Make sure it shows 00:00
+                LoseGame(); // Trigger lose behavior
+                return; // Prevent further execution
             }
+
+            UpdateTimerDisplay(); // Only call if time > 0
         }
     }
 
@@ -55,6 +65,12 @@ public class TimerManager : MonoBehaviour
             if (dayNightCycle != null)
                 dayNightCycle.StartCycle();
         }
+
+        if (audioManager != null)
+        {
+            audioManager.ChangeMusic(timestarted);
+        }
+
     }
 
     private void UpdateTimerDisplay()
@@ -89,7 +105,7 @@ public class TimerManager : MonoBehaviour
 
         yield return new WaitForSeconds(3f); 
 
-        SceneManager.LoadScene("Appartment");
+        SceneManager.LoadScene("Apartment");
     }
 
 }

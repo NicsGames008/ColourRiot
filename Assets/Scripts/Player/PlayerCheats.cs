@@ -1,35 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerCheats : MonoBehaviour
 {
-    [SerializeField] private Tag tagToCheatIntoAlbumNeighbotHood;
-    [SerializeField] private Tag tagToCheatIntoAlbumTrainStation;
-
-    private Album album;
+    [Header("Tag Assets")]
+    [SerializeField] private List<Tag> neighborhoodCheatTags;
+    [SerializeField] private List<Tag> trainStationCheatTags;
 
     private bool isInvulnerable = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        album = GetComponent<Album>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            Album.Instance.Add(tagToCheatIntoAlbumNeighbotHood);
+            if (neighborhoodCheatTags.Count > 0)
+            {
+                AlbumManager.Instance.AddCheatTags(neighborhoodCheatTags);
+                Debug.Log("lets gooooooo");
+            }
         }
         else if (Input.GetKeyDown(KeyCode.M))
         {
-            Album.Instance.Add(tagToCheatIntoAlbumTrainStation);
+            if (trainStationCheatTags.Count > 0)
+            {
+                AlbumManager.Instance.AddCheatTags(trainStationCheatTags);
+                Debug.Log("trainnn");
+            }
         }
-
         else if (Input.GetKeyDown(KeyCode.F1))
         {
             SceneManager.LoadScene("Appartment");
@@ -45,8 +43,9 @@ public class PlayerCheats : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.I))
         {
             isInvulnerable = !isInvulnerable;
+            Debug.Log(" Invulnerability toggled: " + isInvulnerable);
         }
-    }
+    }   
 
     public bool GetIsInvulnerable()
     {

@@ -13,13 +13,18 @@ public class AlbumManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Make it persist between scenes
-            AddStoredTagsToAlbum(); // Push stored tags into the Album
+            DontDestroyOnLoad(gameObject); // Persist across scenes
+            AddStoredTagsToAlbum(); // Load saved tags into Album
         }
         else
         {
-            Destroy(gameObject); // Destroy duplicates
+            Destroy(gameObject); // Prevent duplicates
         }
+    }
+
+    public List<Tag> Tags()
+    {
+        return storedTags;
     }
 
     public void AddStoredTagsToAlbum()
@@ -30,10 +35,9 @@ public class AlbumManager : MonoBehaviour
             return;
         }
 
-        Album.Instance.tags.Clear(); // First, clear the Album's tag list
-        Album.Instance.tags.AddRange(storedTags); // Then, add all storedTags
+        Album.Instance.tags.Clear();
+        Album.Instance.tags.AddRange(storedTags);
     }
-
 
     public void AddTagsFromAlbum()
     {
@@ -43,15 +47,33 @@ public class AlbumManager : MonoBehaviour
             return;
         }
 
-        storedTags.Clear(); // First, clear the stored tags
-        storedTags.AddRange(Album.Instance.tags); // Then, add all Album tags
+        storedTags.Clear();
+        storedTags.AddRange(Album.Instance.tags);
     }
 
-
-
-    // Get the stored list
     public List<Tag> GetStoredTags()
     {
         return storedTags;
+    }
+    public void AddCheatTags(List<Tag> cheatTags)
+    {
+        if (Album.Instance == null)
+        {
+            Debug.LogWarning("Album Instance not found!");
+            return;
+        }
+
+        foreach (Tag tag in cheatTags)
+        {
+            if (!Album.Instance.tags.Contains(tag))
+            {
+                Album.Instance.Add(tag);
+            }
+
+            if (!storedTags.Contains(tag))
+            {
+                storedTags.Add(tag);
+            }
+        }
     }
 }

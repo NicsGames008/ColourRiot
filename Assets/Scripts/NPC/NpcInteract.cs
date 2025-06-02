@@ -2,23 +2,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
-using UnityEngine.Video;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class NPCInteract : MonoBehaviour
 {
-    [Header("NPC Info")]
-    public string npcName = "Vinz";
-    [TextArea] public string dialogueLine = "Hey there! Wanna tag something?";
+    [Header("Dialogue Sets")]
+    [TextArea] public string[] firstMissionDialogue;
+    [TextArea] public string[] secondMissionIntroDialogue;
+    [TextArea] public string[] postSecondMissionDialogue;
     [TextArea] public string dialogueChoice = "Start the mission? (Y/N)";
 
     [Header("Mission")]
-    public string sceneToLoad;
+    public string defaultScene = "Neighborhood";
+    public string secondScene = "TrainStation";
     public float sceneLoadDelay = 2f;
 
     [Header("Dialogue UI")]
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
-    public float dialogueDuration = 3f;
+    public float typewriterSpeed = 0.03f;
 
     [Header("Prompt UI")]
     public CanvasGroup interactionPromptGroup;
@@ -27,54 +30,57 @@ public class NPCInteract : MonoBehaviour
     [Header("Loading Screen")]
     [SerializeField] private SceneLoadManager sceneLoadManager;
 
+    [Header("NPC Info")]
+    public string npcName = "";
+    [TextArea] public string dialogueLine = "sup boy?";
 
     private bool isPlayerNear = false;
     private bool transitioning = false;
     private bool waitingForChoice = false;
-    private Album album;
+    private bool showingDialogue = false;
+    private int currentLine = 0;
+    private string[] currentDialogueSet;
+    private Coroutine typewriterCoroutine;
 
-    private void OnEnable()
+    private GameManager gameManager;
+    private PlayerState playerState;
+
+    private bool loadTrainStation = false;
+
+    private void Start()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        gameManager = GameManager.Instance;
+        playerState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>();
     }
 
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        StartCoroutine(DelayedSceneCheck());
-    }
-
-    public IEnumerator DelayedSceneCheck()
-    {
-        yield return null; // Wait 1 frame to let everything initialize
-
-        sceneToLoad = "Neighborhood";
-        album = GameObject.FindGameObjectWithTag("Player").GetComponent<Album>();
-
-        int tagOnNeighborhood = 0;
-        foreach (var tag in album.tags)
-        {
-            if (tag.levelUnlocked == "Neighborhood")
-            {
-                tagOnNeighborhood++;
-            }
-        }
-        if (tagOnNeighborhood >= 10)
-        {
-            sceneToLoad = "TrainStation";
-        }
-    }
-
-
-    void Update()
+    private void Update()
     {
         if (isPlayerNear && Input.GetKeyDown(KeyCode.E) && !transitioning)
         {
             StartDialogue();
+        }
+
+        if (showingDialogue && Input.GetKeyDown(KeyCode.Space))
+        {
+            if (typewriterCoroutine != null)
+            {
+                StopCoroutine(typewriterCoroutine);
+                dialogueText.text = currentDialogueSet[currentLine];
+                typewriterCoroutine = null;
+                return;
+            }
+
+            currentLine++;
+            if (currentLine < currentDialogueSet.Length)
+            {
+                typewriterCoroutine = StartCoroutine(TypeText(currentDialogueSet[currentLine]));
+            }
+            else
+            {
+                showingDialogue = false;
+                waitingForChoice = true;
+                typewriterCoroutine = StartCoroutine(TypeText(dialogueChoice));
+            }
         }
 
         if (waitingForChoice)
@@ -96,18 +102,104 @@ public class NPCInteract : MonoBehaviour
 
     void StartDialogue()
     {
-        transitioning = true;
-        ShowDialogue(dialogueLine + "\n\n" + dialogueChoice);
-        waitingForChoice = true;
-    }
+        Debug.Log("Current Mission Progress: " + gameManager.MissionProgress);
 
-    void ShowDialogue(string text)
-    {
-        if (dialoguePanel != null && dialogueText != null)
+
+        transitioning = true;
+        currentLine = 0;
+        showingDialogue = true;
+        SelectDialogueSet();
+
+        playerState.ChangePlayerState(EPlayerState.Dialogue);
+
+        if (dialoguePanel != null)
         {
             dialoguePanel.SetActive(true);
-            dialogueText.text = text;
+            typewriterCoroutine = StartCoroutine(TypeText(currentDialogueSet[currentLine]));
         }
+    }
+
+    void SelectDialogueSet()
+    {
+        Debug.Log("Mission Progress: " + gameManager.MissionProgress);
+
+        //List<Tag> tags = AlbumManager.Instance.Tags();
+
+        List<Tag> tags = gameManager.ReturnPlayer().GetComponent<Album>().tags;
+
+        print("--- " + tags.Count);
+
+        if (tags.Count == 0 || npcName == "Said") 
+        {
+            currentDialogueSet = firstMissionDialogue;
+        }
+        else if (tags.Count >= 1 && tags.Count <= 9) 
+        {
+            print("aaaaaaaaaaaaaaa " + tags.Count + " " + (tags.Count >= 1));
+            //Transtiton Dialog
+        }
+        else if (tags.Count == 10)
+        {
+            currentDialogueSet = secondMissionIntroDialogue;
+            gameManager.HasSeenSecondMissionIntro = true;
+            loadTrainStation = true;
+        }
+        else if (tags.Count == 14)
+        {
+            currentDialogueSet = postSecondMissionDialogue;
+        }
+        else
+        {
+            currentDialogueSet = firstMissionDialogue;
+        }
+
+        //if (gameManager.MissionProgress == 0)
+        //{
+        //    currentDialogueSet = firstMissionDialogue;
+        //}
+        //else if (gameManager.MissionProgress == 1 && !gameManager.HasSeenSecondMissionIntro)
+        //{
+        //    currentDialogueSet = secondMissionIntroDialogue;
+        //    gameManager.HasSeenSecondMissionIntro = true;
+        //}
+        //else if (gameManager.MissionProgress == 2)
+        //{
+        //    currentDialogueSet = postSecondMissionDialogue;
+        //}
+        //else
+        //{
+        //    currentDialogueSet = firstMissionDialogue;
+        //}
+
+        Debug.Log("Dialogue set selected: " + currentDialogueSet[0]);
+    }
+
+
+    IEnumerator LoadSceneAfterDelay()
+    {
+        dialogueText.text = "Awesome. Let's go!";
+        yield return new WaitForSeconds(sceneLoadDelay);
+
+        string targetScene = "Apartment";
+
+        //if (gameManager.MissionProgress == 0)
+        //    targetScene = defaultScene;
+        //else if (gameManager.MissionProgress == 1)
+        //    targetScene = secondScene;
+
+        if (!loadTrainStation)
+        {
+            targetScene = defaultScene;
+        }
+        else {
+            targetScene = secondScene;
+        }
+        
+
+
+        dialoguePanel.SetActive(false);
+        playerState.ChangePlayerState(EPlayerState.Moving);
+        StartCoroutine(sceneLoadManager.LoadSceneAsynchronously(targetScene));
     }
 
     void CloseDialogue()
@@ -115,16 +207,21 @@ public class NPCInteract : MonoBehaviour
         if (dialoguePanel != null)
             dialoguePanel.SetActive(false);
 
+        playerState.ChangePlayerState(EPlayerState.Moving);
         transitioning = false;
+        showingDialogue = false;
+        waitingForChoice = false;
     }
 
-    IEnumerator LoadSceneAfterDelay()
+    IEnumerator TypeText(string text)
     {
-        ShowDialogue("Awesome. Let's go!");
-        yield return new WaitForSeconds(sceneLoadDelay);
-        //SceneManager.LoadScene(sceneToLoad);
-        dialoguePanel.SetActive(false);
-        StartCoroutine(sceneLoadManager.LoadSceneAsynchronously(sceneToLoad, null));
+        dialogueText.text = "";
+        foreach (char c in text)
+        {
+            dialogueText.text += c;
+            yield return new WaitForSeconds(typewriterSpeed);
+        }
+        typewriterCoroutine = null;
     }
 
     void OnTriggerEnter(Collider other)
@@ -152,43 +249,4 @@ public class NPCInteract : MonoBehaviour
         interactionPromptGroup.alpha = Mathf.Lerp(interactionPromptGroup.alpha, targetAlpha, Time.deltaTime * fadeSpeed);
         interactionPromptGroup.blocksRaycasts = targetAlpha > 0.1f;
     }
-
-    //IEnumerator LoadSceneAsynchronously(string sceneName)
-    //{
-    //    loadingScreen.SetActive(true);
-    //    dialoguePanel.SetActive(false);
-
-    //    VideoPlayer videoPlayer = loadingScreen.GetComponent<VideoPlayer>();
-
-    //    switch (sceneName)
-    //    {
-    //        case "Neighborhood":
-    //            videoPlayer.clip = neighborhoodLoadingScreen;
-    //            break;
-    //        case "TrainStation":
-    //            videoPlayer.clip = trainStationLoadingScreen;
-    //            break;
-    //    }
-
-    //    // Start tracking time
-    //    float elapsedTime = 0f;
-    //    float minimumWaitTime = 5f;
-
-    //    // Start loading the scene
-    //    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-    //    operation.allowSceneActivation = false; // Prevent automatic scene activation
-
-    //    while (!operation.isDone)
-    //    {
-    //        elapsedTime += Time.deltaTime;
-
-    //        // Check if the loading has reached 90% (0.9) and waited at least 5 seconds
-    //        if (operation.progress >= 0.9f && elapsedTime >= minimumWaitTime)
-    //        {
-    //            operation.allowSceneActivation = true; // Allow the scene to activate
-    //        }
-
-    //        yield return null;
-    //    }
-    //}
 }

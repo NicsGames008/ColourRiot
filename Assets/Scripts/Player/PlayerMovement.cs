@@ -1,6 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -72,14 +74,21 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerState playerState;
 
+    private float sceneSpeedMultiplier = 1f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerState = GetComponent<PlayerState>();
         rb.freezeRotation = true;
 
-        currentStamina = maxStamina;
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Appartment")
+        {
+            sceneSpeedMultiplier = 0.5f;
+        }
 
+        currentStamina = maxStamina;
         StaminaBar.maxValue = maxStamina;
         StaminaBar.value = currentStamina;
         staminaGroup.alpha = 0f;
@@ -159,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
         else
         animator.SetBool("isWalking", false);
 
-        float currentSpeed = moveSpeed;
+        float currentSpeed = moveSpeed * sceneSpeedMultiplier;
         if (isSprinting)
         {
             currentSpeed *= sprintMultiplier;
@@ -215,17 +224,21 @@ public class PlayerMovement : MonoBehaviour
     {
         bool isMoving = horizontalInput != 0 || verticalInput != 0;
 
+        // Drain stamina when sprinting
         if (isSprinting && isMoving)
         {
             currentStamina -= staminaSprintDrain * Time.deltaTime;
             currentStamina = Mathf.Max(currentStamina, 0f);
         }
-        else if (currentStamina < maxStamina)
+
+        // Regenerate stamina only if Shift is NOT pressed
+        else if (currentStamina < maxStamina && !Input.GetKey(sprintKey))
         {
             currentStamina += staminaRegenRate * Time.deltaTime;
             currentStamina = Mathf.Min(currentStamina, maxStamina);
         }
     }
+
 
 
 

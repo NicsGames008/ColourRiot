@@ -14,5 +14,6 @@ public enum EPlayerState
     Moving,
     Paused,
     InWall,
-    Dead
+    Dead,
+    Dialogue
 }
