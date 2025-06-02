@@ -5487,7 +5487,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: 84723fb46c253aa4f9707dc0c4f369f2, type: 2}
+      objectReference: {fileID: 11400000, guid: a625d7392ac683e43830e7150fbc65ad, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -5747,7 +5747,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: 0b6081922d8ee2240a208e0d76226985, type: 2}
+      objectReference: {fileID: 11400000, guid: bc561424958f54b43b395d21325a5160, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -6967,7 +6967,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 2058992776}
   dialogueText: {fileID: 1833454645}
   typewriterSpeed: 0.03
-  interactionPromptGroup: {fileID: 0}
+  interactionPromptGroup: {fileID: 1788152111}
   fadeSpeed: 4
   sceneLoadManager: {fileID: 0}
   npcName: Said
@@ -8436,7 +8436,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: 0b6081922d8ee2240a208e0d76226985, type: 2}
+      objectReference: {fileID: 11400000, guid: f378a9a5fc39e7c419d2d3c6eb299a7b, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 
@@ -9329,7 +9329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4794786786673071582, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6393595365559727126, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_TargetCamera
@@ -9355,6 +9355,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7684250754543564431, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 179.7564
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684250754543564431, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 8.6601
+      objectReference: {fileID: 0}
     - target: {fileID: 7693175520984322883, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: gameManager
       value: 
@@ -9369,7 +9377,7 @@ PrefabInstance:
       objectReference: {fileID: 1419559226}
     - target: {fileID: 8179360887576551385, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8363056019941243104, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
       propertyPath: gameManager
@@ -9387,6 +9395,11 @@ PrefabInstance:
 --- !u!1 &1788152110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 216653744072946913, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
+  m_PrefabInstance: {fileID: 1788152109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1788152111 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 3095116308746878847, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
   m_PrefabInstance: {fileID: 1788152109}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1792322030
@@ -9797,7 +9810,7 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: gratffitiTag
       value: 
-      objectReference: {fileID: 11400000, guid: 84723fb46c253aa4f9707dc0c4f369f2, type: 2}
+      objectReference: {fileID: 11400000, guid: 3871eec3e63cac7489831e52986bada3, type: 2}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayParticle
       value: 

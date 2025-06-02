@@ -419,8 +419,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 3.336}
   m_LocalScale: {x: 0.0016788666, y: 0.0016788666, z: 0.0016788666}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1262227466}
+  m_Children: []
   m_Father: {fileID: 1979279506}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 5.133}
   m_AnchorMin: {x: 0, y: 0}
@@ -521,8 +520,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: -0.84}
   m_LocalScale: {x: 0.0015601539, y: 0.0015601539, z: 0.0015601539}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1287308922}
+  m_Children: []
   m_Father: {fileID: 1979279506}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 6.041}
   m_AnchorMin: {x: 0, y: 0}
@@ -1081,6 +1079,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 609ba2d89bcf41345b88cb540338f9dc, type: 3}
   m_PrefabInstance: {fileID: 1756394172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &628482063 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d9d67d01081fa994a9bc1b3791b457ec, type: 3}
+  m_PrefabInstance: {fileID: 2108034120}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &634597639
 GameObject:
@@ -1998,7 +2001,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 1456850463}
   dialogueText: {fileID: 2124286467}
   typewriterSpeed: 0.03
-  interactionPromptGroup: {fileID: 1884826359}
+  interactionPromptGroup: {fileID: 1064117698}
   fadeSpeed: 4
   sceneLoadManager: {fileID: 1608863569}
   npcName: Vinz
@@ -3138,7 +3141,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -3197,7 +3200,6 @@ Transform:
   - {fileID: 1713473409}
   - {fileID: 651383380}
   - {fileID: 1644938281}
-  - {fileID: 1214082837}
   - {fileID: 1958652687}
   - {fileID: 731685415}
   - {fileID: 1912575542}
@@ -3206,6 +3208,7 @@ Transform:
   - {fileID: 225616125}
   - {fileID: 1746245469}
   - {fileID: 886321395}
+  - {fileID: 628482063}
   m_Father: {fileID: 1323391640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2064523926 stripped

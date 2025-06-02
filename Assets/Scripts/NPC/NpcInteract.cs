@@ -191,7 +191,8 @@ public class NPCInteract : MonoBehaviour
         {
             targetScene = defaultScene;
         }
-        else {
+        else 
+        {
             targetScene = secondScene;
         }
         
@@ -199,7 +200,7 @@ public class NPCInteract : MonoBehaviour
 
         dialoguePanel.SetActive(false);
         playerState.ChangePlayerState(EPlayerState.Moving);
-        StartCoroutine(sceneLoadManager.LoadSceneAsynchronously(targetScene));
+        StartCoroutine(sceneLoadManager.LoadSceneAsynchronously(targetScene, null));
     }
 
     void CloseDialogue()

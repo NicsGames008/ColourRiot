@@ -57,7 +57,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
     {
         // Locate player and camera in the scene
         player = gameManager.ReturnPlayer();
-
+        print(player);
         cam = GameObject.FindWithTag("MainCamera");
         playerState = player.GetComponent<PlayerState>();
         album = player.GetComponent<Album>();

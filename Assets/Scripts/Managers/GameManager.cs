@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void OnEnable()
@@ -38,12 +40,12 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
         // Update the reference to the player after every scene load
-        print("new player!");
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public GameObject ReturnPlayer()
     {
+        Debug.Log(player);
         return player;
     }
 
