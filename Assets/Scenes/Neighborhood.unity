@@ -1751,6 +1751,10 @@ PrefabInstance:
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 2563638649158651651, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 6080983387878703331, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
       propertyPath: links.Array.size
       value: 6
@@ -1831,6 +1835,10 @@ PrefabInstance:
       propertyPath: links.Array.data[5].node2
       value: 
       objectReference: {fileID: 1878134663}
+    - target: {fileID: 8194449374885202828, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -7817,8 +7825,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 888420641482968693, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2563638649158651651, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 5136961342095597965, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
       propertyPath: waypoints.Array.size
       value: 9
@@ -7979,6 +7991,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8194449374885202828, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -8344,6 +8360,10 @@ PrefabInstance:
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 2563638649158651651, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 5136961342095597965, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
       propertyPath: waypoints.Array.size
       value: 8
@@ -8492,6 +8512,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8194449374885202828, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -9534,6 +9558,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2563638649158651651, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 5136961342095597965, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
       propertyPath: waypoints.Array.size
       value: 9
@@ -9690,6 +9718,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8194449374885202828, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -9773,6 +9805,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2563638649158651651, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 5136961342095597965, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
       propertyPath: waypoints.Array.size
       value: 10
@@ -9945,6 +9981,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8194449374885202828, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -13208,6 +13248,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2563638649158651651, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     - target: {fileID: 5136961342095597965, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
       propertyPath: waypoints.Array.size
       value: 5
@@ -13324,6 +13368,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 3.39
       objectReference: {fileID: 0}
+    - target: {fileID: 8194449374885202828, guid: 6f94b54893be23e4f853b514392cfc80, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 588510138}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
