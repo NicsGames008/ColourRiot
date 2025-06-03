@@ -3691,7 +3691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7169341256083511788, guid: 6badf6ec04a2a014795942d74f254bdc, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7206232751582928885, guid: 6badf6ec04a2a014795942d74f254bdc, type: 3}
       propertyPath: loadingScreen

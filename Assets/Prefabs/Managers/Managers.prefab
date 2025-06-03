@@ -365,6 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16101bbeaa261fa49b59439d3e1bebd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HasSeenSecondMissionIntro: 0
 --- !u!1 &7420395701210686672
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,8 +13,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
     [Header("UI & Visual Feedback")]
     [SerializeField] private GameObject visualFeedBackInteraction; // UI feedback object for interaction
     [SerializeField] private GameObject sprayCan; // Reference to the visual spray can
-    [SerializeField] private GameObject timerUI; // UI element that represents progress during interaction
-    [SerializeField] private Slider timer; // Slider to show tagging progress
 
     [Header("Tag Data")]
     [SerializeField] private int tagTime = 2; // Time required to finish tagging
@@ -41,6 +39,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
 
     private bool isAtWall = false; // Is the player near the wall and ready to tag
     private bool hasDoneThisTag = false; // Has the tag already been completed
+    private bool isInLockedPlace = false; //Has finished the transition
 
     private float elapsedTime; // Internal timer during interaction
     private Image tagImage; // Image component that visually fills as tagging progresses
@@ -57,7 +56,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
     {
         // Locate player and camera in the scene
         player = gameManager.ReturnPlayer();
-        print(player);
         cam = GameObject.FindWithTag("MainCamera");
         playerState = player.GetComponent<PlayerState>();
         album = player.GetComponent<Album>();
@@ -82,10 +80,7 @@ public class TagInteraction : MonoBehaviour, IInteractable
         tagImage = childOfSecondChild.GetComponent<Image>();
 
         // Set slider max value to required tag time
-        timer.maxValue = tagTime;
         tagImage.overrideSprite = gratffitiTag.image;
-        //tagImage.SetNativeSize();
-        //tagImage.rectTransform.localScale = new Vector3(0.002f, 0.002f, 0.002f);
 
         foreach (var tag in album.tags)
         {
@@ -117,8 +112,9 @@ public class TagInteraction : MonoBehaviour, IInteractable
             StopInteracting();
         }
 
+
         // Continue tagging if left mouse button is held
-        if (Input.GetMouseButton(0) && isAtWall && !hasDoneThisTag && playerState.GetPlayerstate() == EPlayerState.InWall)
+        if (Input.GetMouseButton(0) && isAtWall && !hasDoneThisTag && playerState.GetPlayerstate() == EPlayerState.InWall && isInLockedPlace)
         {
             Countdown();
         }
@@ -126,21 +122,22 @@ public class TagInteraction : MonoBehaviour, IInteractable
         // Start tagging when mouse is pressed
         if (Input.GetMouseButtonDown(0) && isAtWall && !hasDoneThisTag && playerState.GetPlayerstate() == EPlayerState.InWall)
         {
-            timerUI.SetActive(true);
             noiseCollider.SetActive(true);
             spraycanAnimator.SetBool("isSpraying", true);
             sprayParticle.Play();
             audioSource.PlayOneShot(spraySound);
+            isInLockedPlace = true;
         }
 
         // Cancel tagging when mouse button is released
         if (Input.GetMouseButtonUp(0) && isAtWall && !hasDoneThisTag && playerState.GetPlayerstate() == EPlayerState.InWall)
         {
-            timerUI.SetActive(false);
+            //timerUI.SetActive(false);
             noiseCollider.SetActive(false);
             audioSource.Stop();
             spraycanAnimator.SetBool("isSpraying", false);
             sprayParticle.Stop();
+            isInLockedPlace = false;
         }
     }
 
@@ -217,14 +214,14 @@ public class TagInteraction : MonoBehaviour, IInteractable
         elapsedTime += Time.deltaTime;
 
         // Update UI
-        timer.value = elapsedTime;
+        //timer.value = elapsedTime;
         tagImage.fillAmount = elapsedTime / tagTime;
 
         // Finish tag
         if (elapsedTime >= tagTime && !hasDoneThisTag)
         {
             sprayParticle.Stop();
-            timerUI.SetActive(false);
+            //timerUI.SetActive(false);
             Album.Instance.Add(gratffitiTag);
             hasDoneThisTag = true;
             noiseCollider.SetActive(false);
