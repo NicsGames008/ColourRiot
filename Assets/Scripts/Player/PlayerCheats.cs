@@ -44,12 +44,12 @@ public class PlayerCheats : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.I))
         {
             isInvulnerable = !isInvulnerable;
-            Debug.Log(" Invulnerability toggled: " + isInvulnerable);
+            Debug.Log("Invulnerability toggled: " + isInvulnerable);
         }
         else if (Input.GetKeyDown(KeyCode.O))
         {
             isVisableToCops = !isVisableToCops;
-            Debug.Log(" Invulnerability toggled: " + isVisableToCops);
+            Debug.Log("Visable To Cops toggled: " + isVisableToCops);
         }
     }   
 

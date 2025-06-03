@@ -25,9 +25,9 @@ public class Enemy_PatroleState : AStateBehaviour
     [SerializeField] private AnimationStateController animationController;
     [SerializeField] private AnimationClip pointingAnimation;
 
-
     [Header("Player Data")]
     [SerializeField] private GameManager gameManager;
+    private GameObject player;
 
     private float detectionAnimationLength;
 
@@ -52,8 +52,6 @@ public class Enemy_PatroleState : AStateBehaviour
     // Coroutine handle for managing patrol logic
     private Coroutine patrolCoroutine;
 
-    //player Info
-    private GameObject player;
 
     // Called once when the state is initialized by the state machine.
     public override bool InitializeState()
