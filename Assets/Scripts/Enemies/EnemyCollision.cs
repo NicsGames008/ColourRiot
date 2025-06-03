@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class EnemyCollision : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
+
     private PlayerState playerState;
     private PlayerCheats playerCheats;
 
     private void Start()
     {
-        playerState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>();
-        playerCheats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCheats>();
+        playerState = gameManager.ReturnPlayer().GetComponent<PlayerState>();
+        playerCheats = gameManager.ReturnPlayer().GetComponent<PlayerCheats>();
     }
 
 private void OnCollisionEnter(Collision collision)

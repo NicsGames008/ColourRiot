@@ -25,6 +25,10 @@ public class Enemy_PatroleState : AStateBehaviour
     [SerializeField] private AnimationStateController animationController;
     [SerializeField] private AnimationClip pointingAnimation;
 
+
+    [Header("Player Data")]
+    [SerializeField] private GameManager gameManager;
+
     private float detectionAnimationLength;
 
     private bool isPlayingDetectionAnimation = false;
@@ -48,6 +52,9 @@ public class Enemy_PatroleState : AStateBehaviour
     // Coroutine handle for managing patrol logic
     private Coroutine patrolCoroutine;
 
+    //player Info
+    private GameObject player;
+
     // Called once when the state is initialized by the state machine.
     public override bool InitializeState()
     {
@@ -56,6 +63,7 @@ public class Enemy_PatroleState : AStateBehaviour
         enemyLineOfSight = GetComponent<LineOfSight>();
         audioSource = GetComponent<AudioSource>();
         animationController = GetComponent<AnimationStateController>();
+        player = gameManager.ReturnPlayer();
 
         // Get all noise-detectable walls
         noiseSources = GameObject.FindGameObjectsWithTag("TaggableWall");
@@ -144,7 +152,7 @@ public class Enemy_PatroleState : AStateBehaviour
     // Handles state transitions.
     public override int StateTransitionCondition()
     {
-        if (enemyLineOfSight.HasSeenPlayerThisFrame() && !isPlayingDetectionAnimation)
+        if (enemyLineOfSight.HasSeenPlayerThisFrame() && !isPlayingDetectionAnimation && !player.GetComponent<PlayerCheats>().GetIsVisableToCops())
         {
             // Start detection sequence
             isPlayingDetectionAnimation = true;

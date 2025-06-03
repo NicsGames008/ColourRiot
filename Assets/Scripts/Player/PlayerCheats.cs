@@ -9,6 +9,7 @@ public class PlayerCheats : MonoBehaviour
     [SerializeField] private List<Tag> trainStationCheatTags;
 
     private bool isInvulnerable = false;
+    private bool isVisableToCops = false;
 
     void Update()
     {
@@ -45,10 +46,21 @@ public class PlayerCheats : MonoBehaviour
             isInvulnerable = !isInvulnerable;
             Debug.Log(" Invulnerability toggled: " + isInvulnerable);
         }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            isVisableToCops = !isVisableToCops;
+            Debug.Log(" Invulnerability toggled: " + isVisableToCops);
+        }
     }   
 
     public bool GetIsInvulnerable()
     {
         return isInvulnerable;
     }
+    public bool GetIsVisableToCops()
+    {
+        return isVisableToCops;
+    }
+
+
 }
