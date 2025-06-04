@@ -42,9 +42,12 @@ public class NPCInteract : MonoBehaviour
     private int currentLine = 0;
     private string[] currentDialogueSet;
     private Coroutine typewriterCoroutine;
+
     private GameManager gameManager;
     private PlayerState playerState;
+
     private bool loadTrainStation = false;
+
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -86,7 +89,15 @@ public class NPCInteract : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Y))
             {
                 waitingForChoice = false;
-                StartCoroutine(LoadSceneAfterDelay());
+
+                if (npcName != "Said")
+                {
+                    StartCoroutine(LoadSceneAfterDelay());
+                }
+                else
+                {
+                    CloseDialogue(); // Said doesn't load scenes
+                }
             }
             else if (Input.GetKeyDown(KeyCode.N))
             {
@@ -94,8 +105,10 @@ public class NPCInteract : MonoBehaviour
                 CloseDialogue();
             }
         }
+
         HandlePromptFade();
     }
+
     void StartDialogue()
     {
         Debug.Log("Current Mission Progress: " + gameManager.MissionProgress);
@@ -151,22 +164,22 @@ public class NPCInteract : MonoBehaviour
         }
     }
 
-
     IEnumerator LoadSceneAfterDelay()
     {
         dialogueText.text = "Good Luck";
         yield return new WaitForSeconds(sceneLoadDelay);
+
         string targetScene = "Apartment";
 
         if (!loadTrainStation)
         {
             targetScene = defaultScene;
         }
-        else 
+        else
         {
             targetScene = secondScene;
         }
-        
+
         dialoguePanel.SetActive(false);
         playerState.ChangePlayerState(EPlayerState.Moving);
         StartCoroutine(sceneLoadManager.LoadSceneAsynchronously(targetScene, null));
@@ -210,6 +223,7 @@ public class NPCInteract : MonoBehaviour
             CloseDialogue();
         }
     }
+
     void HandlePromptFade()
     {
         if (interactionPromptGroup == null) return;
