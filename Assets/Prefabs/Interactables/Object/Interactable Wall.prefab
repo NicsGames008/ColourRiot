@@ -185,7 +185,6 @@ GameObject:
   - component: {fileID: 3855123883662539827}
   - component: {fileID: 1835892332496955684}
   - component: {fileID: 4636821740377179410}
-  - component: {fileID: 2959286501393193364}
   - component: {fileID: 1148266860007553691}
   m_Layer: 7
   m_Name: Interactable Wall
@@ -240,7 +239,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4a5f69cdf134d2e4baf0674cb071c6f4, type: 2}
+  - {fileID: 2100000, guid: 23c32097135a9fa44b1e561d57f2ea53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -304,21 +303,6 @@ MonoBehaviour:
   spraySound: {fileID: 8300000, guid: 7a5a944a73c6ee84cb259c71d490c4da, type: 3}
   tagDone: {fileID: 8300000, guid: 55cb35051701183469f7798875f6a848, type: 3}
   gameManager: {fileID: 0}
---- !u!114 &2959286501393193364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5636826986996571839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d78a351c832f9143bfc3ef2a1c358f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.3
-  minAlpha: 0
-  maxAlpha: 0.4
 --- !u!82 &1148266860007553691
 AudioSource:
   m_ObjectHideFlags: 0

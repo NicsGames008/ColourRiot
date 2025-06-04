@@ -461,7 +461,7 @@ Transform:
   m_GameObject: {fileID: 4929955440148676500}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.697, z: 0.441}
+  m_LocalPosition: {x: 0, y: 0.697, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -667,8 +667,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c812cf59bf0293740ad7e7f5af07d383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagToCheatIntoAlbumNeighbotHood: {fileID: 11400000, guid: b85b2776d4422a84487fb94aeb86ca8b, type: 2}
-  tagToCheatIntoAlbumTrainStation: {fileID: 11400000, guid: 0b6081922d8ee2240a208e0d76226985, type: 2}
+  neighborhoodCheatTags: []
+  trainStationCheatTags: []
 --- !u!1 &5375466330230298844
 GameObject:
   m_ObjectHideFlags: 0
