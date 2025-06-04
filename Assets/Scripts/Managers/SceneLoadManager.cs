@@ -31,6 +31,8 @@ public class SceneLoadManager : MonoBehaviour
             }
         }
 
+        Time.timeScale = 0f;
+
         VideoPlayer videoPlayer = loadingScreen.GetComponent<VideoPlayer>();
 
         Debug.Log(sceneName + " " + sceneComesFrom);
@@ -66,10 +68,11 @@ public class SceneLoadManager : MonoBehaviour
 
         while (!operation.isDone)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
 
             if (operation.progress >= 0.9f && elapsedTime >= minimumWaitTime)
             {
+                Time.timeScale = 1.0f;
                 operation.allowSceneActivation = true;
                 IsLoading = false;
 
