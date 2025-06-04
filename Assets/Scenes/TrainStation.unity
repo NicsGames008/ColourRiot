@@ -5483,11 +5483,11 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
-      objectReference: {fileID: 917197205}
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timerUI
       value: 
-      objectReference: {fileID: 917197203}
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayCan
       value: 
@@ -5755,11 +5755,11 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
-      objectReference: {fileID: 917197205}
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timerUI
       value: 
-      objectReference: {fileID: 917197203}
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayCan
       value: 
@@ -6961,8 +6961,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.525487, y: 2.1765153, z: 1.6793132}
-  m_Center: {x: 0.004199336, y: 0.98281944, z: -0.10774644}
+  m_Size: {x: 2.2211359, y: 2.1765153, z: 2.4849167}
+  m_Center: {x: -0.26904413, y: 0.98281944, z: 0.2950544}
 --- !u!114 &888704915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6976,15 +6976,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstMissionDialogue:
-  - Damn Vinz
+  - Damn it Vinz!!!
   - 'He send me a useless kid to do this job.
 
     ahh okay kid i give you a try. '
-  - 'sThe job should be straight foward, do all the tags in the train station, try
-    to find them befor taging the first. of you dont the clock will start '
+  - The job should be straight foward, you need to do all the tags in the train station.
+  - 'I know the patrol guard shifts. They currently switching so their is nobody
+    there.  '
+  - Try to find them befor taging the first one.
+  - If you do tag the clock will start going down and you will need to go fast.
+  - Good luck kid.
+  incompleteNeighborhoodDialogue: []
   secondMissionIntroDialogue: []
   postSecondMissionDialogue: []
-  dialogueChoice: You understande? (Y/N)
+  dialogueChoice: You understand? (Y/N)
   defaultScene: Neighborhood
   secondScene: TrainStation
   sceneLoadDelay: 1.5
@@ -7221,22 +7226,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &917197203 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3171213349487969355, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-  m_PrefabInstance: {fileID: 1788152109}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &917197205 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7194084716721132162, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
-  m_PrefabInstance: {fileID: 1788152109}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917197203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &926844346
 GameObject:
   m_ObjectHideFlags: 0
@@ -8456,11 +8445,11 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
-      objectReference: {fileID: 917197205}
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timerUI
       value: 
-      objectReference: {fileID: 917197203}
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayCan
       value: 
@@ -9842,11 +9831,11 @@ PrefabInstance:
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timer
       value: 
-      objectReference: {fileID: 917197205}
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: timerUI
       value: 
-      objectReference: {fileID: 917197203}
+      objectReference: {fileID: 0}
     - target: {fileID: 4636821740377179410, guid: ac25cf31ec6f74442bd796a6f5b524c9, type: 3}
       propertyPath: sprayCan
       value: 

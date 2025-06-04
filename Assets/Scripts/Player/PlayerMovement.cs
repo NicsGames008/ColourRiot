@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
@@ -32,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private bool grounded;
     private bool wasGrounded;
 
-    public Transform orientation; 
+    public Transform orientation;
 
     private float horizontalInput;
     private float verticalInput;
@@ -73,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
 
     private PlayerState playerState;
-
     private float sceneSpeedMultiplier = 1f;
 
     void Start()
@@ -137,13 +135,18 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerState.GetPlayerstate() == EPlayerState.Moving)
+        if (playerState.GetPlayerstate() == EPlayerState.Climbing)
+        {
+            ClimbLadder();
+        }
+        else if (playerState.GetPlayerstate() == EPlayerState.Moving)
         {
             MovePlayer();
-        ApplyJumpGravity();
+            ApplyJumpGravity();
         }
-
     }
+
+
 
     private void MyInput()
     {
@@ -156,30 +159,35 @@ public class PlayerMovement : MonoBehaviour
         {
             readyToJump = false;
             Jump();
-            //animator.SetTrigger("Jump");
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
 
     private void MovePlayer()
     {
-        if (verticalInput > 0 )
-        animator.SetBool("isWalking", true);
+        if (verticalInput > 0)
+            animator.SetBool("isWalking", true);
         else
-        animator.SetBool("isWalking", false);
+            animator.SetBool("isWalking", false);
 
         float currentSpeed = moveSpeed * sceneSpeedMultiplier;
+
+        if (verticalInput < 0)
+        {
+            currentSpeed *= 2f / 3f;
+        }
+
         if (isSprinting)
         {
             currentSpeed *= sprintMultiplier;
-
             animator.SetBool("IsRunning", true);
         }
         else
+        {
             animator.SetBool("IsRunning", false);
+        }
 
         transform.rotation = orientation.rotation;
-
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         moveDirection = moveDirection.normalized;
 
@@ -199,21 +207,49 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+    private void ClimbLadder()
+    {
+        float vertical = Input.GetAxisRaw("Vertical");
+        rb.velocity = new Vector3(0f, vertical * 3f, 0f);
 
+        if (vertical == 0)
+            rb.velocity = Vector3.zero;
+
+        // Dismount logic
+        if (vertical < 0)
+        {
+            Collider[] hits = Physics.OverlapSphere(transform.position, 0.5f);
+            foreach (var hit in hits)
+            {
+                if (hit.CompareTag("Ladder"))
+                {
+                    Ladder ladder = hit.GetComponent<Ladder>();
+                    if (ladder != null && ladder.IsAtBottom(transform.position))
+                    {
+                        rb.useGravity = true;
+                        playerState.ChangePlayerState(EPlayerState.Moving);
+                        Debug.Log("Dismounted at bottom");
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(jumpKey))
+        {
+            playerState.ChangePlayerState(EPlayerState.Moving);
+            rb.useGravity = true;
+        }
+    }
 
 
     private void Jump()
     {
         Vector3 velocity = rb.velocity;
-        velocity.y = 0f; 
+        velocity.y = 0f;
         rb.velocity = velocity;
-
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
-
-
-
 
     private void ResetJump()
     {
@@ -224,24 +260,17 @@ public class PlayerMovement : MonoBehaviour
     {
         bool isMoving = horizontalInput != 0 || verticalInput != 0;
 
-        // Drain stamina when sprinting
         if (isSprinting && isMoving)
         {
             currentStamina -= staminaSprintDrain * Time.deltaTime;
             currentStamina = Mathf.Max(currentStamina, 0f);
         }
-
-        // Regenerate stamina only if Shift is NOT pressed
         else if (currentStamina < maxStamina && !Input.GetKey(sprintKey))
         {
             currentStamina += staminaRegenRate * Time.deltaTime;
             currentStamina = Mathf.Min(currentStamina, maxStamina);
         }
     }
-
-
-
-
 
     private void HandleFallStaminaDrain()
     {
@@ -258,9 +287,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
-
-
 
     private void ApplyJumpGravity()
     {
@@ -279,43 +305,12 @@ public class PlayerMovement : MonoBehaviour
 
             rb.velocity += gravityAdjustment * Time.fixedDeltaTime;
 
-            // Clamp fall speed
             if (rb.velocity.y < maxFallSpeed)
             {
                 rb.velocity = new Vector3(rb.velocity.x, maxFallSpeed, rb.velocity.z);
             }
         }
     }
-
-
-
-
-    private void ApplyHeadBob()
-    {
-        if (headBobTarget == null) return;
-
-        bool isMoving = horizontalInput != 0 || verticalInput != 0;
-        float speedFactor = isSprinting ? sprintBobMultiplier : 1f;
-
-        if (grounded && isMoving)
-        {
-            bobTimer += Time.deltaTime * bobFrequency * speedFactor;
-
-            float bobOffsetY = Mathf.Sin(bobTimer) * bobAmplitude;
-            float bobOffsetX = Mathf.Cos(bobTimer * 0.5f) * bobAmplitude * 0.5f;
-
-            headBobTarget.localPosition = headStartPos + new Vector3(bobOffsetX, bobOffsetY, 0f);
-        }
-        else
-        {
-            headBobTarget.localPosition = Vector3.Lerp(headBobTarget.localPosition, headStartPos, Time.deltaTime * 5f);
-            bobTimer = 0f;
-        }
-    }
-
-
-
-
     void OnDrawGizmosSelected()
     {
         if (groundCheck == null) return;

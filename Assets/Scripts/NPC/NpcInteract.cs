@@ -9,6 +9,7 @@ public class NPCInteract : MonoBehaviour
 {
     [Header("Dialogue Sets")]
     [TextArea] public string[] firstMissionDialogue;
+    [TextArea] public string[] incompleteNeighborhoodDialogue;
     [TextArea] public string[] secondMissionIntroDialogue;
     [TextArea] public string[] postSecondMissionDialogue;
     [TextArea] public string dialogueChoice = "Start the mission? (Y/N)";
@@ -121,30 +122,32 @@ public class NPCInteract : MonoBehaviour
 
     void SelectDialogueSet()
     {
-        Debug.Log("Mission Progress: " + gameManager.MissionProgress);
-
-        //List<Tag> tags = AlbumManager.Instance.Tags();
-
         List<Tag> tags = gameManager.ReturnPlayer().GetComponent<Album>().tags;
+        int tagCount = tags.Count;
 
-        print("--- " + tags.Count);
+        loadTrainStation = false;
 
-        if (tags.Count == 0 || npcName == "Said") 
+        if (npcName == "Said")
+        {
+            currentDialogueSet = firstMissionDialogue;
+            return;
+        }
+
+        if (tagCount == 0)
         {
             currentDialogueSet = firstMissionDialogue;
         }
-        else if (tags.Count >= 1 && tags.Count <= 9) 
+        else if (tagCount >= 1 && tagCount <= 9)
         {
-            print("aaaaaaaaaaaaaaa " + tags.Count + " " + (tags.Count >= 1));
-            //Transtiton Dialog
+            currentDialogueSet = incompleteNeighborhoodDialogue;
         }
-        else if (tags.Count == 10)
+        else if (tagCount == 10)
         {
             currentDialogueSet = secondMissionIntroDialogue;
             gameManager.HasSeenSecondMissionIntro = true;
             loadTrainStation = true;
         }
-        else if (tags.Count == 14)
+        else if (tagCount >= 14)
         {
             currentDialogueSet = postSecondMissionDialogue;
         }
@@ -152,6 +155,8 @@ public class NPCInteract : MonoBehaviour
         {
             currentDialogueSet = firstMissionDialogue;
         }
+
+        Debug.Log("Dialogue set selected: " + currentDialogueSet[0]);
 
         //if (gameManager.MissionProgress == 0)
         //{

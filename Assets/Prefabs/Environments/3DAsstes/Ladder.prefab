@@ -1132,6 +1132,59 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7939050328987358311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 578585145683301351}
+  - component: {fileID: 7426048025491104191}
+  m_Layer: 0
+  m_Name: LadderBottom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &578585145683301351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7939050328987358311}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.3627, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5414846097097418628}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7426048025491104191
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7939050328987358311}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.1461779, z: 1}
+  m_Center: {x: 0, y: -0.4269103, z: 0}
 --- !u!1 &8817429788186702252
 GameObject:
   m_ObjectHideFlags: 0
@@ -1143,6 +1196,7 @@ GameObject:
   - component: {fileID: 5414846097097418628}
   - component: {fileID: 487084585091118140}
   - component: {fileID: 1515290312111057761}
+  - component: {fileID: 2319459740958082514}
   m_Layer: 0
   m_Name: Ladder
   m_TagString: Ladder
@@ -1178,6 +1232,7 @@ Transform:
   - {fileID: 1741613012299789867}
   - {fileID: 1622979756047404591}
   - {fileID: 4778656959214380197}
+  - {fileID: 578585145683301351}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &487084585091118140
@@ -1209,6 +1264,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.7522587, z: 1}
   m_Center: {x: 0, y: 0.027494589, z: 0}
+--- !u!114 &2319459740958082514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817429788186702252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f439ce8bfe63fb2419a7d78770c341d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  climbSpeed: 3
+  ladderBottomY: 0
+  ladderTopY: 0
 --- !u!1 &8897989271511271196
 GameObject:
   m_ObjectHideFlags: 0
