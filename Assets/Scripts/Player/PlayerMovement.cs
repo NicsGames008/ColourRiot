@@ -97,7 +97,6 @@ public class PlayerMovement : MonoBehaviour
         if (headBobTarget != null)
             headStartPos = headBobTarget.localPosition;
     }
-
     void Update()
     {
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -145,9 +144,6 @@ public class PlayerMovement : MonoBehaviour
             ApplyJumpGravity();
         }
     }
-
-
-
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -215,7 +211,6 @@ public class PlayerMovement : MonoBehaviour
         if (vertical == 0)
             rb.velocity = Vector3.zero;
 
-        // Dismount logic
         if (vertical < 0)
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, 0.5f);
@@ -241,7 +236,6 @@ public class PlayerMovement : MonoBehaviour
             rb.useGravity = true;
         }
     }
-
 
     private void Jump()
     {
@@ -287,7 +281,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
     private void ApplyJumpGravity()
     {
         if (!grounded)

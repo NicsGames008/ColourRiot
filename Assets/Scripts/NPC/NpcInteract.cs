@@ -42,12 +42,9 @@ public class NPCInteract : MonoBehaviour
     private int currentLine = 0;
     private string[] currentDialogueSet;
     private Coroutine typewriterCoroutine;
-
     private GameManager gameManager;
     private PlayerState playerState;
-
     private bool loadTrainStation = false;
-
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -97,14 +94,11 @@ public class NPCInteract : MonoBehaviour
                 CloseDialogue();
             }
         }
-
         HandlePromptFade();
     }
-
     void StartDialogue()
     {
         Debug.Log("Current Mission Progress: " + gameManager.MissionProgress);
-
 
         transitioning = true;
         currentLine = 0;
@@ -155,42 +149,14 @@ public class NPCInteract : MonoBehaviour
         {
             currentDialogueSet = firstMissionDialogue;
         }
-
-        Debug.Log("Dialogue set selected: " + currentDialogueSet[0]);
-
-        //if (gameManager.MissionProgress == 0)
-        //{
-        //    currentDialogueSet = firstMissionDialogue;
-        //}
-        //else if (gameManager.MissionProgress == 1 && !gameManager.HasSeenSecondMissionIntro)
-        //{
-        //    currentDialogueSet = secondMissionIntroDialogue;
-        //    gameManager.HasSeenSecondMissionIntro = true;
-        //}
-        //else if (gameManager.MissionProgress == 2)
-        //{
-        //    currentDialogueSet = postSecondMissionDialogue;
-        //}
-        //else
-        //{
-        //    currentDialogueSet = firstMissionDialogue;
-        //}
-
-        Debug.Log("Dialogue set selected: " + currentDialogueSet[0]);
     }
 
 
     IEnumerator LoadSceneAfterDelay()
     {
-        dialogueText.text = "Awesome. Let's go!";
+        dialogueText.text = "Good Luck";
         yield return new WaitForSeconds(sceneLoadDelay);
-
         string targetScene = "Apartment";
-
-        //if (gameManager.MissionProgress == 0)
-        //    targetScene = defaultScene;
-        //else if (gameManager.MissionProgress == 1)
-        //    targetScene = secondScene;
 
         if (!loadTrainStation)
         {
@@ -201,8 +167,6 @@ public class NPCInteract : MonoBehaviour
             targetScene = secondScene;
         }
         
-
-
         dialoguePanel.SetActive(false);
         playerState.ChangePlayerState(EPlayerState.Moving);
         StartCoroutine(sceneLoadManager.LoadSceneAsynchronously(targetScene, null));
@@ -246,7 +210,6 @@ public class NPCInteract : MonoBehaviour
             CloseDialogue();
         }
     }
-
     void HandlePromptFade()
     {
         if (interactionPromptGroup == null) return;

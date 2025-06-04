@@ -29,7 +29,6 @@ public class Ladder : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -40,31 +39,25 @@ public class Ladder : MonoBehaviour
             if (playerState != null && rb != null)
             {
                 Vector3 playerPos = other.transform.position;
-
-                // Dismount logic
+               
                 if (IsAtTop(playerPos))
                 {
-                    // Small warp above platform edge
                     other.transform.position += Vector3.up * 0.5f + other.transform.forward * 0.3f;
                     rb.AddForce((Vector3.up + other.transform.forward) * 2f, ForceMode.Impulse);
                 }
                 else if (IsAtBottom(playerPos))
                 {
-                    // Dismount downward
                     rb.AddForce(Vector3.down + other.transform.forward * 0.5f, ForceMode.Impulse);
                 }
-
                 playerState.ChangePlayerState(EPlayerState.Moving);
                 rb.useGravity = true;
             }
         }
     }
-
     public bool IsAtBottom(Vector3 playerPosition)
     {
         return playerPosition.y <= ladderBottomY + 0.3f;
     }
-
     public bool IsAtTop(Vector3 playerPosition)
     {
         return playerPosition.y >= ladderTopY - 0.3f;

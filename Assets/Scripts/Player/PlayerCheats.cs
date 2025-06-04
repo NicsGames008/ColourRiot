@@ -52,7 +52,6 @@ public class PlayerCheats : MonoBehaviour
             Debug.Log("Visable To Cops toggled: " + isVisableToCops);
         }
     }   
-
     public bool GetIsInvulnerable()
     {
         return isInvulnerable;
@@ -61,6 +60,4 @@ public class PlayerCheats : MonoBehaviour
     {
         return isVisableToCops;
     }
-
-
 }
