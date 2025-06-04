@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2265528252715592486}
   - component: {fileID: 47064521642064863}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrashBags
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 7992790960100021163}
   - component: {fileID: 6432198627597753358}
   - component: {fileID: 9126322386628044996}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: trashbags
   m_TagString: Untagged
   m_Icon: {fileID: 0}

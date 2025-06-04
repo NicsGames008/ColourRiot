@@ -206,6 +206,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: trainstationhouse
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9028a06b7171b1641a1c45c204b6b110, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -3577194164589202701, guid: 9028a06b7171b1641a1c45c204b6b110, type: 3}
@@ -8813,9 +8817,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: -5716473014810658522, guid: dee672891a4ced3479f01f4acc4b6be8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -5276872700355404917, guid: dee672891a4ced3479f01f4acc4b6be8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dee672891a4ced3479f01f4acc4b6be8, type: 3}
       propertyPath: m_Name
       value: dumpster
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dee672891a4ced3479f01f4acc4b6be8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8371814311711457203, guid: dee672891a4ced3479f01f4acc4b6be8, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9728,6 +9748,10 @@ PrefabInstance:
       propertyPath: headBobTarget
       value: 
       objectReference: {fileID: 2135619457}
+    - target: {fileID: 4171929169890430986, guid: a964d186b2173414995eabd2a49f326c, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 832
+      objectReference: {fileID: 0}
     - target: {fileID: 4870788653286965232, guid: a964d186b2173414995eabd2a49f326c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.46

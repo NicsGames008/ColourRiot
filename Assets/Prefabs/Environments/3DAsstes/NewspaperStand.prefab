@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6931187978899875717}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Props
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3707948161531819065}
   - component: {fileID: 1927368495070444257}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: NewspaperStand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5292988628120611802}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Other
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 6150785738010580855}
   - component: {fileID: 2398252247220575007}
   - component: {fileID: 3571729049866054477}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Newspaper_Stand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7164605063357219383}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: newspaperstand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

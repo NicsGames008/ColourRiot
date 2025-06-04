@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3964098022454749560}
   - component: {fileID: 9177004422659595905}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TraffinCinderBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2398591750236595129}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Road_Signs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8236773917228821764}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Props
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 7579149609586647164}
   - component: {fileID: 7979889341979545453}
   - component: {fileID: 3684217067291110288}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Road_Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8148044007398164662}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: traffic_cinderblock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

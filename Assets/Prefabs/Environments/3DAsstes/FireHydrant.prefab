@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5889173507788517018}
   - component: {fileID: 5990044171341534697}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FireHydrant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 8477771142160021404}
   - component: {fileID: 4758277832848603193}
   - component: {fileID: 7344310184369360115}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: firehydrant
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2482289968483942949}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Other.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 4337577006973819202}
   - component: {fileID: 4583689241672854690}
   - component: {fileID: 8872938566296305284}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trash_Big.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4329437110240040174}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: dumpster.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4356338313209683225}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dumpster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8472056477564476233}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: dumpster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
