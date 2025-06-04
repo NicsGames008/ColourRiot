@@ -21,7 +21,6 @@ public class AlbumManager : MonoBehaviour
             Destroy(gameObject); // Prevent duplicates
         }
     }
-
     public List<Tag> Tags()
     {
         return storedTags;
@@ -34,11 +33,9 @@ public class AlbumManager : MonoBehaviour
             Debug.LogWarning("Album Instance not found!");
             return;
         }
-
         Album.Instance.tags.Clear();
         Album.Instance.tags.AddRange(storedTags);
     }
-
     public void AddTagsFromAlbum()
     {
         if (Album.Instance == null)
@@ -50,7 +47,6 @@ public class AlbumManager : MonoBehaviour
         storedTags.Clear();
         storedTags.AddRange(Album.Instance.tags);
     }
-
     public List<Tag> GetStoredTags()
     {
         return storedTags;

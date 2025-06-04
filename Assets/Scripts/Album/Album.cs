@@ -24,7 +24,6 @@ public class Album : MonoBehaviour
         AlbumManager.Instance.AddStoredTagsToAlbum();
     }
 
-
     public void Add(Tag item)
     {
         tags.Add(item);

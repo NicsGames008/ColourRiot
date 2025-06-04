@@ -2129,18 +2129,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstMissionDialogue:
-  - 'Hey M, you finally up good i thouht '
-  - bbbbbbb
-  - cccccccc
-  - ddddddd
+  - "Hey M, you finally up. Good\u2014\r\nI was starting to think that  last night
+    was too hard for you."
+  - "Thanks for letting me crash here. I made breakfast, but I got hungry and ate
+    it a couple hours ago.\r"
+  - "Hope that\u2019s cool. Dishes are in the sink if you wanna\u2026 y\u2019know,
+    wash 'em. Or not."
+  - "Oh, right i was meant to tell you that\r                                                             
+    they hauled Hubert in last night."
+  - "It\u2019s already noon, man, so get up quick.\r\nCops came around last night
+    and painted over all the tags.\r\nBut this morning. Everyone rolled out to retag
+    them\r\nExcept us. We were passed out cold."
+  - They covered all our pieces. Yours too. You should head out and do the same.
+  - 'They just marked over the pieces with big grey patches.
+
+    Lazy cover-ups.
+    City will send real painters later.
+
+    Just look for those spots.'
+  - 'Becouse we went there in the morning they are out there patrolling the neighborhood.
+
+    So
+    be careful.
+
+    They chase on sight.'
+  - 'Hubert made some tutorial posters about this and
+
+    put them up before he
+    got locked up.
+
+    Check the walls they explains everything.'
+  incompleteNeighborhoodDialogue:
+  - Not bad for a start, but theres still some spots left.
+  - "Come back when you\u2019ve hit them all."
   secondMissionIntroDialogue:
-  - you back nice job
-  - yoooo
-  - 'train '
-  - carful
+  - "Now that\u2019s what I\u2019m talkin\u2019 about. Nice job out M there. Saw
+    a few of your tags."
+  - "But don\u2019t chill just yet.\r\nWord is, the cops are locking things down
+    harder now."
+  - "let\u2019s be real painting this neighborhood It\u2019s a losing game."
+  - "This place is forgotten, man. The cops wipe out our work before it even dries.
+    You\r                           wanna make a real impact?"
+  - Then i got a job for you.
+  - Hit the trains Station.
+  - "They move. so all your art and colour, It\u2019ll be all over the city before
+    they can stop it."
+  - "I know you don't know the station. Don\u2019t worry. I got you. ."
+  - "There\u2019s someone who will meet you there and help you."
+  - Go now that its night. be careful.
   postSecondMissionDialogue:
-  - 'you did it nice '
-  - how you feel?
+  - 'Yo, M...
+
+    You really did it, huh?'
+  - 'The neighborhood, the station...
+
+    You tagged them both like a ghost in
+    the paint.'
+  - "The city\u2019s waking up, man.\r\nPeople are starting to notice."
+  - Even the ones too scared to show colour are starting to show it again.
+  - "Cops are mad, but they can\u2019t stop colour.\r\nYou brought it back."
+  - 'Whatever happens next...
+
+    Just know, you started something big'
+  - 'Proud of you, M.
+
+    Real talk.'
+  - Now we let colour rise up once again.
   dialogueChoice: Start the mission? (Y/N)
   defaultScene: Neighborhood
   secondScene: TrainStation
@@ -2172,8 +2226,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.706817, y: 2, z: 2.268678}
-  m_Center: {x: 0.05025857, y: 0, z: 0.56780815}
+  m_Size: {x: 2.311254, y: 2, z: 3.0653117}
+  m_Center: {x: 0.12930723, y: 0, z: 0.58524907}
 --- !u!1001 &1018161604
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -44,15 +44,13 @@ public class TimerManager : MonoBehaviour
             {
                 timeRemaining = 0f;
                 timerRunning = false;
-                UpdateTimerDisplay(); // Make sure it shows 00:00
-                LoseGame(); // Trigger lose behavior
-                return; // Prevent further execution
+                UpdateTimerDisplay(); 
+                LoseGame(); 
+                return; 
             }
-
-            UpdateTimerDisplay(); // Only call if time > 0
+            UpdateTimerDisplay(); 
         }
     }
-
     public void StartTimer()
     {
         if (!timerRunning)
@@ -65,14 +63,11 @@ public class TimerManager : MonoBehaviour
             if (dayNightCycle != null)
                 dayNightCycle.StartCycle();
         }
-
         if (audioManager != null)
         {
             audioManager.ChangeMusic(timestarted);
         }
-
     }
-
     private void UpdateTimerDisplay()
     {
         int minutes = Mathf.FloorToInt(timeRemaining / 60f);

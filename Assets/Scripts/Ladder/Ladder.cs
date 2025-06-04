@@ -3,93 +3,63 @@ using UnityEngine;
 public class Ladder : MonoBehaviour
 {
     public float climbSpeed = 3f;
-    private bool isClimbing = false;
-    private Rigidbody rb;
-    private PlayerMovement playerMovement;
 
-    void Start()
+    [HideInInspector] public float ladderBottomY;
+    [HideInInspector] public float ladderTopY;
+
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        playerMovement = GetComponent<PlayerMovement>();
+        float halfHeight = transform.localScale.y * 0.5f;
+        ladderBottomY = transform.position.y - halfHeight;
+        ladderTopY = transform.position.y + halfHeight;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ladder"))
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("Entered ladder trigger");
-            isClimbing = true;
+            PlayerState playerState = other.GetComponent<PlayerState>();
+            Rigidbody rb = other.GetComponent<Rigidbody>();
 
-          
-
-            Vector3 snapPos = transform.position;
-            snapPos.x = other.transform.position.x;
-            snapPos.z = other.transform.position.z;
-            transform.position = snapPos;
-
-
-
-         
-            Vector3 lookDir = other.transform.position - transform.position;
-            lookDir.y = 0f;
-            if (lookDir != Vector3.zero)
-                transform.rotation = Quaternion.LookRotation(lookDir);
-
-            playerMovement.enabled = false;
-            rb.useGravity = false;
-            rb.velocity = Vector3.zero;
-        }
-        else if (other.CompareTag("LadderTop") && isClimbing)
-        {
-            Debug.Log("Top of ladder reached!");
-
-            isClimbing = false;
-            playerMovement.enabled = true;
-            rb.useGravity = true;
-
-           
-
-
-             Vector3 ladderForward = other.transform.forward;
-            Vector3 pushDirection = ladderForward + Vector3.up;
-            rb.AddForce(pushDirection.normalized * 3f, ForceMode.Impulse);
-        }
-
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Ladder"))
-        {
-            Debug.Log("Exited ladder trigger");
-            isClimbing = false;
-
-            playerMovement.enabled = true;
-            rb.useGravity = true;
-
-            Vector3 ladderForward = other.transform.forward;
-            Vector3 pushDirection = ladderForward + Vector3.up;
-            rb.AddForce(pushDirection.normalized * 3f, ForceMode.Impulse);
-        }
-    }
-
-
-
-    void Update()
-    {
-        if (isClimbing)
-        {
-            float vertical = Input.GetAxisRaw("Vertical");
-            Vector3 climbVelocity = new Vector3(0f, vertical * climbSpeed, 0f);
-            rb.velocity = climbVelocity;
-
-          
-
-
-            if (vertical == 0)
+            if (playerState != null && rb != null)
             {
+                playerState.ChangePlayerState(EPlayerState.Climbing);
+                rb.useGravity = false;
                 rb.velocity = Vector3.zero;
             }
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerState playerState = other.GetComponent<PlayerState>();
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+
+            if (playerState != null && rb != null)
+            {
+                Vector3 playerPos = other.transform.position;
+               
+                if (IsAtTop(playerPos))
+                {
+                    other.transform.position += Vector3.up * 0.5f + other.transform.forward * 0.3f;
+                    rb.AddForce((Vector3.up + other.transform.forward) * 2f, ForceMode.Impulse);
+                }
+                else if (IsAtBottom(playerPos))
+                {
+                    rb.AddForce(Vector3.down + other.transform.forward * 0.5f, ForceMode.Impulse);
+                }
+                playerState.ChangePlayerState(EPlayerState.Moving);
+                rb.useGravity = true;
+            }
+        }
+    }
+    public bool IsAtBottom(Vector3 playerPosition)
+    {
+        return playerPosition.y <= ladderBottomY + 0.3f;
+    }
+    public bool IsAtTop(Vector3 playerPosition)
+    {
+        return playerPosition.y >= ladderTopY - 0.3f;
     }
 }

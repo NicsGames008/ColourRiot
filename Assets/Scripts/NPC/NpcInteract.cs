@@ -9,6 +9,7 @@ public class NPCInteract : MonoBehaviour
 {
     [Header("Dialogue Sets")]
     [TextArea] public string[] firstMissionDialogue;
+    [TextArea] public string[] incompleteNeighborhoodDialogue;
     [TextArea] public string[] secondMissionIntroDialogue;
     [TextArea] public string[] postSecondMissionDialogue;
     [TextArea] public string dialogueChoice = "Start the mission? (Y/N)";
@@ -41,12 +42,9 @@ public class NPCInteract : MonoBehaviour
     private int currentLine = 0;
     private string[] currentDialogueSet;
     private Coroutine typewriterCoroutine;
-
     private GameManager gameManager;
     private PlayerState playerState;
-
     private bool loadTrainStation = false;
-
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -96,14 +94,11 @@ public class NPCInteract : MonoBehaviour
                 CloseDialogue();
             }
         }
-
         HandlePromptFade();
     }
-
     void StartDialogue()
     {
         Debug.Log("Current Mission Progress: " + gameManager.MissionProgress);
-
 
         transitioning = true;
         currentLine = 0;
@@ -121,30 +116,32 @@ public class NPCInteract : MonoBehaviour
 
     void SelectDialogueSet()
     {
-        Debug.Log("Mission Progress: " + gameManager.MissionProgress);
-
-        //List<Tag> tags = AlbumManager.Instance.Tags();
-
         List<Tag> tags = gameManager.ReturnPlayer().GetComponent<Album>().tags;
+        int tagCount = tags.Count;
 
-        print("--- " + tags.Count);
+        loadTrainStation = false;
 
-        if (tags.Count == 0 || npcName == "Said") 
+        if (npcName == "Said")
+        {
+            currentDialogueSet = firstMissionDialogue;
+            return;
+        }
+
+        if (tagCount == 0)
         {
             currentDialogueSet = firstMissionDialogue;
         }
-        else if (tags.Count >= 1 && tags.Count <= 9) 
+        else if (tagCount >= 1 && tagCount <= 9)
         {
-            print("aaaaaaaaaaaaaaa " + tags.Count + " " + (tags.Count >= 1));
-            //Transtiton Dialog
+            currentDialogueSet = incompleteNeighborhoodDialogue;
         }
-        else if (tags.Count == 10)
+        else if (tagCount == 10)
         {
             currentDialogueSet = secondMissionIntroDialogue;
             gameManager.HasSeenSecondMissionIntro = true;
             loadTrainStation = true;
         }
-        else if (tags.Count == 14)
+        else if (tagCount >= 14)
         {
             currentDialogueSet = postSecondMissionDialogue;
         }
@@ -152,40 +149,14 @@ public class NPCInteract : MonoBehaviour
         {
             currentDialogueSet = firstMissionDialogue;
         }
-
-        //if (gameManager.MissionProgress == 0)
-        //{
-        //    currentDialogueSet = firstMissionDialogue;
-        //}
-        //else if (gameManager.MissionProgress == 1 && !gameManager.HasSeenSecondMissionIntro)
-        //{
-        //    currentDialogueSet = secondMissionIntroDialogue;
-        //    gameManager.HasSeenSecondMissionIntro = true;
-        //}
-        //else if (gameManager.MissionProgress == 2)
-        //{
-        //    currentDialogueSet = postSecondMissionDialogue;
-        //}
-        //else
-        //{
-        //    currentDialogueSet = firstMissionDialogue;
-        //}
-
-        Debug.Log("Dialogue set selected: " + currentDialogueSet[0]);
     }
 
 
     IEnumerator LoadSceneAfterDelay()
     {
-        dialogueText.text = "Awesome. Let's go!";
+        dialogueText.text = "Good Luck";
         yield return new WaitForSeconds(sceneLoadDelay);
-
         string targetScene = "Apartment";
-
-        //if (gameManager.MissionProgress == 0)
-        //    targetScene = defaultScene;
-        //else if (gameManager.MissionProgress == 1)
-        //    targetScene = secondScene;
 
         if (!loadTrainStation)
         {
@@ -196,8 +167,6 @@ public class NPCInteract : MonoBehaviour
             targetScene = secondScene;
         }
         
-
-
         dialoguePanel.SetActive(false);
         playerState.ChangePlayerState(EPlayerState.Moving);
         StartCoroutine(sceneLoadManager.LoadSceneAsynchronously(targetScene, null));
@@ -241,7 +210,6 @@ public class NPCInteract : MonoBehaviour
             CloseDialogue();
         }
     }
-
     void HandlePromptFade()
     {
         if (interactionPromptGroup == null) return;

@@ -58,7 +58,6 @@ public class SceneLoadManager : MonoBehaviour
                 }
                 break;
         }
-
         float elapsedTime = 0f;
         float minimumWaitTime = 5f;
 
@@ -78,7 +77,6 @@ public class SceneLoadManager : MonoBehaviour
 
             yield return null;
         }
-
         IsLoading = false;
     }
 }

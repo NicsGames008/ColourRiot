@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class PlayerCam : MonoBehaviour
 {
-    
     public float sensX;
     public float sensY;
-    
+
     public Transform orientation;
 
     private float xRotation;
@@ -21,10 +20,11 @@ public class PlayerCam : MonoBehaviour
         Cursor.visible = false;
         playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
     }
-    
+
     private void Update()
     {
-        if (playerState.GetPlayerstate() == EPlayerState.Moving)
+        EPlayerState state = playerState.GetPlayerstate();
+        if (state == EPlayerState.Moving || state == EPlayerState.Climbing)
         {
             // get mouse input 
             float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensX;
@@ -37,7 +37,7 @@ public class PlayerCam : MonoBehaviour
 
             // rotate cam and orientation
             transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
-            orientation.rotation = Quaternion.Euler(0, yRotation, 0); 
+            orientation.rotation = Quaternion.Euler(0, yRotation, 0);
         }
     }
 }

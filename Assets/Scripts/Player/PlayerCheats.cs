@@ -10,6 +10,7 @@ public class PlayerCheats : MonoBehaviour
 
     private bool isInvulnerable = false;
     private bool isVisableToCops = false;
+    private bool unlimitedStamina = false;
 
     void Update()
     {
@@ -49,18 +50,27 @@ public class PlayerCheats : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.O))
         {
             isVisableToCops = !isVisableToCops;
-            Debug.Log("Visable To Cops toggled: " + isVisableToCops);
+            Debug.Log("Visible To Cops toggled: " + isVisableToCops);
         }
-    }   
+        else if (Input.GetKeyDown(KeyCode.U))
+        {
+            unlimitedStamina = !unlimitedStamina;
+            Debug.Log("Unlimited Stamina toggled: " + unlimitedStamina);
+        }
+    }
 
     public bool GetIsInvulnerable()
     {
         return isInvulnerable;
     }
+
     public bool GetIsVisableToCops()
     {
         return isVisableToCops;
     }
 
-
+    public bool GetUnlimitedStamina()
+    {
+        return unlimitedStamina;
+    }
 }
