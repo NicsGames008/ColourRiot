@@ -195,6 +195,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1969362514}
   m_SourcePrefab: {fileID: 100100000, guid: de6f2cd7b82c02342ba826b93db3c682, type: 3}
+--- !u!4 &40468491 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2265528252715592486, guid: 07e65002a287387429cf165fa5547c52, type: 3}
+  m_PrefabInstance: {fileID: 918381727}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &52593703 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6626483376260309709, guid: 59763ade9b6e5814d90d28b079d0af28, type: 3}
@@ -1880,15 +1885,23 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1979279506}
     m_Modifications:
     - target: {fileID: 1010388600201442912, guid: 07e65002a287387429cf165fa5547c52, type: 3}
       propertyPath: m_Name
       value: TrashBags
       objectReference: {fileID: 0}
     - target: {fileID: 2265528252715592486, guid: 07e65002a287387429cf165fa5547c52, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6729601
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265528252715592486, guid: 07e65002a287387429cf165fa5547c52, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6729601
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265528252715592486, guid: 07e65002a287387429cf165fa5547c52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.124
+      value: 9.144
       objectReference: {fileID: 0}
     - target: {fileID: 2265528252715592486, guid: 07e65002a287387429cf165fa5547c52, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1896,11 +1909,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2265528252715592486, guid: 07e65002a287387429cf165fa5547c52, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.256
+      value: 6.494
       objectReference: {fileID: 0}
     - target: {fileID: 2265528252715592486, guid: 07e65002a287387429cf165fa5547c52, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.11208514
+      value: 0.99369866
       objectReference: {fileID: 0}
     - target: {fileID: 2265528252715592486, guid: 07e65002a287387429cf165fa5547c52, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1908,7 +1921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2265528252715592486, guid: 07e65002a287387429cf165fa5547c52, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99369866
+      value: 0.11208514
       objectReference: {fileID: 0}
     - target: {fileID: 2265528252715592486, guid: 07e65002a287387429cf165fa5547c52, type: 3}
       propertyPath: m_LocalRotation.z
@@ -2006,6 +2019,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925402407}
   m_CullTransparentMesh: 1
+--- !u!4 &930733003 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4685425838163271732, guid: 49d6342427253624580353883733518d, type: 3}
+  m_PrefabInstance: {fileID: 1918632037}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &962706398
 GameObject:
   m_ObjectHideFlags: 0
@@ -2183,8 +2201,8 @@ MonoBehaviour:
     You really did it, huh?'
   - 'The neighborhood, the station...
 
-    You tagged them both like a ghost in
-    the paint.'
+    You tagged them both like a ghost in the
+    paint.'
   - "The city\u2019s waking up, man.\r\nPeople are starting to notice."
   - Even the ones too scared to show colour are starting to show it again.
   - "Cops are mad, but they can\u2019t stop colour.\r\nYou brought it back."
@@ -3231,7 +3249,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1979279506}
     m_Modifications:
     - target: {fileID: 2884010275023149356, guid: 49d6342427253624580353883733518d, type: 3}
       propertyPath: m_Name
@@ -3239,7 +3257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4685425838163271732, guid: 49d6342427253624580353883733518d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.6257038
+      value: 8.394297
       objectReference: {fileID: 0}
     - target: {fileID: 4685425838163271732, guid: 49d6342427253624580353883733518d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3247,23 +3265,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4685425838163271732, guid: 49d6342427253624580353883733518d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.808122
+      value: 5.941878
       objectReference: {fileID: 0}
     - target: {fileID: 4685425838163271732, guid: 49d6342427253624580353883733518d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4685425838163271732, guid: 49d6342427253624580353883733518d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4685425838163271732, guid: 49d6342427253624580353883733518d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4685425838163271732, guid: 49d6342427253624580353883733518d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4685425838163271732, guid: 49d6342427253624580353883733518d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3404,6 +3422,8 @@ Transform:
   - {fileID: 886321395}
   - {fileID: 628482063}
   - {fileID: 717188937}
+  - {fileID: 930733003}
+  - {fileID: 40468491}
   m_Father: {fileID: 1323391640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2038251901
@@ -3892,5 +3912,3 @@ SceneRoots:
   - {fileID: 1902476995}
   - {fileID: 1323391640}
   - {fileID: 1507861139744159878}
-  - {fileID: 1918632037}
-  - {fileID: 918381727}
