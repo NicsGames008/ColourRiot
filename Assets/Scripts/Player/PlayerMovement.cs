@@ -264,6 +264,12 @@ public class PlayerMovement : MonoBehaviour
             currentStamina += staminaRegenRate * Time.deltaTime;
             currentStamina = Mathf.Min(currentStamina, maxStamina);
         }
+        if (FindObjectOfType<PlayerCheats>().GetUnlimitedStamina())
+        {
+            currentStamina = maxStamina;
+        }
+
+
     }
 
     private void HandleFallStaminaDrain()
