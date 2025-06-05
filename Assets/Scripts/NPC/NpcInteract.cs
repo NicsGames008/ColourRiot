@@ -96,7 +96,7 @@ public class NPCInteract : MonoBehaviour
                 }
                 else
                 {
-                    CloseDialogue(); // Said doesn't load scenes
+                    CloseDialogue(); 
                 }
             }
             else if (Input.GetKeyDown(KeyCode.N))
