@@ -243,6 +243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3235165401069446026}
   - component: {fileID: 4916515485229236367}
+  - component: {fileID: 1117350721318777511}
   m_Layer: 0
   m_Name: TraffinLight
   m_TagString: Untagged
@@ -290,6 +291,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.34612155, y: 4.3809805, z: 0.41603744}
   m_Center: {x: -0.0019705966, y: 2.1957006, z: -0.12014815}
+--- !u!114 &1117350721318777511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4065173146715735399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19eabc06d40c68a419d49e6a84d299e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redLight: {fileID: 2707975058876610643}
+  yellowLight: {fileID: 8296852075202299077}
+  greenLight: {fileID: 7420549012963661148}
+  redLightDuration: 5
+  yellowLightDuration: 2
+  greenLightDuration: 5
 --- !u!1 &6249268670163247459
 GameObject:
   m_ObjectHideFlags: 0
