@@ -12,6 +12,7 @@ public class NPCInteract : MonoBehaviour
     [TextArea] public string[] incompleteNeighborhoodDialogue;
     [TextArea] public string[] secondMissionIntroDialogue;
     [TextArea] public string[] postSecondMissionDialogue;
+    [TextArea] public string finalSliceDialogue = "That’s it for this vertical slice. Thanks for playing!";
     [TextArea] public string dialogueChoice = "Start the mission? (Y/N)";
 
     [Header("Mission")]
@@ -33,7 +34,6 @@ public class NPCInteract : MonoBehaviour
 
     [Header("NPC Info")]
     public string npcName = "";
-    [TextArea] public string dialogueLine = "sup boy?";
 
     private bool isPlayerNear = false;
     private bool transitioning = false;
@@ -42,10 +42,10 @@ public class NPCInteract : MonoBehaviour
     private int currentLine = 0;
     private string[] currentDialogueSet;
     private Coroutine typewriterCoroutine;
+    private bool shouldShowChoice = true;
 
     private GameManager gameManager;
     private PlayerState playerState;
-
     private bool loadTrainStation = false;
 
     private void Start()
@@ -79,8 +79,16 @@ public class NPCInteract : MonoBehaviour
             else
             {
                 showingDialogue = false;
-                waitingForChoice = true;
-                typewriterCoroutine = StartCoroutine(TypeText(dialogueChoice));
+
+                if (shouldShowChoice)
+                {
+                    waitingForChoice = true;
+                    typewriterCoroutine = StartCoroutine(TypeText(dialogueChoice));
+                }
+                else
+                {
+                    CloseDialogue();
+                }
             }
         }
 
@@ -96,7 +104,7 @@ public class NPCInteract : MonoBehaviour
                 }
                 else
                 {
-                    CloseDialogue(); 
+                    CloseDialogue();
                 }
             }
             else if (Input.GetKeyDown(KeyCode.N))
@@ -111,8 +119,6 @@ public class NPCInteract : MonoBehaviour
 
     void StartDialogue()
     {
-        Debug.Log("Current Mission Progress: " + gameManager.MissionProgress);
-
         transitioning = true;
         currentLine = 0;
         showingDialogue = true;
@@ -137,30 +143,39 @@ public class NPCInteract : MonoBehaviour
         if (npcName == "Said")
         {
             currentDialogueSet = firstMissionDialogue;
+            shouldShowChoice = false;
             return;
         }
 
         if (tagCount == 0)
         {
             currentDialogueSet = firstMissionDialogue;
+            shouldShowChoice = true;
         }
         else if (tagCount >= 1 && tagCount <= 9)
         {
             currentDialogueSet = incompleteNeighborhoodDialogue;
+            shouldShowChoice = false;
         }
         else if (tagCount == 10)
         {
             currentDialogueSet = secondMissionIntroDialogue;
             gameManager.HasSeenSecondMissionIntro = true;
             loadTrainStation = true;
+            shouldShowChoice = true;
         }
         else if (tagCount >= 14)
         {
-            currentDialogueSet = postSecondMissionDialogue;
+            List<string> fullFinalDialogue = new List<string>(postSecondMissionDialogue);
+            fullFinalDialogue.Add(finalSliceDialogue);
+            currentDialogueSet = fullFinalDialogue.ToArray();
+            shouldShowChoice = false;
         }
+
         else
         {
             currentDialogueSet = firstMissionDialogue;
+            shouldShowChoice = true;
         }
     }
 
