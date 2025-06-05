@@ -2147,8 +2147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstMissionDialogue:
-  - "Hey M, you finally up. Good\u2014\r\nI was starting to think that  last night
-    was too hard for you."
+  - 'Hey M, you finally up. Good
+
+    I was starting to think that  last night was
+    too hard for you.'
   - "Thanks for letting me crash here. I made breakfast, but I got hungry and ate
     it a couple hours ago.\r"
   - "Hope that\u2019s cool. Dishes are in the sink if you wanna\u2026 y\u2019know,
