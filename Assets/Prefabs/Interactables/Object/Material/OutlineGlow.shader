@@ -16,6 +16,8 @@ Shader "Custom/OutlineGlow"
         _PulseSpeed ("Pulse Speed", Range(0, 5)) = 1
         _MinGlow ("Min Glow", Range(0, 1)) = 0.2
         _MaxGlow ("Max Glow", Range(0, 1)) = 0.8
+
+        [Toggle] _UseOutline ("Enable Outline", Float) = 1
     }
 
     SubShader
@@ -32,6 +34,9 @@ Shader "Custom/OutlineGlow"
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
+
+            // Add this property
+            float _UseOutline;  // 1 = visible, 0 = hidden
 
             struct appdata
             {
@@ -55,6 +60,13 @@ Shader "Custom/OutlineGlow"
             {
                 v2f o;
                 
+                // Skip outline expansion if disabled
+                if (_UseOutline < 0.5) 
+                {
+                    o.pos = float4(0, 0, 0, 0); // Discards the vertex
+                    return o;
+                }
+
                 // Calculate pulse value
                 float pulse = (_MinGlow + (_MaxGlow - _MinGlow) * (sin(_Time.y * _PulseSpeed) * 0.5 + 0.5));
                 
@@ -68,6 +80,10 @@ Shader "Custom/OutlineGlow"
 
             fixed4 frag(v2f i) : SV_Target
             {
+                // Skip fragment rendering if outline is disabled
+                if (_UseOutline < 0.5)
+                    discard;
+
                 return _OutlineColor * _GlowIntensity;
             }
             ENDCG
@@ -118,13 +134,13 @@ Shader "Custom/OutlineGlow"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                // Calculate pulse value
+                // Calculate pulse value (should still work even if outline is off)
                 float pulse = (_MinGlow + (_MaxGlow - _MinGlow) * (sin(_Time.y * _PulseSpeed) * 0.5 + 0.5));
-                
+    
                 // Sample texture and combine with glow
                 fixed4 texColor = tex2D(_MainTex, i.uv) * _MainColor;
                 fixed4 glowColor = _GlowColor * pulse * _GlowIntensity;
-                
+    
                 fixed4 finalColor = texColor + glowColor;
                 UNITY_APPLY_FOG(i.fogCoord, finalColor);
                 return finalColor;

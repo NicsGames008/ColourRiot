@@ -48,6 +48,8 @@ public class TagInteraction : MonoBehaviour, IInteractable
     private PlayerState playerState;
     private Album album;
 
+    private Renderer wallRenderer;
+
     #endregion
 
     #region Unity Methods
@@ -60,6 +62,11 @@ public class TagInteraction : MonoBehaviour, IInteractable
         playerState = player.GetComponent<PlayerState>();
         album = player.GetComponent<Album>();
         audioSource = GetComponent<AudioSource>();
+        wallRenderer = GetComponent<Renderer>();
+        if (wallRenderer != null)
+        {
+            wallRenderer.material.SetFloat("_UseOutline", 1);
+        }
 
         Transform cTransform = transform.Find("NoiseDetection");
 
@@ -214,7 +221,6 @@ public class TagInteraction : MonoBehaviour, IInteractable
         elapsedTime += Time.deltaTime;
 
         // Update UI
-        //timer.value = elapsedTime;
         tagImage.fillAmount = elapsedTime / tagTime;
 
         // Finish tag
@@ -229,6 +235,11 @@ public class TagInteraction : MonoBehaviour, IInteractable
             // Play the completion sound and don't stop it immediately
             audioSource.Stop(); // Stop any current sounds (like spraySound)
             audioSource.PlayOneShot(tagDone);
+            // Disable outline in shader
+            if (wallRenderer != null)
+            {
+                wallRenderer.material.SetFloat("_UseOutline", 0);
+            }
 
             StopInteracting();
         }
