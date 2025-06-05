@@ -586,7 +586,7 @@ MonoBehaviour:
   groundDistance: 0.1
   groundMask:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 832
   orientation: {fileID: 9144515615938231990}
   maxStamina: 100
   currentStamina: 0
@@ -630,6 +630,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   climbSpeed: 3
+  ladderBottomY: 0
+  ladderTopY: 0
 --- !u!114 &7079369864558430127
 MonoBehaviour:
   m_ObjectHideFlags: 0

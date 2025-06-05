@@ -3658,9 +3658,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1262004435}
     m_Modifications:
+    - target: {fileID: 3235453199125096355, guid: bc15514b198edcd43b5ebe42ed4223e0, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3369746569203093832, guid: bc15514b198edcd43b5ebe42ed4223e0, type: 3}
       propertyPath: m_Name
       value: LampPost (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658178881329989078, guid: bc15514b198edcd43b5ebe42ed4223e0, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4760310399271939075, guid: bc15514b198edcd43b5ebe42ed4223e0, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7672948066199963508, guid: bc15514b198edcd43b5ebe42ed4223e0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3701,6 +3713,14 @@ PrefabInstance:
     - target: {fileID: 7672948066199963508, guid: bc15514b198edcd43b5ebe42ed4223e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073149223752648157, guid: bc15514b198edcd43b5ebe42ed4223e0, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523473164821122996, guid: bc15514b198edcd43b5ebe42ed4223e0, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
